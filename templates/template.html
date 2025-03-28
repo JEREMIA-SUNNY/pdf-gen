@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cable Datasheet</title>
+    <style>
+      @page {
+        margin: 120px 60px;
+        @top-center {
+          content: element(header);
+        }
+        @bottom-center {
+          content: element(footer);
+        }
+      }
+      header {
+        position: running(header);
+      }
+      footer {
+        position: running(footer);
+      }
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      main {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      .title {
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+      }
+      .table-container {
+        border-left: 1px solid #00000055;
+        border-top: 1px solid #00000055;
+      }
+      .table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+      }
+      .td {
+        padding: 5px;
+        border-right: 1px solid #00000055;
+        border-bottom: 1px solid #00000055;
+      }
+      .td-center {
+        text-align: center;
+      }
+      .td-bold {
+        font-weight: bold;
+      }
+      .td-head {
+        background-color: #375fbd;
+        color: white;
+        font-weight: bold;
+      }
+      .section-title {
+        font-size: 14px;
+        font-weight: bold;
+        color: #375fbd;
+      }
+      .section {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        font-weight: bold;
+        color: #375fbd;
+      }
+      .section-body {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 0;
+      }
+      .section-body > p {
+        padding: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>{% include 'header.html' %}</header>
+    {% if cableDatasheetImage %}
+    <img src="{{ cableDatasheetImage }}" width="100%" />
+    <br /><br /><br /><br />
+    {% endif %}
+
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr>
+            <td class="td td-head" style="width: 50%">{{ partNumber }}</td>
+            <td class="td"></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td td-body">
+              <div
+                style="font-size: 10px; display: flex; flex-direction: column"
+              >
+                <span>Drawn by : {{ drawnBy }}</span>
+                <span>Checked by : {{ checkedBy }}</span>
+                <span>Approved by : {{ approvedBy }}</span>
+              </div>
+            </td>
+            <td class="td td-body">Issue Date {{ issuedDate }}</td>
+          </tr>
+          <tr>
+            <td class="td td-body">Rel No.B, Ver No. R. {{ versionNo }}</td>
+            <td class="td td-body">Size A4</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Start from a new page -->
+    <div style="page-break-before: always"></div>
+
+    <!-- DESCRIPTION -->
+    {% if description %}
+    <div class="section">
+      <div class="section-title">DESCRIPTION: {{ description }}</div>
+    </div>
+    <br /><br /><br />
+    {% endif %}
+
+    <!-- ELECTRICAL CHARACTERISTICS -->
+    {% if electricalChars and electricalChars|length > 0 %}
+    <div class="section">
+      <div class="section-title">ELECTRICAL CHARACTERISTICS</div>
+      <div class="table-container">
+        <table class="table">
+          <tbody>
+            {% for item in electricalChars %} {% if item.value %}
+            <tr>
+              <td
+                class="td td-bold td-center"
+                style="width: 40%; max-width: 40%"
+              >
+                {{ item.label }}
+              </td>
+              <td class="td td-center" style="width: 60%">{{ item.value }}</td>
+            </tr>
+            {% endif %} {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br /><br /><br />
+    {% endif %}
+
+    <!-- MECHANICAL CHARACTERISTICS -->
+    {% if mechanicalChars and mechanicalChars|length > 0 %}
+    <div class="section">
+      <div class="section-title">MECHANICAL CHARACTERISTICS</div>
+      <div class="table-container">
+        <table class="table">
+          <tbody>
+            {% for item in mechanicalChars %} {% if item.value %}
+            <tr>
+              <td
+                class="td td-bold td-center"
+                style="width: 40%; max-width: 40%"
+              >
+                {{ item.label }}
+              </td>
+              <td class="td td-center" style="width: 60%">{{ item.value }}</td>
+            </tr>
+            {% endif %} {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br /><br /><br />
+    {% endif %}
+
+    <!-- ENVIRONMENTAL CHARACTERISTICS -->
+    {% if envChars and envChars|length > 0 %}
+    <div class="section">
+      <div class="section-title">ENVIRONMENTAL CHARACTERISTICS</div>
+      <div class="table-container">
+        <table class="table">
+          <tbody>
+            {% for item in envChars %} {% if item.value %}
+            <tr>
+              <td
+                class="td td-bold td-center"
+                style="width: 40%; max-width: 40%"
+              >
+                {{ item.label }}
+              </td>
+              <td class="td td-center" style="width: 60%">{{ item.value }}</td>
+            </tr>
+            {% endif %} {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br /><br /><br />
+    {% endif %}
+
+    <!-- CABLE CONSTRUCTION -->
+    {% if cableCons and cableCons|length > 0 %}
+    <div class="section">
+      <div class="section-title">CABLE CONSTRUCTION</div>
+      <div class="table-container">
+        <table class="table">
+          <tbody>
+            {% for item in cableCons %} {% if item.value %}
+            <tr>
+              <td
+                class="td td-bold td-center"
+                style="width: 40%; max-width: 40%"
+              >
+                {{ item.label }}
+              </td>
+              <td class="td td-center" style="width: 60%">{{ item.value }}</td>
+            </tr>
+            {% endif %} {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br /><br /><br />
+    {% endif %} {% if (attenuationPowerSpecs and attenuationPowerSpecs|length >
+    0) or (customSpecifications and customSpecifications|length > 0) %}
+    <div style="page-break-before: always"></div>
+    {% endif %} {% if attenuationPowerSpecs and attenuationPowerSpecs|length > 0
+    %}
+    <!-- ATTENUATION & POWER SPECIFICATIONS -->
+    <div class="section">
+      <div class="section-title">ATTENUATION & POWER SPECIFICATIONS</div>
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <td class="td td-head td-center">Frequency (GHz)</td>
+              <td class="td td-head td-center">Attenuation (dB/m)</td>
+              <td class="td td-head td-center">Power (W)</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in attenuationPowerSpecs %} {% if item.frequency or
+            item.attenuation or item.power %}
+            <tr>
+              <td class="td td-center" style="width: 33%; max-width: 40%">
+                {{ item.frequency }}
+              </td>
+              <td class="td td-center" style="width: 33%">
+                {{ item.attenuation }}
+              </td>
+              <td class="td td-center" style="width: 33%">{{ item.power }}</td>
+            </tr>
+            {% endif %} {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endif %}
+
+    <br /><br /><br />
+
+    {% if customSpecifications and customSpecifications|length > 0 %}
+    <!-- CUSTOM SPECIFICATIONS -->
+    <div class="section">
+      <div class="section-title">OTHER SPECIFICATIONS</div>
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="td td-head td-center">Field Name</th>
+              <th class="td td-head td-center">Specification</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for spec in customSpecifications %} {% if spec.fieldName and
+            spec.specification %}
+            <tr>
+              <td class="td td-center">{{ spec.fieldName }}</td>
+              <td class="td td-center">{{ spec.specification }}</td>
+            </tr>
+            {% endif %} {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endif %}
+  </body>
+</html>

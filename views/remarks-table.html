@@ -1,0 +1,62 @@
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <td class="td td-head" style="width: 50%;">{{ data.partNumber }}</td>
+                <td class="td"></td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td class="td">
+                    <p>Unless Otherwise Specified</p>
+                    <p style="margin-top: 10px;">1. Remove All Burrs Plating</p>
+                    <p style="margin-top: 4px;">2. Break All Corners & Edges .003 max.</p>
+                    <p style="margin-top: 4px;">3. All Surfaces Finished to 63</p>
+                    <p style="margin-top: 4px;">4. Diameter On Common Centers Shall Be Concentric within .003
+                        T.I.R</p>
+                    <p style="margin-top: 4px;">5. All Dimensions are after</p>
+                    <p style="margin-top: 4px;">6. Chamfer 1st Thread 45°</p>
+                    <p style="margin-top: 4px;">7. Angles =1</p>
+                </td>
+                <td class="td" style="text-align: center;">
+                    <p>Unless Otherwise Specified All Dimensions Are In mm (Inches) Tolerances (Decimals)</p>
+
+                    <div
+                        style="display: flex; flex-direction: column; gap: 5px; align-items: center; margin-top: 10px;">
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div style="display: flex; gap: 10px;">
+                                <span style="width: 40px; text-align: right;">.XX</span>
+                                <span>±.01</span>
+                            </div>
+
+                            <div style="display: flex; gap: 10px; font-size: 5px !important;">
+                                <span style="width: 40px; text-align: right;">.XXX</span>
+                                <span>±.005</span>
+                            </div>
+
+                            <div style="display: flex; gap: 10px; font-size: 5px !important;">
+                                <span style="width: 40px; text-align: right;">.XXXX</span>
+                                <span>±.0005</span>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="td">
+                    <p style="margin-top: 4px;">Drawn by : {{ data.drawnBy }}</p>
+                    <p style="margin-top: 4px;">Checked by : {{ data.checkedBy }}</p>
+                    <p style="margin-top: 4px;">Approved by : {{ data.approvedBy }}</p>
+                </td>
+                <td class="td td-body">Issue Date {{ data.issuedDate }}
+                </td>
+            </tr>
+            <tr>
+                <td class="td"><b>Rel No.B, Ver No. R. {{ data.versionNo }}</b></td>
+                <td class="td">Size A4</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

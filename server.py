@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, jsonify
+from flask import Flask, request, Response, jsonify, render_template
 from weasyprint import HTML
 import logging
 
@@ -7,17 +7,17 @@ app = Flask(__name__)
 @app.route('/generate-pdf', methods=['POST'])
 def generate_pdf():
     try:
-        # Expect JSON data with an "html" field containing your HTML string
+        # Expect JSON data with a "data" field containing template variables
         data = request.get_json()
-        html_content = data.get('html')
-        if not html_content:
-            return jsonify({'error': 'Missing HTML content'}), 400
+        template_data = data.get('data')
+        if not template_data:
+            return jsonify({'error': 'Missing data for template'}), 400
         
-        # Optional: Provide a base URL if your HTML contains relative URLs
-        base_url = data.get('base_url', None)
-
+        # Render the HTML using a Jinja template (e.g., "template.html")
+        html_content = render_template("template.html", **template_data)
+        
         # Generate PDF using WeasyPrint
-        pdf = HTML(string=html_content, base_url=base_url).write_pdf()
+        pdf = HTML(string=html_content).write_pdf()
 
         # Return the PDF with proper headers
         response = Response(pdf, mimetype='application/pdf')
