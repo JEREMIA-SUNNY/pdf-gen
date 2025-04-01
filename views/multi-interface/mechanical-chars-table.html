@@ -1,0 +1,26 @@
+{% if data.machanicalSpecs and data.machanicalSpecs | length > 0 %}
+<div class="section">
+  <div class="section-title">MECHANICAL CHARACTERISTICS</div>
+  <div class="table-container">
+    <table class="table">
+      <tbody>
+        {% for machanicalSpec in data.machanicalSpecs %} {% if
+        machanicalSpec.value %}
+        <tr>
+          <td class="td td-center" style="width: 40%; max-width: 40%">
+            <b>{{ machanicalSpec.label }}</b>
+          </td>
+          <td class="td td-center" style="width: 60%">
+            {{ machanicalSpec.value }}
+          </td>
+        </tr>
+        {% endif %} {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<br />
+<br />
+<br />
+{% endif %}

@@ -1,0 +1,25 @@
+{% if data.materials and data.materials | length > 0 %}
+<div class="section">
+  <div class="section-title">MATERIALS</div>
+  <div class="table-container">
+    <table class="table">
+      <tbody>
+        {% for interface in data.materials %} {% if interface.valueA %}
+        <tr>
+          <td class="td td-center" style="width: 40%; max-width: 40%">
+            <b>{{ interface.label }}</b>
+          </td>
+          <td class="td td-center" style="width: 60%">
+            {{ interface.valueA }}
+          </td>
+        </tr>
+        {% endif %} {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<br />
+<br />
+<br />
+{% endif %}

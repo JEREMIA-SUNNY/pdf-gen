@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quotation PDF</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 80px;
+
+        @bottom-left {
+          margin-top: 10px;
+          content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout,Old AirportRoad, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
+          font-size: 12px;
+          white-space: pre;
+          line-height: 15px;
+        }
+
+        @bottom-right {
+          content: counter(page) "/" counter(pages);
+          font-size: 12px;
+        }
+      }
+
+      * {
+        font-family: "Saira", "Noto Sans", "DejaVu Sans", sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-size: 12px;
+      }
+
+      * {
+        font-family: "Saira", "Noto Sans", "DejaVu Sans", sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-size: 12px;
+      }
+
+      img,
+      div,
+      table,
+      span {
+        min-height: 10px;
+      }
+
+      .header {
+        border-bottom: 1px solid gray;
+        display: flex;
+        position: fixed;
+        align-items: flex-end;
+        justify-content: space-between;
+        left: 0;
+        top: -100px;
+        height: 75px;
+        width: 100%;
+        padding: 10px 0;
+        min-height: 1px;
+      }
+
+      .header > .title {
+        display: flex;
+        align-items: flex-end;
+        font-size: 20px;
+        font-weight: bold;
+        color: #375fbd;
+      }
+
+      .header > .logo {
+        width: 100px;
+      }
+
+      .footer {
+        border-top: 1px solid gray;
+        position: fixed;
+        left: 0;
+        bottom: -100px;
+        height: 80px;
+        width: 100%;
+        gap: 3px;
+        font-size: 12px;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0px;
+        /* Adjust margin for more whitespace */
+        line-height: 1.5;
+        font-size: 12px;
+        color: #000;
+      }
+
+      p {
+        margin: 0 0 8px 0;
+        /* some spacing after each paragraph */
+      }
+
+      .to-block p {
+        margin: 0;
+        line-height: 1.2;
+        /* reduce space between lines */
+        padding: 0;
+      }
+
+      h2 {
+        margin: 0;
+        /* remove all top/bottom spacing */
+        padding: 4px 0;
+        /* optional — just a little breathing room */
+
+        text-align: center;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 1em;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid #23272e;
+        padding: 6px;
+      }
+
+      .quotation-table th {
+        background: #f2f2f2;
+      }
+
+      .tc-table {
+        margin-top: 0;
+        /* remove space above the table */
+      }
+
+      .tc-table td.heading {
+        font-size: 12px;
+        width: 220px;
+        background: #ffff;
+        font-weight: bold;
+        text-align: center;
+        /* horizontally center text */
+        vertical-align: middle;
+        /* vertically center text */
+        color: #375fbd;
+      }
+
+      .tc-table td.content {
+        vertical-align: top;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+
+  <body>
+    {% include "headerQuotes.html" %}
+    <p>
+      <strong>Quotation Reference: {{ data.quotationRef }}</strong>
+    </p>
+    <p>Date: {{ data.quoteDate }}</p>
+    <br />
+
+    <div class="to-block">
+      <p>To,</p>
+      <p><strong>{{ data.customerName }}</strong></p>
+      <p>{{ data.billingAddress }}</p>
+      <p>GST No: {{ data.customerGst }}</p>
+      <p>Ph. {{ data.contactMobile }}</p>
+      <p>Email: {{ data.contactEmail }}</p>
+    </div>
+
+    <br /><br />
+    <p class="section-title">
+      Kind Attn: {{ data.contactSalutation }} {{ data.contactName }}
+    </p>
+    <p class="section-title">Sub: {{ data.subTitle }}</p>
+
+    <p>Dear Sir,</p>
+    <p>
+      NKRF is a full-stack harness manufacturer with capabilities to support any
+      interconnecting harnesses in RF, copper, & fiber optics. Our capabilities
+      in copper extend to power, control & signal with connector types ranging
+      across circular D38999 connectors, D-sub, micro-D, nano-D, USB,
+      RJ45(Ethernet). In fiber, we support standard optical connectors as well
+      as termini used in military applications. NKRF also supports machined
+      components per customer spec.
+    </p>
+
+    <p>
+      NKRF is also proud to share that we have been awarded “Certificate for
+      Qualification – For Space Use” from ISRO, thus becoming the 1st and only
+      indigenous vendor to be qualified for supply of RF & MW cable assemblies
+      for space missions. NKRF is also proud to have supplied RF Cables which
+      are currently flying on satellites on ESA approved missions.
+    </p>
+
+    <p>
+      NKRF is an AS9100 Rev D Certified company and its RF Cable Assemblies are
+      CEMILAC qualified for airborne applications on fixed and rotary wing
+      aircrafts.
+    </p>
+
+    <p>
+      NKRF is an MSME registered with NSIC, a woman entrepreneur-run business
+      supporting the “Make In India” initiative.
+    </p>
+
+    <p>
+      NKRF offer Coaxial cables with the lowest loss in the industry for
+      comparable cables and are available with a variety of shielded and
+      external jacketed options for use in hostile environment with extreme
+      temperature, abrasion, crush resistant, high-pressure fluids, vibration
+      and mechanical stress to name a few.
+    </p>
+
+    <p>
+      In line with your requirements and the technical compliance statement
+      submitted to you, we are enclosing our budgetary quote against your
+      requirement. Please feel free to contact us for any clarification.
+    </p>
+
+    <p>Yours Sincerely,</p>
+    <img src="{{ data.signImage }}" alt="Signature" style="width: 200px" />
+    <p>For N.K. RF Products &amp; Services Pvt. Ltd,</p>
+    <p><strong>Alok Sood</strong></p>
+
+    <br /><br /><br /><br />
+    <table class="quotation-table">
+      <thead>
+        <tr>
+          <th>Sr. No.</th>
+          {% if dataisPrivateCompany %}
+          <th style="width: 50px">Customer Part No.</th>
+          {% endif %}
+          <th style="width: 140px">NKRF Part No.</th>
+          <th>Description</th>
+          <th>MOQ</th>
+          <th style="width: 90px">Unit Price</th>
+          <th style="width: 90px">Extended Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in parts %}
+        <tr>
+          <td style="text-align: center; vertical-align: middle">
+            {{ loop.index }}
+          </td>
+
+          {% if isPrivateCompany %}
+          <td style="text-align: center; vertical-align: middle">
+            {{ item.customerPartNumber }}
+          </td>
+          {% endif %}
+
+          <td style="text-align: center; vertical-align: middle">
+            {{ item.NKRFPartNumber }}
+          </td>
+          <td style="text-align: center; vertical-align: middle">
+            {{ item.NKRFPartDescription }}
+          </td>
+          <td style="text-align: center; vertical-align: middle">
+            {{ item.moq }}
+          </td>
+
+          <td style="text-align: center; vertical-align: middle">
+            {{ data.formatCurrency(item.unitPrice) }}
+          </td>
+          <td style="text-align: center; vertical-align: middle">
+            {{data.formatCurrency(item.extendedPrice) }}
+          </td>
+        </tr>
+        {% endfor %}
+
+        <tr>
+          {# If 'isPrivateCompany' is a boolean, do a 6-colspan if true, else 5
+          #} {% set colspan = 5 %} {% if data.isPrivateCompany %} {% set colspan
+          = 6 %} {% endif %}
+          <td colspan="{{ colspan }}" style="text-align: right">
+            <strong>Total Amount:</strong>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- INTERFACE STANDARDS -->
+    {% include "quotes/termsAndCondition.html" %}
+
+    <br />
+    <p>Yours Sincerely,</p>
+    <p>For N.K. RF Products &amp; Services Pvt. Ltd,</p>
+    <p><strong>Alok Sood</strong></p>
+
+    <img src="{{ data.signImage }}" alt="Signature" style="width: 200px" />
+  </body>
+</html>

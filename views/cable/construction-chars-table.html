@@ -1,0 +1,23 @@
+{% if data.cableCons and data.cableCons | length > 0 %}
+<div class="section">
+  <div class="section-title">CABLE CONSTRUCTION</div>
+  <div class="table-container">
+    <table class="table">
+      <tbody>
+        {% for cableCon in data.cableCons %} {% if cableCon.value %}
+        <tr>
+          <td class="td td-center" style="width: 40%; max-width: 40%">
+            <b>{{ cableCon.label }}</b>
+          </td>
+          <td class="td td-center" style="width: 60%">{{ cableCon.value }}</td>
+        </tr>
+        {% endif %} {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<br />
+<br />
+<br />
+{% endif %}
