@@ -1,27 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
+   <head>
     <meta charset="UTF-8" />
     <title>Quotation PDF</title>
     <style>
       @page {
         size: A4;
         margin: 80px;
-
         @bottom-left {
           margin-top: 10px;
-          content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout,Old AirportRoad, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
+          content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
           font-size: 12px;
           white-space: pre;
           line-height: 15px;
         }
-
         @bottom-right {
           content: counter(page) "/" counter(pages);
           font-size: 12px;
         }
       }
-
       * {
         font-family: "Saira", "Noto Sans", "DejaVu Sans", sans-serif;
         margin: 0;
@@ -161,22 +158,32 @@
     <p>Date: {{ data.quoteDate }}</p>
     <br />
 
-    <div class="to-block">
+
+     <div class="to-block">
       <p>To,</p>
       <p><strong>{{ data.customerName }}</strong></p>
-      <p>{{ data.billingAddress }}</p>
+      <p>{{ data.billingAddress.line1 }}</p>
+      <p>{{ data.billingAddress.line2 }}</p>
+      <p>{{ data.billingAddress.state }}, {{ data.billingAddress.city }} – {{ data.billingAddress.pinCode }}</p>
       <p>GST No: {{ data.customerGst }}</p>
-      <p>Ph. {{ data.contactMobile }}</p>
-      <p>Email: {{ data.contactEmail }}</p>
     </div>
 
     <br /><br />
     <p class="section-title">
-      Kind Attn: {{ data.contactSalutation }} {{ data.contactName }}
-    </p>
-    <p class="section-title">Sub: {{ data.subTitle }}</p>
+  <strong>Kind Attention: {{ data.contactSalutation }} {{ data.contactName }}</strong>
+</p>
+<p class="section-title">Subject: {{ data.subTitle }}</p>
 
-    <p>Dear Sir,</p>
+{# Determine greeting based on salutation #}
+{% if data.contactSalutation|lower == "mr." %}
+  {% set greeting = "sir" %}
+{% elif data.contactSalutation|lower in ["mrs.", "ms.", "mx."] %}
+  {% set greeting = "ma'am" %}
+{% else %}
+  {% set greeting = "sir/madam" %}
+{% endif %}
+<p>Dear {{ greeting }},</p>
+
     <p>
       NKRF is a full-stack harness manufacturer with capabilities to support any
       interconnecting harnesses in RF, copper, & fiber optics. Our capabilities
@@ -219,69 +226,46 @@
       submitted to you, we are enclosing our budgetary quote against your
       requirement. Please feel free to contact us for any clarification.
     </p>
-
+<br /><br />
     <p>Yours Sincerely,</p>
-    <img src="{{ data.signImage }}" alt="Signature" style="width: 200px" />
+    <img src="{{ data.signImage }}" alt="Signature" style="width: 150px" />
     <p>For N.K. RF Products &amp; Services Pvt. Ltd,</p>
     <p><strong>Alok Sood</strong></p>
 
     <br /><br /><br /><br />
     <table class="quotation-table">
-      <thead>
-        <tr>
-          <th>Sr. No.</th>
-          {% if dataisPrivateCompany %}
-          <th style="width: 50px">Customer Part No.</th>
-          {% endif %}
-          <th style="width: 140px">NKRF Part No.</th>
-          <th>Description</th>
-          <th>MOQ</th>
-          <th style="width: 90px">Unit Price</th>
-          <th style="width: 90px">Extended Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for item in parts %}
-        <tr>
-          <td style="text-align: center; vertical-align: middle">
-            {{ loop.index }}
-          </td>
+  <thead>
+    <tr>
+      <th>Sr. No.</th>
+        <th style="width: 50px">Customer Part No.</th>
+      <th style="width: 140px">NKRF Part No.</th>
+      <th>Description</th>
+      <th>MOQ</th>
+      <th style="width: 90px">Unit Price</th>
+      <th style="width: 90px">Extended Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in data.parts %}
+      <tr>
+        <td style="text-align: center; vertical-align: middle">{{ loop.index }}</td>
+          <td style="text-align: center; vertical-align: middle">{{ item.customerPartNumber }}</td>
+        <td style="text-align: center; vertical-align: middle">{{ item.NKRFPartNumber }}</td>
+        <td style="text-align: center; vertical-align: middle">{{ item.NKRFPartDescription }}</td>
+        <td style="text-align: center; vertical-align: middle">{{ item.moq }}</td>
+        <td style="text-align: center; vertical-align: middle">{{ item.unitPriceFormatted }}</td>
+        <td style="text-align: center; vertical-align: middle">{{ item.extendedPriceFormatted }}</td>
+      </tr>
+    {% endfor %}
+   <tr>
+  <td colspan="6" style="text-align: right"><strong>Total Amount:</strong></td>
+  <td style="text-align: center">{{ data.totalAmount }}</td>
+</tr>
+  </tbody>
+</table>
 
-          {% if isPrivateCompany %}
-          <td style="text-align: center; vertical-align: middle">
-            {{ item.customerPartNumber }}
-          </td>
-          {% endif %}
-
-          <td style="text-align: center; vertical-align: middle">
-            {{ item.NKRFPartNumber }}
-          </td>
-          <td style="text-align: center; vertical-align: middle">
-            {{ item.NKRFPartDescription }}
-          </td>
-          <td style="text-align: center; vertical-align: middle">
-            {{ item.moq }}
-          </td>
-
-          <td style="text-align: center; vertical-align: middle">
-            {{ data.formatCurrency(item.unitPrice) }}
-          </td>
-          <td style="text-align: center; vertical-align: middle">
-            {{data.formatCurrency(item.extendedPrice) }}
-          </td>
-        </tr>
-        {% endfor %}
-
-        <tr>
-          {# If 'isPrivateCompany' is a boolean, do a 6-colspan if true, else 5
-          #} {% set colspan = 5 %} {% if data.isPrivateCompany %} {% set colspan
-          = 6 %} {% endif %}
-          <td colspan="{{ colspan }}" style="text-align: right">
-            <strong>Total Amount:</strong>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- Include Additional Details from a separate file -->
+    {% include "quotes/totalamount.html" %}
 
     <!-- INTERFACE STANDARDS -->
     {% include "quotes/termsAndCondition.html" %}
@@ -291,6 +275,5 @@
     <p>For N.K. RF Products &amp; Services Pvt. Ltd,</p>
     <p><strong>Alok Sood</strong></p>
 
-    <img src="{{ data.signImage }}" alt="Signature" style="width: 200px" />
   </body>
 </html>

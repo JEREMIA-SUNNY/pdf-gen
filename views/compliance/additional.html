@@ -1,0 +1,64 @@
+
+{% for page in data.pages %} {# Check if there's a section named "Additional
+Customer Specifications" #} {% set hasCustomFieldsSection = false %} {% for sec
+in page.sections %} {% if sec.name == "Additional Customer Specifications" %} {%
+set hasCustomFieldsSection = true %} {% endif %} {% endfor %} {# Render only if
+at least one checkbox is true #} {% if page.checkBoxes.option1 or
+page.checkBoxes.option2 or page.checkBoxes.option3 %}
+<div style="page-break-after: always" class=""></div>
+<h4 class="section-title">{{ page.name }}</h4>
+<br />
+
+{% for section in page.sections %} {% if section.fields|length > 0 %}
+<div class="section">
+  <h4 class="section-title" style="padding-top: 20px">{{ section.name }}</h4>
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <td class="td td-head" style="width: calc(100% / 5)">Field Name</td>
+
+          {% if not section.hideSpecification %}
+          <td class="td td-head" style="width: calc(100% / 5)">
+            Customer Specification
+          </td>
+          {% endif %} {% if page.checkBoxes.option1 %}
+          <td class="td td-head" style="width: calc(100% / 5)">
+            NKRF Specification
+          </td>
+          {% endif %} {% if page.checkBoxes.option2 %}
+          <td class="td td-head" style="width: calc(100% / 5)">
+            NKRF Alternate 1
+          </td>
+          {% endif %} {% if page.checkBoxes.option3 %}
+          <td class="td td-head" style="width: calc(100% / 5)">
+            NKRF Alternate 2
+          </td>
+          {% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for field in section.fields %}
+        <tr>
+          <td class="td">{{ field.name }}</td>
+
+          {% if not section.hideSpecification %}
+          <td class="td">{{ field.value }}</td>
+          {% endif %} {% if page.checkBoxes.option1 %}
+          <td class="td">{{ field.option1 }}</td>
+          {% endif %} {% if page.checkBoxes.option2 %}
+          <td class="td">{{ field.option2 }}</td>
+          {% endif %} {% if page.checkBoxes.option3 %}
+          <td class="td">{{ field.option3 }}</td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endif %}
+<br />
+{% endfor %}
+<br />
+{% endif %} {% endfor %}

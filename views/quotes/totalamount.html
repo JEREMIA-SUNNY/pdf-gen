@@ -1,57 +1,67 @@
-<table class="quotation-table">
-  <thead>
-    <tr>
-      <th>Sr. No.</th>
-      {% if data.isPrivateCompany %}
-      <th style="width: 50px">Customer Part No.</th>
+<style>
+  .combined-details-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1em;
+  }
+
+  .combined-details-table th,
+  .combined-details-table td {
+    border: 1px solid #23272e;
+    padding: 6px 8px;
+    text-align: left;
+    vertical-align: top;
+    font-size: 12px;
+  }
+
+  .combined-details-table th {
+    background: #f2f2f2;
+    font-weight: bold;
+    width: 20%;
+  }
+
+  .combined-details-table td {
+    width: 30%;
+  }
+</style>
+
+<table class="combined-details-table">
+  <tr>
+    <th>Billing Address</th>
+    <td>
+      <strong>{{ data.billingAddress.line1 }}</strong><br>
+      {{ data.billingAddress.line2 }}<br>
+      {{ data.billingAddress.city }}, {{ data.billingAddress.state }} - {{ data.billingAddress.pinCode }}
+    </td>
+    <th>Shipping Address</th>
+    <td>
+      <strong>{{ data.shippingAddress.line1 }}</strong><br>
+      {{ data.shippingAddress.line2 }}<br>
+      {{ data.shippingAddress.city }}, {{ data.shippingAddress.state }} - {{ data.shippingAddress.pinCode }}
+    </td>
+  </tr>
+  <tr>
+    <th>Payment Terms</th>
+    <td>{{ data.additionalDetails.paymentTerms }}</td>
+    <th>Lead Time</th>
+    <td>{{ data.additionalDetails.leadTime }}</td>
+  </tr>
+  <tr>
+    <th>Shipping Terms</th>
+    <td>{{ data.additionalDetails.shippingTerms }}</td>
+    <th>Warranty Terms</th>
+    <td>{{ data.additionalDetails.warrantyTerms }}</td>
+  </tr>
+  <tr>
+    <th>Special Conditions</th>
+    <td>
+      {% if data.additionalDetails.specialConditions %}
+        {{ data.additionalDetails.specialConditions }}
+      {% else %}
+        N/A
       {% endif %}
-      <th style="width: 140px">NKRF Part No.</th>
-      <th>Description</th>
-      <th>MOQ</th>
-      <th style="width: 90px">Unit Price</th>
-      <th style="width: 90px">Extended Price</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for item in data.parts %}
-    <tr>
-      <td style="text-align: center; vertical-align: middle">
-        {{ loop.index }} {# 1-based index #}
-      </td>
-
-      {% if data.isPrivateCompany %}
-      <td style="text-align: center; vertical-align: middle">
-        {{ item.customerPartNumber }}
-      </td>
-      {% endif %}
-
-      <td style="text-align: center; vertical-align: middle">
-        {{ item.NKRFPartNumber }}
-      </td>
-
-      <td style="text-align: center; vertical-align: middle">
-        {{ item.NKRFPartDescription }}
-      </td>
-
-      <td style="text-align: center; vertical-align: middle">{{ item.moq }}</td>
-
-      <!-- {# If formatCurrency is a custom filter: {{ item.unitPrice |
-      formatCurrency }} #} -->
-      <!-- <td style="text-align: center; vertical-align: middle">
-        {{ formatCurrency(item.unitPrice) }}
-      </td>
-
-      <td style="text-align: center; vertical-align: middle">
-        {{ formatCurrency(item.extendedPrice) }}
-      </td> -->
-    </tr>
-    {% endfor %} {# Always show total amount #} {% set colSpan = 5 %} {% if
-    data.isPrivateCompany %} {% set colSpan = 6 %} {% endif %}
-    <tr>
-      <td colspan="{{ colSpan }}" style="text-align: right">
-        <strong>Total Amount:</strong>
-      </td>
-      <!-- <td style="text-align: center">{{ formatCurrency(data.totalAmount) }}</td> -->
-    </tr>
-  </tbody>
+    </td>
+    <th>Quote Validity</th>
+    <td>{{ data.additionalDetails.quoteValidity }}</td>
+  </tr>
 </table>

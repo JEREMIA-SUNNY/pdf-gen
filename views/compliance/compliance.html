@@ -7,11 +7,13 @@
     <style>
       @page {
         size: A4;
-        margin: 100px;
-
+        margin-top: 100px;
+        margin-bottom: 100px;
+        margin-left: 70px;
+        margin-right: 70px;
         @bottom-left {
           margin-top: 10px;
-          content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout,Old AirportRoad, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
+          content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout, Old Airport Road, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
           font-size: 12px;
           white-space: pre;
           line-height: 15px;
@@ -30,6 +32,18 @@
         box-sizing: border-box;
         font-size: 12px;
       }
+      .details-box {
+        overflow: hidden;
+      }
+
+      .details-box > h1 {
+        font-size: 20px;
+        color: black;
+        text-align: left;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        font-weight: bold;
+      }
 
       img,
       div,
@@ -45,7 +59,7 @@
         align-items: flex-end;
         justify-content: space-between;
         left: 0;
-        top: -100px;
+        top: -90px;
         height: 75px;
         width: 100%;
         padding: 10px 0;
@@ -106,10 +120,10 @@
         font-size: 14px;
         font-weight: bold;
         color: #375fbd;
+        padding-bottom: 12px;
       }
 
       .section {
-        display: grid;
         gap: 10px;
         width: 100%;
       }
@@ -127,18 +141,7 @@
   </head>
 
   <body>
-    {% include "headerMulti.html" %}
-
-    <img src="{{ data.adaptorDatasheetImage }}" style="width: 100%" />
-
-    {% include "remarks-table.html" %}
-
-    <br />
-    <br />
-
-    <div style="page-break-before: always" />
-
-    {% if data.description %}
+    {% include "headerCompliance.html" %} {% if data.description %}
     <div class="section" style="break-before: always">
       <div class="section-title">DESCRIPTION: {{ data.description }}</div>
     </div>
@@ -147,24 +150,12 @@
     <br />
     <br />
     <br />
-
     <!-- MATERIALS -->
-    {% include "multi-interface/materials-table.html" %}
-
+    {% include "compliance/nkrfStatement.html" %}
     <!-- ELECTRICAL CHARACTERISTICS -->
-    {% include "multi-interface/electrical-chars-table.html" %}
+    {% include "compliance/extractedField.html" %}
 
     <!-- MECHANICAL CHARACTERISTICS -->
-    {% include "multi-interface/mechanical-chars-table.html" %}
-
-    <!-- ENVIRONMENTAL CHARACTERISTICS -->
-    {% include "multi-interface/environmental-chars-table.html" %}
-
-    <!-- INTERFACE STANDARDS -->
-    {% include "multi-interface/interface-standards-table.html" %}
-
-    <!-- CUSTOM SPECIFICATIONS -->
-    {% include "multi-interface/custom-specs-table.html" %} {% include
-    "footer.html" %}
+    {% include "compliance/additional.html" %} {% include "footer.html" %}
   </body>
 </html>
