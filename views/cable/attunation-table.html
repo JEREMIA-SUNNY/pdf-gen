@@ -1,4 +1,4 @@
-{% if data.attenuationPowerSpecs and data.attenuationPowerSpecs | length > 0 %}
+<!-- {% if data.attenuationPowerSpecs and data.attenuationPowerSpecs | length > 0 %}
 <div class="section">
   <div class="section-title">ATTENUATION POWER SPEC</div>
   <div class="table-container">
@@ -17,6 +17,32 @@
           <td class="td td-center">{{ spec.specification }}</td>
         </tr>
         {% endif %} {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endif %} -->
+<div class="section" style="break-before: always"></div>
+{% if data.attenuationPowerSpecs and data.attenuationPowerSpecs | length > 0 %}
+<div class="section" style="padding-bottom: 8px">
+  <div class="section-title">ATTENUATION & POWER SPECIFICATIONS</div>
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="td td-head td-center">Frequency (GHz)</th>
+          <th class="td td-head td-center">Attenuation (dB)</th>
+          <th class="td td-head td-center">Power (W)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for spec in data.attenuationPowerSpecs %}
+        <tr>
+          <td class="td td-center">{{ spec.frequency }}</td>
+          <td class="td td-center">{{ spec.attenuation }}</td>
+          <td class="td td-center">{{ spec.power }}</td>
+        </tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>

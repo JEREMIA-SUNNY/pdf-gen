@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-   <head>
+  <head>
     <meta charset="UTF-8" />
     <title>Quotation PDF</title>
     <style>
@@ -158,31 +158,33 @@
     <p>Date: {{ data.quoteDate }}</p>
     <br />
 
-
-     <div class="to-block">
+    <div class="to-block">
       <p>To,</p>
       <p><strong>{{ data.customerName }}</strong></p>
       <p>{{ data.billingAddress.line1 }}</p>
       <p>{{ data.billingAddress.line2 }}</p>
-      <p>{{ data.billingAddress.state }}, {{ data.billingAddress.city }} – {{ data.billingAddress.pinCode }}</p>
+      <p>
+        {{ data.billingAddress.state }}, {{ data.billingAddress.city }} – {{
+        data.billingAddress.pinCode }}
+      </p>
       <p>GST No: {{ data.customerGst }}</p>
     </div>
 
     <br /><br />
     <p class="section-title">
-  <strong>Kind Attention: {{ data.contactSalutation }} {{ data.contactName }}</strong>
+  <strong>Kind Attention: {{ data.contactName }}</strong>
 </p>
 <p class="section-title">Subject: {{ data.subTitle }}</p>
 
 {# Determine greeting based on salutation #}
-{% if data.contactSalutation|lower == "mr." %}
+{% if data.contactSalutation|lower == "mr" %}
   {% set greeting = "sir" %}
-{% elif data.contactSalutation|lower in ["mrs.", "ms.", "mx."] %}
+{% elif data.contactSalutation|lower in ["mrs", "ms", "mx"] %}
   {% set greeting = "ma'am" %}
 {% else %}
   {% set greeting = "sir/madam" %}
 {% endif %}
-<p>Dear {{ greeting }},</p>
+<p>Dear {{ greeting }},</p>
 
     <p>
       NKRF is a full-stack harness manufacturer with capabilities to support any
@@ -226,7 +228,7 @@
       submitted to you, we are enclosing our budgetary quote against your
       requirement. Please feel free to contact us for any clarification.
     </p>
-<br /><br />
+    <br /><br />
     <p>Yours Sincerely,</p>
     <img src="{{ data.signImage }}" alt="Signature" style="width: 150px" />
     <p>For N.K. RF Products &amp; Services Pvt. Ltd,</p>
@@ -234,35 +236,51 @@
 
     <br /><br /><br /><br />
     <table class="quotation-table">
-  <thead>
-    <tr>
-      <th>Sr. No.</th>
-        <th style="width: 50px">Customer Part No.</th>
-      <th style="width: 140px">NKRF Part No.</th>
-      <th>Description</th>
-      <th>MOQ</th>
-      <th style="width: 90px">Unit Price</th>
-      <th style="width: 90px">Extended Price</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for item in data.parts %}
-      <tr>
-        <td style="text-align: center; vertical-align: middle">{{ loop.index }}</td>
-          <td style="text-align: center; vertical-align: middle">{{ item.customerPartNumber }}</td>
-        <td style="text-align: center; vertical-align: middle">{{ item.NKRFPartNumber }}</td>
-        <td style="text-align: center; vertical-align: middle">{{ item.NKRFPartDescription }}</td>
-        <td style="text-align: center; vertical-align: middle">{{ item.moq }}</td>
-        <td style="text-align: center; vertical-align: middle">{{ item.unitPriceFormatted }}</td>
-        <td style="text-align: center; vertical-align: middle">{{ item.extendedPriceFormatted }}</td>
-      </tr>
-    {% endfor %}
-   <tr>
-  <td colspan="6" style="text-align: right"><strong>Total Amount:</strong></td>
-  <td style="text-align: center">{{ data.totalAmount }}</td>
-</tr>
-  </tbody>
-</table>
+      <thead>
+        <tr>
+          <th>Sr. No.</th>
+          <th style="width: 50px">Customer Part No.</th>
+          <th style="width: 140px">NKRF Part No.</th>
+          <th>Description</th>
+          <th>MOQ</th>
+          <th style="width: 90px">Unit Price</th>
+          <th style="width: 90px">Extended Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in data.parts %}
+        <tr>
+          <td style="text-align: center; vertical-align: middle">
+            {{ loop.index }}
+          </td>
+          <td style="text-align: center; vertical-align: middle">
+            {{ item.customerPartNumber }}
+          </td>
+          <td style="text-align: center; vertical-align: middle">
+            {{ item.NKRFPartNumber }}
+          </td>
+          <td style="text-align: center; vertical-align: middle">
+            {{ item.NKRFPartDescription }}
+          </td>
+          <td style="text-align: center; vertical-align: middle">
+            {{ item.moq }}
+          </td>
+          <td style="text-align: center; vertical-align: middle">
+            {{ item.unitPriceFormatted }}
+          </td>
+          <td style="text-align: center; vertical-align: middle">
+            {{ item.extendedPriceFormatted }}
+          </td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <td colspan="6" style="text-align: right">
+            <strong>Total Amount:</strong>
+          </td>
+          <td style="text-align: center">{{ data.totalAmount }}</td>
+        </tr>
+      </tbody>
+    </table>
 
     <!-- Include Additional Details from a separate file -->
     {% include "quotes/totalamount.html" %}
@@ -274,6 +292,6 @@
     <p>Yours Sincerely,</p>
     <p>For N.K. RF Products &amp; Services Pvt. Ltd,</p>
     <p><strong>Alok Sood</strong></p>
-
+    {% include "footer.html" %}
   </body>
 </html>
