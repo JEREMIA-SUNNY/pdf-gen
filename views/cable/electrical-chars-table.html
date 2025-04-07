@@ -1,27 +1,23 @@
 {% if data.electricalChars and data.electricalChars | length > 0 %}
-<div class="section">
-    <div class="section-title">ELECTRICAL CHARACTERISTICS</div>
-    <div class="table-container">
-        <table class="table">
-            <tbody>
-                {% for electricalChar in data.electricalChars %}
-                {% if electricalChar.value %}
-                <tr>
-                    <td class="td td-center" style="width: 40%; max-width: 40%;">
-                        <b>{{ electricalChar.label }}</b>
-                    </td>
-                    <td class="td td-center" style="width: 60%;">
-                        {{ electricalChar.value }}
-                    </td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+<div class="section" style="padding-bottom: 45px">
+  <div class="section-title">ELECTRICAL CHARACTERISTICS</div>
+  <div class="table-container">
+    <table class="table">
+      <tbody>
+        {% for electricalChar in data.electricalChars %} {% if
+        electricalChar.value %}
+        <tr>
+          <td class="td td-center" style="width: 40%; max-width: 40%">
+            <b>{{ electricalChar.label }}</b>
+          </td>
+          <td class="td td-center" style="width: 60%">
+            {{ electricalChar.value }}
+          </td>
+        </tr>
+        {% endif %} {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 
-<br />
-<br />
-<br />
 {% endif %}

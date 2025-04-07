@@ -172,19 +172,15 @@
 
     <br /><br />
     <p class="section-title">
-  <strong>Kind Attention: {{ data.contactName }}</strong>
-</p>
-<p class="section-title">Subject: {{ data.subTitle }}</p>
+      <strong>Kind Attention: {{ data.contactName }}</strong>
+    </p>
+    <p class="section-title">Subject: {{ data.subTitle }}</p>
 
-{# Determine greeting based on salutation #}
-{% if data.contactSalutation|lower == "mr" %}
-  {% set greeting = "sir" %}
-{% elif data.contactSalutation|lower in ["mrs", "ms", "mx"] %}
-  {% set greeting = "ma'am" %}
-{% else %}
-  {% set greeting = "sir/madam" %}
-{% endif %}
-<p>Dear {{ greeting }},</p>
+    {# Determine greeting based on salutation #} {% if
+    data.contactSalutation|lower == "mr" %} {% set greeting = "sir" %} {% elif
+    data.contactSalutation|lower in ["mrs", "ms", "mx"] %} {% set greeting =
+    "ma'am" %} {% else %} {% set greeting = "sir/madam" %} {% endif %}
+    <p>Dear {{ greeting }},</p>
 
     <p>
       NKRF is a full-stack harness manufacturer with capabilities to support any
