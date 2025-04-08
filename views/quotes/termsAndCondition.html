@@ -1,3 +1,20 @@
+{% if data.detailRows and data.detailRows | length > 0 %}
+<div class="section">
+  <h2>DETAILS</h2>
+  <table class="tc-table">
+    {% for row in data.detailRows %}
+    <tr>
+      <td class="heading">{{ row.heading }}</td>
+      <!-- Convert newlines into <br> tags so they render properly -->
+      <td class="content">{{ row.value | replace("\n", "<br>") | safe }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endif %}
+
+
+
 {% if data.tncRows and data.tncRows | length > 0 %}
 <div class="section">
   <h2>TERMS &amp; CONDITIONS</h2>
@@ -5,9 +22,10 @@
     {% for row in data.tncRows %}
     <tr>
       <td class="heading">{{ row.heading }}</td>
-      <td class="content">{{ row.value }}</td>
+      <td class="content">{{ row.value | replace("\n", "<br>") | safe }}</td>
     </tr>
     {% endfor %}
   </table>
 </div>
 {% endif %}
+

@@ -1,12 +1,12 @@
 <style>
-  .combined-details-table {
+  .address-table {
     border-collapse: collapse;
     width: 100%;
-    margin-bottom: 1em;
+    margin-bottom: 1.5em;
   }
 
-  .combined-details-table th,
-  .combined-details-table td {
+  .address-table th,
+  .address-table td {
     border: 1px solid #23272e;
     padding: 6px 8px;
     text-align: left;
@@ -14,54 +14,76 @@
     font-size: 12px;
   }
 
-  .combined-details-table th {
+  .address-table th {
     background: #f2f2f2;
     font-weight: bold;
     width: 20%;
   }
 
-  .combined-details-table td {
+  .address-table td {
     width: 30%;
+  }
+
+  .details-list {
+    margin-left: 0;
+    padding-left: 1.2em;
+    margin-bottom: 1.5em;
+  }
+
+  .details-list li {
+    margin-bottom: 0.5em;
+  }
+
+  /* Special Conditions styling */
+  .special-conditions {
+    margin-bottom: 1.5em;
+  }
+
+  .special-conditions div {
+    margin-bottom: 0.5em;
+    font-size: 12px;
   }
 </style>
 
-<table class="combined-details-table">
+<!-- Address Table -->
+<table class="address-table">
   <tr>
     <th>Billing Address</th>
     <td>
-      <strong>{{ data.billingAddress.line1 }}</strong><br>
-      {{ data.billingAddress.line2 }}<br>
-      {{ data.billingAddress.city }}, {{ data.billingAddress.state }} - {{ data.billingAddress.pinCode }}
+      <strong>{{ data.billingAddress.line1 }}</strong>
+      <br>{{ data.billingAddress.line2 }}<br>
+      {{ data.billingAddress.state }}<br>
+      {{ data.billingAddress.city }} - {{ data.billingAddress.pinCode }}<br>
+      {{ data.billingAddress.country }}<br>
     </td>
     <th>Shipping Address</th>
     <td>
       <strong>{{ data.shippingAddress.line1 }}</strong><br>
       {{ data.shippingAddress.line2 }}<br>
-      {{ data.shippingAddress.city }}, {{ data.shippingAddress.state }} - {{ data.shippingAddress.pinCode }}
+      {{ data.shippingAddress.state }}<br>
+      {{ data.shippingAddress.city }} - {{ data.shippingAddress.pinCode }}<br>
+      {{ data.shippingAddress.country }}<br>
     </td>
-  </tr>
-  <tr>
-    <th>Payment Terms</th>
-    <td>{{ data.additionalDetails.paymentTerms }}</td>
-    <th>Lead Time</th>
-    <td>{{ data.additionalDetails.leadTime }}</td>
-  </tr>
-  <tr>
-    <th>Shipping Terms</th>
-    <td>{{ data.additionalDetails.shippingTerms }}</td>
-    <th>Warranty Terms</th>
-    <td>{{ data.additionalDetails.warrantyTerms }}</td>
-  </tr>
-  <tr>
-    <th>Special Conditions</th>
-    <td>
-      {% if data.additionalDetails.specialConditions %}
-        {{ data.additionalDetails.specialConditions }}
-      {% else %}
-        N/A
-      {% endif %}
-    </td>
-    <th>Quote Validity</th>
-    <td>{{ data.additionalDetails.quoteValidity }}</td>
   </tr>
 </table>
+
+<!-- Details as List Points -->
+<ol class="details-list">
+  <li><strong>Payment Terms:</strong> {{ data.additionalDetails.paymentTerms }}</li>
+  <li><strong>Currency:</strong> {{ data.currency }}</li>
+  <li><strong>Shipping Terms:</strong> {{ data.additionalDetails.shippingTerms }}</li>
+  <li><strong>Quote Validity:</strong> {{ data.additionalDetails.quoteValidity }}</li>
+  <li><strong>Warranty Terms:</strong> {{ data.additionalDetails.warrantyTerms }}</li>
+</ol>
+
+<!-- Special Conditions Section -->
+<div class="special-conditions">
+  <h2>Special Conditions </h2>
+  {% if data.specialConditions and data.specialConditions.strip() %}
+    {% for line in data.specialConditions.strip().splitlines() %}
+      <div>{{ line }}</div>
+    {% endfor %}
+  {% else %}
+    <div>None</div>
+  {% endif %}
+</div>

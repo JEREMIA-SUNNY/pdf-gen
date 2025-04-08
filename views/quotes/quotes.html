@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
+   <head>
     <meta charset="UTF-8" />
     <title>Quotation PDF</title>
     <style>
@@ -158,51 +158,53 @@
     <p>Date: {{ data.quoteDate }}</p>
     <br />
 
-    <div class="to-block">
+
+     <div class="to-block">
       <p>To,</p>
       <p><strong>{{ data.customerName }}</strong></p>
       <p>{{ data.billingAddress.line1 }}</p>
       <p>{{ data.billingAddress.line2 }}</p>
-      <p>
-        {{ data.billingAddress.state }}, {{ data.billingAddress.city }} – {{
-        data.billingAddress.pinCode }}
-      </p>
+      <p>{{ data.billingAddress.state }}, {{ data.billingAddress.city }} – {{ data.billingAddress.pinCode }}</p>
       <p>GST No: {{ data.customerGst }}</p>
     </div>
 
     <br /><br />
     <p class="section-title">
-      <strong>Kind Attention: {{ data.contactName }}</strong>
-    </p>
-    <p class="section-title">Subject: {{ data.subTitle }}</p>
+  <strong>Kind Attention: {{ data.contactName }}</strong>
+</p>
+<p class="section-title">Subject: {{ data.subTitle }}</p>
 
-    {# Determine greeting based on salutation #} {% if
-    data.contactSalutation|lower == "mr" %} {% set greeting = "sir" %} {% elif
-    data.contactSalutation|lower in ["mrs", "ms", "mx"] %} {% set greeting =
-    "ma'am" %} {% else %} {% set greeting = "sir/madam" %} {% endif %}
-    <p>Dear {{ greeting }},</p>
+{# Determine greeting based on salutation #}
+{% if data.contactSalutation|lower == "mr" %}
+  {% set greeting = "sir" %}
+{% elif data.contactSalutation|lower in ["mrs", "ms", "mx"] %}
+  {% set greeting = "ma'am" %}
+{% else %}
+  {% set greeting = "sir/madam" %}
+{% endif %}
+<p>Dear {{ greeting }},</p>
 
     <p>
-      NKRF is a full-stack harness manufacturer with capabilities to support any
-      interconnecting harnesses in RF, copper, & fiber optics. Our capabilities
+      NKRF is a <b>full-stack harness manufacturer</b> with capabilities to support any
+      interconnecting harnesses in<b>RF, copper, & fiber optics</b>. Our capabilities
       in copper extend to power, control & signal with connector types ranging
       across circular D38999 connectors, D-sub, micro-D, nano-D, USB,
-      RJ45(Ethernet). In fiber, we support standard optical connectors as well
-      as termini used in military applications. NKRF also supports machined
+      RJ45(Ethernet). In <b>fiber</b>, we support standard optical connectors as well
+      as <b>termini used in military applications</b>. NKRF also supports machined
       components per customer spec.
     </p>
 
     <p>
-      NKRF is also proud to share that we have been awarded “Certificate for
-      Qualification – For Space Use” from ISRO, thus becoming the 1st and only
+      NKRF is also proud to share that we have been awarded <b>“Certificate for
+      Qualification – For Space Use”</b> from ISRO, thus becoming the 1st and only
       indigenous vendor to be qualified for supply of RF & MW cable assemblies
-      for space missions. NKRF is also proud to have supplied RF Cables which
+      for space missions. NKRF is also proud to have supplied  RF Cables which
       are currently flying on satellites on ESA approved missions.
     </p>
 
     <p>
-      NKRF is an AS9100 Rev D Certified company and its RF Cable Assemblies are
-      CEMILAC qualified for airborne applications on fixed and rotary wing
+      NKRF is an AS9100 Rev D Certified company and its <b>RF Cable Assemblies are
+      CEMILAC qualified for airborne applications</b> on fixed and rotary wing
       aircrafts.
     </p>
 
@@ -224,7 +226,7 @@
       submitted to you, we are enclosing our budgetary quote against your
       requirement. Please feel free to contact us for any clarification.
     </p>
-    <br /><br />
+<br /><br />
     <p>Yours Sincerely,</p>
     <img src="{{ data.signImage }}" alt="Signature" style="width: 150px" />
     <p>For N.K. RF Products &amp; Services Pvt. Ltd,</p>
@@ -232,51 +234,41 @@
 
     <br /><br /><br /><br />
     <table class="quotation-table">
-      <thead>
-        <tr>
-          <th>Sr. No.</th>
-          <th style="width: 50px">Customer Part No.</th>
-          <th style="width: 140px">NKRF Part No.</th>
-          <th>Description</th>
-          <th>MOQ</th>
-          <th style="width: 90px">Unit Price</th>
-          <th style="width: 90px">Extended Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for item in data.parts %}
-        <tr>
-          <td style="text-align: center; vertical-align: middle">
-            {{ loop.index }}
-          </td>
-          <td style="text-align: center; vertical-align: middle">
-            {{ item.customerPartNumber }}
-          </td>
-          <td style="text-align: center; vertical-align: middle">
-            {{ item.NKRFPartNumber }}
-          </td>
-          <td style="text-align: center; vertical-align: middle">
-            {{ item.NKRFPartDescription }}
-          </td>
-          <td style="text-align: center; vertical-align: middle">
-            {{ item.moq }}
-          </td>
-          <td style="text-align: center; vertical-align: middle">
-            {{ item.unitPriceFormatted }}
-          </td>
-          <td style="text-align: center; vertical-align: middle">
-            {{ item.extendedPriceFormatted }}
-          </td>
-        </tr>
-        {% endfor %}
-        <tr>
-          <td colspan="6" style="text-align: right">
-            <strong>Total Amount:</strong>
-          </td>
-          <td style="text-align: center">{{ data.totalAmount }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <thead>
+    <tr>
+      <th>Sr. No.</th>
+      {% if data.isPrivateCompany %}
+        <th style="width: 50px">Customer Part No.</th>
+      {% endif %}
+      <th style="width: 140px">NKRF Part No.</th>
+      <th>Description</th>
+      <th>MOQ</th>
+      <th>Lead Time</th>
+      <th style="width: 90px">Unit Price</th>
+      <th style="width: 90px">Extended Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in data.parts %}
+      <tr>
+        <td style="text-align: center; vertical-align: middle">{{ loop.index }}</td>
+        {% if data.isPrivateCompany %}
+          <td style="text-align: center; vertical-align: middle">{{ item.customerPartNumber }}</td>
+        {% endif %}
+        <td style="text-align: center; vertical-align: middle">{{ item.NKRFPartNumber }}</td>
+        <td style="text-align: center; vertical-align: middle">{{ item.NKRFPartDescription }}</td>
+        <td style="text-align: center; vertical-align: middle">{{ item.moq }}</td>
+        <td style="text-align: center; vertical-align: middle">{{ item.leadTime }}</td>
+        <td style="text-align: center; vertical-align: middle">{{ item.unitPriceFormatted }}</td>
+        <td style="text-align: center; vertical-align: middle">{{ item.extendedPriceFormatted }}</td>
+      </tr>
+    {% endfor %}
+    <tr>
+      <td colspan="{% if data.isPrivateCompany %}6{% else %}5{% endif %}" style="text-align: right"><strong>Total Amount:</strong></td>
+      <td style="text-align: center">{{ data.totalAmount }}</td>
+    </tr>
+  </tbody>
+</table>
 
     <!-- Include Additional Details from a separate file -->
     {% include "quotes/totalamount.html" %}
@@ -288,6 +280,6 @@
     <p>Yours Sincerely,</p>
     <p>For N.K. RF Products &amp; Services Pvt. Ltd,</p>
     <p><strong>Alok Sood</strong></p>
-    {% include "footer.html" %}
+
   </body>
 </html>
