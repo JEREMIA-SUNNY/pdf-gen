@@ -21,12 +21,19 @@ def generate_pdf():
     pdf_buffer.seek(0)
     return send_file(pdf_buffer, mimetype='application/pdf')
 
-@app.route('/generateCable-pdf/cable',methods=['POST'])
+@app.route('/generateCable-pdf/cable', methods=['POST'])
 def generateCable_pdf():
-
-    data=request.json
-
-    rendered_html=render_template("cable/cable.html", data=data)
+    data = request.json
+    if not data:
+        # Log a warning and return a bad request
+        app.logger.error("No JSON payload received")
+        return "Invalid request: no JSON payload", 400
+    app.logger.info(f"Received payload: {data}")
+    try:
+        rendered_html = render_template("cable/cable.html", data=data)
+    except Exception as e:
+        app.logger.error("Template rendering failed", exc_info=e)
+        return f"Template error: {str(e)}", 400
     pdf_buffer = io.BytesIO()
     HTML(string=rendered_html).write_pdf(pdf_buffer)
     pdf_buffer.seek(0)
