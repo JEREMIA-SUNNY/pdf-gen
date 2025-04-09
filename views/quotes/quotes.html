@@ -6,7 +6,7 @@
     <style>
       @page {
         size: A4;
-        margin: 80px;
+        margin: 100px;
         @bottom-left {
           margin-top: 10px;
           content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
@@ -68,7 +68,7 @@
         width: 100px;
       }
 
-      .footer {
+     .footer {
         border-top: 1px solid gray;
         position: fixed;
         left: 0;
@@ -78,7 +78,6 @@
         gap: 3px;
         font-size: 12px;
       }
-
       body {
         font-family: Arial, sans-serif;
         margin: 0px;
@@ -233,11 +232,15 @@
     <p><strong>Alok Sood</strong></p>
 
     <br /><br /><br /><br />
-    <table class="quotation-table">
+    <div style="page-break-before: always;">
+{% set partsWithCustomer = data.parts | selectattr("customerPartNumber", "ne", "") | list %}
+{% set showCustomerPart = partsWithCustomer | length > 0 %}
+
+<table class="quotation-table">
   <thead>
     <tr>
       <th>Sr. No.</th>
-      {% if data.isPrivateCompany %}
+      {% if showCustomerPart %}
         <th style="width: 50px">Customer Part No.</th>
       {% endif %}
       <th style="width: 140px">NKRF Part No.</th>
@@ -252,34 +255,34 @@
     {% for item in data.parts %}
       <tr>
         <td style="text-align: center; vertical-align: middle">{{ loop.index }}</td>
-        {% if data.isPrivateCompany %}
+        {% if showCustomerPart %}
           <td style="text-align: center; vertical-align: middle">{{ item.customerPartNumber }}</td>
         {% endif %}
         <td style="text-align: center; vertical-align: middle">{{ item.NKRFPartNumber }}</td>
         <td style="text-align: center; vertical-align: middle">{{ item.NKRFPartDescription }}</td>
         <td style="text-align: center; vertical-align: middle">{{ item.moq }}</td>
-        <td style="text-align: center; vertical-align: middle">{{ item.leadTime }}</td>
+        <td style="text-align: center; vertical-align: middle">{{ item.leadTime }} Weeks</td>
         <td style="text-align: center; vertical-align: middle">{{ item.unitPriceFormatted }}</td>
         <td style="text-align: center; vertical-align: middle">{{ item.extendedPriceFormatted }}</td>
       </tr>
     {% endfor %}
     <tr>
-      <td colspan="{% if data.isPrivateCompany %}6{% else %}5{% endif %}" style="text-align: right"><strong>Total Amount:</strong></td>
+      <td colspan="{% if showCustomerPart %}7{% else %}6{% endif %}" style="text-align: right"><strong>Total Amount:</strong></td>
       <td style="text-align: center">{{ data.totalAmount }}</td>
     </tr>
   </tbody>
 </table>
 
+</div>
     <!-- Include Additional Details from a separate file -->
     {% include "quotes/totalamount.html" %}
 
     <!-- INTERFACE STANDARDS -->
-    {% include "quotes/termsAndCondition.html" %}
+    {% include "quotes/termsAndCondition.html" %}{% include "footer.html" %}
+
 
     <br />
-    <p>Yours Sincerely,</p>
-    <p>For N.K. RF Products &amp; Services Pvt. Ltd,</p>
-    <p><strong>Alok Sood</strong></p>
+
 
   </body>
 </html>

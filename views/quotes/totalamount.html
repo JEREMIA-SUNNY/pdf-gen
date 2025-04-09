@@ -4,7 +4,6 @@
     width: 100%;
     margin-bottom: 1.5em;
   }
-
   .address-table th,
   .address-table td {
     border: 1px solid #23272e;
@@ -13,53 +12,61 @@
     vertical-align: top;
     font-size: 12px;
   }
-
   .address-table th {
     background: #f2f2f2;
     font-weight: bold;
-    width: 20%;
   }
-
   .address-table td {
-    width: 30%;
+    width: 50%;
   }
-
   .details-list {
     margin-left: 0;
     padding-left: 1.2em;
     margin-bottom: 1.5em;
   }
-
   .details-list li {
     margin-bottom: 0.5em;
   }
-
-  /* Special Conditions styling */
+  /* Special Conditions styling with left indent */
   .special-conditions {
     margin-bottom: 1.5em;
+    text-align: left;
+    /* No extra padding or margin is applied */
+    padding-left: 0;
+    margin-left: 0;
   }
-
+  .special-conditions h2 {
+    text-align: left;
+    /* No extra left margin for the heading */
+    margin-left: 0;
+  }
   .special-conditions div {
+    text-align: left;
     margin-bottom: 0.5em;
     font-size: 12px;
+    /* Ensure each line is flush left */
+    margin-left: 0;
+    padding-left: 0;
   }
 </style>
 
-<!-- Address Table -->
+<!-- Two-Column Address Table -->
 <table class="address-table">
   <tr>
     <th>Billing Address</th>
+    <th>Shipping Address</th>
+  </tr>
+  <tr>
     <td>
-      <strong>{{ data.billingAddress.line1 }}</strong>
+      {{ data.billingAddress.line1 }}
       <br>{{ data.billingAddress.line2 }}<br>
       {{ data.billingAddress.state }}<br>
       {{ data.billingAddress.city }} - {{ data.billingAddress.pinCode }}<br>
       {{ data.billingAddress.country }}<br>
     </td>
-    <th>Shipping Address</th>
     <td>
-      <strong>{{ data.shippingAddress.line1 }}</strong><br>
-      {{ data.shippingAddress.line2 }}<br>
+     {{ data.shippingAddress.line1 }}
+      <br>{{ data.shippingAddress.line2 }}<br>
       {{ data.shippingAddress.state }}<br>
       {{ data.shippingAddress.city }} - {{ data.shippingAddress.pinCode }}<br>
       {{ data.shippingAddress.country }}<br>
@@ -78,7 +85,7 @@
 
 <!-- Special Conditions Section -->
 <div class="special-conditions">
-  <h2>Special Conditions </h2>
+  <h2>Special Conditions (over-riding any of below standard conditions)</h2>
   {% if data.specialConditions and data.specialConditions.strip() %}
     {% for line in data.specialConditions.strip().splitlines() %}
       <div>{{ line }}</div>
