@@ -1,38 +1,48 @@
 <!DOCTYPE html>
 <html>
-   <head>
+  <head>
     <meta charset="UTF-8" />
     <title>Quotation PDF</title>
     <style>
       @page {
         size: A4;
-        margin: 100px;
+        margin: 100px 50px 50px 50px; /* Increased top margin to make room for header */
         @bottom-left {
           margin-top: 10px;
           content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
-          font-size: 12px;
+          font-size: 8px;
           white-space: pre;
           line-height: 15px;
         }
         @bottom-right {
           content: counter(page) "/" counter(pages);
-          font-size: 12px;
+          font-size: 8px;
         }
       }
-      * {
+      /* Global styling for main content - BUT not applying to TC section */
+      body,
+      p,
+      div:not(.tc-content *),
+      table:not(.tc-content table),
+      span:not(.tc-content span),
+      td:not(.tc-content td),
+      th:not(.tc-content th),
+      li:not(.tc-content li) {
         font-family: "Saira", "Noto Sans", "DejaVu Sans", sans-serif;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
         font-size: 12px;
       }
 
+      /* Reset margins and padding globally */
       * {
-        font-family: "Saira", "Noto Sans", "DejaVu Sans", sans-serif;
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-size: 12px;
+      }
+
+      /* Special class for terms and conditions content */
+      .tc-content * {
+        font-size: 8px !important;
+        font-family: Arial, sans-serif;
       }
 
       img,
@@ -41,21 +51,20 @@
       span {
         min-height: 10px;
       }
-
       .header {
         border-bottom: 1px solid gray;
         display: flex;
         position: fixed;
         align-items: flex-end;
         justify-content: space-between;
-        left: 0;
+        left: 0px; /* Match the page margin */
+        right: 0px; /* Match the page margin */
         top: -100px;
         height: 75px;
-        width: 100%;
         padding: 10px 0;
         min-height: 1px;
+        background-color: white; /* Ensure header is visible */
       }
-
       .header > .title {
         display: flex;
         align-items: flex-end;
@@ -63,16 +72,14 @@
         font-weight: bold;
         color: #375fbd;
       }
-
       .header > .logo {
         width: 100px;
       }
-
-     .footer {
+      .footer {
         border-top: 1px solid gray;
         position: fixed;
         left: 0;
-        bottom: -100px;
+        bottom: -80px;
         height: 80px;
         width: 100%;
         gap: 3px;
@@ -80,136 +87,196 @@
       }
       body {
         font-family: Arial, sans-serif;
-        margin: 0px;
-        /* Adjust margin for more whitespace */
+        margin: 0;
         line-height: 1.5;
-        font-size: 12px;
         color: #000;
       }
-
       p {
         margin: 0 0 8px 0;
-        /* some spacing after each paragraph */
       }
-
       .to-block p {
         margin: 0;
         line-height: 1.2;
-        /* reduce space between lines */
         padding: 0;
       }
-
       h2 {
         margin: 0;
-        /* remove all top/bottom spacing */
         padding: 4px 0;
-        /* optional — just a little breathing room */
-
         text-align: center;
       }
-
       table {
         border-collapse: collapse;
         width: 100%;
         margin-bottom: 1em;
+        table-layout: fixed;
       }
-
       table,
       th,
       td {
         border: 1px solid #23272e;
-        padding: 6px;
+        padding: 5px;
       }
-
       .quotation-table th {
         background: #f2f2f2;
       }
 
-      .tc-table {
-        margin-top: 0;
-        /* remove space above the table */
+      /* Fixed column widths for quotation table */
+      .quotation-table th:nth-child(1) {
+        width: 40px;
+      }
+      .quotation-table th.customer-part {
+        width: 100px;
+      }
+      .quotation-table th.nkrf-part {
+        width: 110px;
+      }
+      .quotation-table th.description {
+        width: 180px;
+      }
+      .quotation-table th.moq {
+        width: 50px;
+      }
+      .quotation-table th.lead-time {
+        width: 70px;
+      }
+      .quotation-table th.unit-price {
+        width: 50px;
+      }
+      .quotation-table th.ext-price {
+        width: 75px;
       }
 
+      /* Force text wrapping in description cell */
+      .quotation-table td {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        vertical-align: middle;
+        font-size: 11px;
+      }
+
+      /* Ensure column headers use the same font size */
+      .quotation-table th {
+        font-size: 11px;
+        font-weight: bold;
+      }
+
+      .tc-table {
+        margin-top: 0;
+      }
       .tc-table td.heading {
         font-size: 12px;
         width: 220px;
         background: #ffff;
         font-weight: bold;
         text-align: center;
-        /* horizontally center text */
         vertical-align: middle;
-        /* vertically center text */
         color: #375fbd;
       }
-
       .tc-table td.content {
         vertical-align: top;
         font-size: 12px;
+      }
+      .address-table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 1.5em;
+      }
+      .address-table th,
+      .address-table td {
+        border: 1px solid #23272e;
+        padding: 6px 8px;
+        text-align: left;
+        vertical-align: top;
+        font-size: 12px;
+      }
+      .address-table th {
+        background: #f2f2f2;
+        font-weight: bold;
+      }
+      .address-table td {
+        width: 50%;
+      }
+      .details-list {
+        margin-left: 0;
+        padding-left: 1.2em;
+        margin-bottom: 1.5em;
+      }
+      .details-list li {
+        margin-bottom: 0.5em;
       }
     </style>
   </head>
 
   <body>
-    {% include "headerQuotes.html" %}
-    <p>
-      <strong>Quotation Reference: {{ data.quotationRef }}</strong>
-    </p>
+    <!-- Fixed header that will appear on every page -->
+    <div class="header">
+      <p class="title">Quotation</p>
+      <img
+        class="logo"
+        src="https://cmpl.nkegroup.com/_next/image?url=%2FdataSheetLogo.png&w=384&q=75"
+      />
+    </div>
+
+    <!-- Removed the include header line as we're now placing it directly in the HTML -->
+    <!-- {% include "headerQuotes.html" %} -->
+
+    <p><strong>Quotation Reference: {{ data.quotationRef }}</strong></p>
     <p>Date: {{ data.quoteDate }}</p>
     <br />
 
-
-     <div class="to-block">
+    <div class="to-block">
       <p>To,</p>
       <p><strong>{{ data.customerName }}</strong></p>
       <p>{{ data.billingAddress.line1 }}</p>
       <p>{{ data.billingAddress.line2 }}</p>
-      <p>{{ data.billingAddress.state }}, {{ data.billingAddress.city }} – {{ data.billingAddress.pinCode }}</p>
+      <p>
+        {{ data.billingAddress.state }}, {{ data.billingAddress.city }} – {{
+        data.billingAddress.pinCode }}
+      </p>
       <p>GST No: {{ data.customerGst }}</p>
     </div>
 
     <br /><br />
     <p class="section-title">
-  <strong>Kind Attention: {{ data.contactName }}</strong>
-</p>
-<p class="section-title">Subject: {{ data.subTitle }}</p>
+      <strong>Kind Attention: {{ data.contactName }}</strong>
+    </p>
+    <p class="section-title">Subject: {{ data.subTitle }}</p>
 
-{# Determine greeting based on salutation #}
-{% if data.contactSalutation|lower == "mr" %}
-  {% set greeting = "sir" %}
-{% elif data.contactSalutation|lower in ["mrs", "ms", "mx"] %}
-  {% set greeting = "ma'am" %}
-{% else %}
-  {% set greeting = "sir/madam" %}
-{% endif %}
-<p>Dear {{ greeting }},</p>
+    {% if data.contactSalutation|lower == "mr" %} {% set greeting = "sir" %} {%
+    elif data.contactSalutation|lower in ["mrs", "ms", "mx"] %} {% set greeting
+    = "ma'am" %} {% else %} {% set greeting = "sir/madam" %} {% endif %}
+    <p>Dear {{ greeting }},</p>
 
     <p>
-      NKRF is a <b>full-stack harness manufacturer</b> with capabilities to support any
-      interconnecting harnesses in<b>RF, copper, & fiber optics</b>. Our capabilities
-      in copper extend to power, control & signal with connector types ranging
-      across circular D38999 connectors, D-sub, micro-D, nano-D, USB,
-      RJ45(Ethernet). In <b>fiber</b>, we support standard optical connectors as well
-      as <b>termini used in military applications</b>. NKRF also supports machined
+      NKRF is a <b>full-stack harness manufacturer</b> with capabilities to
+      support any interconnecting harnesses in
+      <b>RF, copper, &amp; fiber optics</b>. Our capabilities in copper extend
+      to power, control &amp; signal with connector types ranging across
+      circular D38999 connectors, D-sub, micro-D, nano-D, USB, RJ45 (Ethernet).
+      In <b>fiber</b>, we support standard optical connectors as well as
+      <b>termini used in military applications</b>. NKRF also supports machined
       components per customer spec.
     </p>
 
     <p>
-      NKRF is also proud to share that we have been awarded <b>“Certificate for
-      Qualification – For Space Use”</b> from ISRO, thus becoming the 1st and only
-      indigenous vendor to be qualified for supply of RF & MW cable assemblies
-      for space missions. NKRF is also proud to have supplied  RF Cables which
-      are currently flying on satellites on ESA approved missions.
+      NKRF is also proud to share that we have been awarded
+      <b>"Certificate for Qualification – For Space Use"</b> from ISRO, thus
+      becoming the 1st and only indigenous vendor to be qualified for supply of
+      RF &amp; MW cable assemblies for space missions. NKRF is also proud to
+      have supplied RF Cables which are currently flying on satellites on ESA
+      approved missions.
     </p>
 
     <p>
-      NKRF is an AS9100 Rev D Certified company and its <b>RF Cable Assemblies are
-      CEMILAC qualified for airborne applications</b> on fixed and rotary wing
-      aircrafts.
+      NKRF is an AS9100 Rev D Certified company and its
+      <b>RF Cable Assemblies are CEMILAC qualified for airborne applications</b>
+      on fixed and rotary wing aircraft.
     </p>
 
     <p>
       NKRF is an MSME registered with NSIC, a woman entrepreneur-run business
-      supporting the “Make In India” initiative.
+      supporting the "Make In India" initiative.
     </p>
 
     <p>
@@ -225,64 +292,71 @@
       submitted to you, we are enclosing our budgetary quote against your
       requirement. Please feel free to contact us for any clarification.
     </p>
-<br /><br />
+    <br /><br />
     <p>Yours Sincerely,</p>
     <img src="{{ data.signImage }}" alt="Signature" style="width: 150px" />
     <p>For N.K. RF Products &amp; Services Pvt. Ltd,</p>
     <p><strong>Alok Sood</strong></p>
 
     <br /><br /><br /><br />
-    <div style="page-break-before: always;">
-{% set partsWithCustomer = data.parts | selectattr("customerPartNumber", "ne", "") | list %}
-{% set showCustomerPart = partsWithCustomer | length > 0 %}
+    <div style="page-break-before: always">
+      {% set partsWithCustomer = data.parts | selectattr("customerPartNumber",
+      "ne", "") | list %} {% set showCustomerPart = partsWithCustomer | length >
+      0 %}
+      <table class="quotation-table">
+        <thead>
+          <tr>
+            <th>Sr. No.</th>
+            {% if showCustomerPart %}
+            <th class="customer-part">Customer Part No.</th>
+            {% endif %}
+            <th class="nkrf-part">NKRF Part No.</th>
+            <th class="description">Description</th>
+            <th class="moq">MOQ</th>
+            <th class="lead-time">Lead Time</th>
+            <th class="unit-price">Unit Price</th>
+            <th class="ext-price">Extended Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in data.parts %}
+          <tr>
+            <td style="text-align: center">{{ loop.index }}</td>
+            {% if showCustomerPart %}
+            <td style="text-align: center">{{ item.customerPartNumber }}</td>
+            {% endif %}
+            <td style="text-align: center">{{ item.NKRFPartNumber }}</td>
+            <td>{{ item.NKRFPartDescription }}</td>
+            <td style="text-align: center">{{ item.moq }}</td>
+            <td style="text-align: center">{{ item.leadTime }} Weeks</td>
+            <td style="text-align: center">{{ item.unitPriceFormatted }}</td>
+            <td style="text-align: center">
+              {{ item.extendedPriceFormatted }}
+            </td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td
+              colspan="{% if showCustomerPart %}7{% else %}6{% endif %}"
+              style="text-align: right"
+            >
+              <strong>Total Amount:</strong>
+            </td>
+            <td style="text-align: center">{{ data.totalAmount }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-<table class="quotation-table">
-  <thead>
-    <tr>
-      <th>Sr. No.</th>
-      {% if showCustomerPart %}
-        <th style="width: 50px">Customer Part No.</th>
-      {% endif %}
-      <th style="width: 140px">NKRF Part No.</th>
-      <th>Description</th>
-      <th>MOQ</th>
-      <th>Lead Time</th>
-      <th style="width: 90px">Unit Price</th>
-      <th style="width: 90px">Extended Price</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for item in data.parts %}
-      <tr>
-        <td style="text-align: center; vertical-align: middle">{{ loop.index }}</td>
-        {% if showCustomerPart %}
-          <td style="text-align: center; vertical-align: middle">{{ item.customerPartNumber }}</td>
-        {% endif %}
-        <td style="text-align: center; vertical-align: middle">{{ item.NKRFPartNumber }}</td>
-        <td style="text-align: center; vertical-align: middle">{{ item.NKRFPartDescription }}</td>
-        <td style="text-align: center; vertical-align: middle">{{ item.moq }}</td>
-        <td style="text-align: center; vertical-align: middle">{{ item.leadTime }} Weeks</td>
-        <td style="text-align: center; vertical-align: middle">{{ item.unitPriceFormatted }}</td>
-        <td style="text-align: center; vertical-align: middle">{{ item.extendedPriceFormatted }}</td>
-      </tr>
-    {% endfor %}
-    <tr>
-      <td colspan="{% if showCustomerPart %}7{% else %}6{% endif %}" style="text-align: right"><strong>Total Amount:</strong></td>
-      <td style="text-align: center">{{ data.totalAmount }}</td>
-    </tr>
-  </tbody>
-</table>
-
-</div>
     <!-- Include Additional Details from a separate file -->
+    <!-- Quotation Table and other content -->
     {% include "quotes/totalamount.html" %}
 
-    <!-- INTERFACE STANDARDS -->
-    {% include "quotes/termsAndCondition.html" %}{% include "footer.html" %}
-
+    <!-- Include T&C using a separate partial with small font -->
+    <div class="tc-content">
+      {% include "quotes/termsAndCondition.html" %} {% include "footer.html" %}
+    </div>
 
     <br />
-
-
   </body>
 </html>

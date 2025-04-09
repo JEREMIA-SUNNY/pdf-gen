@@ -58,39 +58,48 @@
   </tr>
   <tr>
     <td>
-      {{ data.billingAddress.line1 }}
-      <br>{{ data.billingAddress.line2 }}<br>
-      {{ data.billingAddress.state }}<br>
-      {{ data.billingAddress.city }} - {{ data.billingAddress.pinCode }}<br>
-      {{ data.billingAddress.country }}<br>
+      {{ data.billingAddress.line1 }} {% if data.billingAddress.line2 and
+      data.billingAddress.line2.strip() %}
+      <br />{{ data.billingAddress.line2 }} {% endif %}<br />
+      {{ data.billingAddress.state }}<br />
+      {{ data.billingAddress.city }} - {{ data.billingAddress.pinCode }}<br />
+      {{ data.billingAddress.country }}<br />
     </td>
     <td>
-     {{ data.shippingAddress.line1 }}
-      <br>{{ data.shippingAddress.line2 }}<br>
-      {{ data.shippingAddress.state }}<br>
-      {{ data.shippingAddress.city }} - {{ data.shippingAddress.pinCode }}<br>
-      {{ data.shippingAddress.country }}<br>
+      {{ data.shippingAddress.line1 }} {% if data.shippingAddress.line2 and
+      data.shippingAddress.line2.strip() %}
+      <br />{{ data.shippingAddress.line2 }} {% endif %}<br />
+      {{ data.shippingAddress.state }}<br />
+      {{ data.shippingAddress.city }} - {{ data.shippingAddress.pinCode }}<br />
+      {{ data.shippingAddress.country }}<br />
     </td>
   </tr>
 </table>
 
 <!-- Details as List Points -->
 <ol class="details-list">
-  <li><strong>Payment Terms:</strong> {{ data.additionalDetails.paymentTerms }}</li>
+  <li>
+    <strong>Payment Terms:</strong> {{ data.additionalDetails.paymentTerms }}
+  </li>
   <li><strong>Currency:</strong> {{ data.currency }}</li>
-  <li><strong>Shipping Terms:</strong> {{ data.additionalDetails.shippingTerms }}</li>
-  <li><strong>Quote Validity:</strong> {{ data.additionalDetails.quoteValidity }}</li>
-  <li><strong>Warranty Terms:</strong> {{ data.additionalDetails.warrantyTerms }}</li>
+  <li>
+    <strong>Shipping Terms:</strong> {{ data.additionalDetails.shippingTerms }}
+  </li>
+  <li>
+    <strong>Quote Validity:</strong> {{ data.additionalDetails.quoteValidity }}
+  </li>
+  <li>
+    <strong>Warranty Terms:</strong> {{ data.additionalDetails.warrantyTerms }}
+  </li>
 </ol>
 
 <!-- Special Conditions Section -->
 <div class="special-conditions">
   <h2>Special Conditions (over-riding any of below standard conditions)</h2>
-  {% if data.specialConditions and data.specialConditions.strip() %}
-    {% for line in data.specialConditions.strip().splitlines() %}
-      <div>{{ line }}</div>
-    {% endfor %}
-  {% else %}
-    <div>None</div>
+  {% if data.specialConditions and data.specialConditions.strip() %} {% for line
+  in data.specialConditions.strip().splitlines() %}
+  <div>{{ line }}</div>
+  {% endfor %} {% else %}
+  <div>None</div>
   {% endif %}
 </div>
