@@ -7,10 +7,10 @@
     <style>
       @page {
         size: A4;
-        margin: 100px;
-
+        margin-top: 120px;
+        margin-bottom: 120px;
         @bottom-left {
-          margin-top: 10px;
+          margin-top: 6px;
           content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout,Old AirportRoad, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
           font-size: 12px;
           white-space: pre;
@@ -123,15 +123,18 @@
       .section-body > p {
         padding: 5px 0;
       }
+      main-body {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
     </style>
   </head>
 
   <body>
     {% include "headerMulti.html" %}
 
- 
-<img src="{{ data.adaptorDatasheetImage }}" style="width: 100%" />
-
+    <img src="{{ data.adaptorDatasheetImage }}" style="width: 100%" />
 
     {% include "remarks-table.html" %}
 
@@ -149,24 +152,25 @@
     <br />
     <br />
     <br />
+    <div style="display: grid; grid-template-columns: 1fr; gap: 20px">
+      <!-- MATERIALS -->
+      {% include "multi-interface/materials-table.html" %}
 
-    <!-- MATERIALS -->
-    {% include "multi-interface/materials-table.html" %}
+      <!-- ELECTRICAL CHARACTERISTICS -->
+      {% include "multi-interface/electrical-chars-table.html" %}
 
-    <!-- ELECTRICAL CHARACTERISTICS -->
-    {% include "multi-interface/electrical-chars-table.html" %}
+      <!-- MECHANICAL CHARACTERISTICS -->
+      {% include "multi-interface/mechanical-chars-table.html" %}
 
-    <!-- MECHANICAL CHARACTERISTICS -->
-    {% include "multi-interface/mechanical-chars-table.html" %}
+      <!-- ENVIRONMENTAL CHARACTERISTICS -->
+      {% include "multi-interface/environmental-chars-table.html" %}
 
-    <!-- ENVIRONMENTAL CHARACTERISTICS -->
-    {% include "multi-interface/environmental-chars-table.html" %}
+      <!-- INTERFACE STANDARDS -->
+      {% include "multi-interface/interface-standards-table.html" %}
 
-    <!-- INTERFACE STANDARDS -->
-    {% include "multi-interface/interface-standards-table.html" %}
-
-    <!-- CUSTOM SPECIFICATIONS -->
-    {% include "multi-interface/custom-specs-table.html" %} {% include
-    "footer.html" %}
+      <!-- CUSTOM SPECIFICATIONS -->
+      {% include "multi-interface/custom-specs-table.html" %}
+    </div>
+    {% include "footer.html" %}
   </body>
 </html>

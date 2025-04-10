@@ -6,7 +6,7 @@
     <style>
       @page {
         size: A4;
-        margin: 100px 50px 50px 50px; /* Increased top margin to make room for header */
+        margin: 100px 50px 70px 50px; /* Increased top margin to make room for header */
         @bottom-left {
           margin-top: 10px;
           content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
@@ -21,19 +21,23 @@
       }
       /* Global styling for main content - BUT not applying to TC section */
       body,
-      p,
-      div:not(.tc-content *),
-      table:not(.tc-content table),
-      span:not(.tc-content span),
-      td:not(.tc-content td),
-      th:not(.tc-content th),
-      li:not(.tc-content li) {
-        font-family: "Saira", "Noto Sans", "DejaVu Sans", sans-serif;
-        font-size: 12px;
-      }
+p,
+div:not(.tc-content *):not(.special-conditions *),
+table:not(.tc-content table),
+span:not(.tc-content span),
+td:not(.tc-content td),
+th:not(.tc-content th),
+li:not(.tc-content li),
+.special-conditions,
+.special-conditions h2,
+.special-conditions div {
+  font-family: "Saira", "Noto Sans", "DejaVu Sans", sans-serif;
+  font-size: 12px;
+}
 
       /* Reset margins and padding globally */
       * {
+         font-family: "Saira", "Noto Sans", "DejaVu Sans", sans-serif;
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -42,7 +46,7 @@
       /* Special class for terms and conditions content */
       .tc-content * {
         font-size: 8px !important;
-        font-family: Arial, sans-serif;
+        font-family: "Saira", "Noto Sans", "DejaVu Sans", sans-serif;
       }
 
       img,
@@ -205,6 +209,27 @@
       .details-list li {
         margin-bottom: 0.5em;
       }
+      .special-conditions {
+  margin-bottom: 1.5em;
+  text-align: left;
+  font-size: 12px !important;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.special-conditions h2 {
+  text-align: left;
+  margin-left: 0;
+  font-size: 12px !important;
+}
+
+.special-conditions div {
+  text-align: left;
+  margin-bottom: 0.5em;
+  font-size: 12px !important;
+  margin-left: 0;
+  padding-left: 0;
+}
     </style>
   </head>
 
@@ -328,7 +353,7 @@
             <td style="text-align: center">{{ item.NKRFPartNumber }}</td>
             <td>{{ item.NKRFPartDescription }}</td>
             <td style="text-align: center">{{ item.moq }}</td>
-            <td style="text-align: center">{{ item.leadTime }} Weeks</td>
+            <td style="text-align: center">{{ item.leadTime }} Week(s)</td>
             <td style="text-align: center">{{ item.unitPriceFormatted }}</td>
             <td style="text-align: center">
               {{ item.extendedPriceFormatted }}
@@ -354,7 +379,7 @@
 
     <!-- Include T&C using a separate partial with small font -->
     <div class="tc-content">
-      {% include "quotes/termsAndCondition.html" %} {% include "footer.html" %}
+      {%- include "quotes/termsAndCondition.html" -%} {% include "footer.html" %}
     </div>
 
     <br />
