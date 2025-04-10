@@ -7,7 +7,8 @@
     <style>
       @page {
         size: A4;
-        margin: 100px;
+        margin-top: 120px;
+        margin-bottom: 120px;
 
         @bottom-left {
           margin-top: 10px;
@@ -145,27 +146,27 @@
     {% endif %}
 
     <br />
-    <br />
-    <br />
+    <div style="display: grid; grid-template-columns: 1fr; gap: 20px">
+      <!-- ELECTRICAL CHARACTERISTICS -->
+      {% include "cable/electrical-chars-table.html" %}
 
-    <!-- ELECTRICAL CHARACTERISTICS -->
-    {% include "cable/electrical-chars-table.html" %}
+      <!-- MECHANICAL CHARACTERISTICS -->
+      {% include "cable/mechanical-chars-table.html" %}
 
-    <!-- MECHANICAL CHARACTERISTICS -->
-    {% include "cable/mechanical-chars-table.html" %}
+      <!-- ENVIRONMENTAL CHARACTERISTICS -->
+      {% include "cable/environmental-chars-table.html" %}
 
-    <!-- ENVIRONMENTAL CHARACTERISTICS -->
-    {% include "cable/environmental-chars-table.html" %}
+      <!-- CABLE CONSTRUCTION -->
+      {% include "cable/construction-chars-table.html" %}
 
-    <!-- CABLE CONSTRUCTION -->
-    {% include "cable/construction-chars-table.html" %}
+      <!-- INTERFACE STANDARDS -->
+      {% include "cable/interface-standards-table.html" %}
+      <!--attunation-table -->
 
-    <!-- INTERFACE STANDARDS -->
-    {% include "cable/interface-standards-table.html" %}
-    <!--attunation-table -->
-
-    {% include "cable/attunation-table.html" %}
-    <!-- CUSTOM SPECIFICATIONS -->
-    {% include "cable/custom-specs-table.html" %} {% include "footer.html" %}
+      {% include "cable/attunation-table.html" %}
+      <!-- CUSTOM SPECIFICATIONS -->
+      {% include "cable/custom-specs-table.html" %}
+    </div>
+    {% include "footer.html" %}
   </body>
 </html>

@@ -1,172 +1,170 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title>{{ data.title }}</title>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
 
     <style>
-        @page {
-            size: A4;
-            margin: 100px;
+      @page {
+        size: A4;
+        margin: 100px;
 
-            @bottom-left {
-                margin-top: 10px;
-                content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout,Old AirportRoad, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
-                font-size: 12px;
-                white-space: pre;
-                line-height: 15px;
-            }
-
-            @bottom-right {
-                content: counter(page)"/"counter(pages);
-                font-size: 12px;
-            }
+        @bottom-left {
+          margin-top: 10px;
+          content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout,Old AirportRoad, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
+          font-size: 12px;
+          white-space: pre;
+          line-height: 15px;
         }
 
-        * {
-            font-family: "Saira", "Noto Sans", "DejaVu Sans", sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-size: 12px;
+        @bottom-right {
+          content: counter(page) "/" counter(pages);
+          font-size: 12px;
         }
+      }
 
-        img, div, table, span {
-            min-height: 10px;
-        }
+      * {
+        font-family: "Saira", "Noto Sans", "DejaVu Sans", sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-size: 12px;
+      }
 
-        .header {
-            border-bottom: 1px solid gray;
-            display: flex;
-            position: fixed;
-            align-items: flex-end;
-            justify-content: space-between;
-            left: 0;
-            top: -100px;
-            height: 75px;
-            width: 100%;
-            padding: 10px 0;
-            min-height: 1px;
-        }
+      img,
+      div,
+      table,
+      span {
+        min-height: 10px;
+      }
 
-        .header>.title {
-            display: flex;
-            align-items: flex-end;
-            font-size: 20px;
-            font-weight: bold;
-            color: #375fbd;
-        }
+      .header {
+        border-bottom: 1px solid gray;
+        display: flex;
+        position: fixed;
+        align-items: flex-end;
+        justify-content: space-between;
+        left: 0;
+        top: -100px;
+        height: 75px;
+        width: 100%;
+        padding: 10px 0;
+        min-height: 1px;
+      }
 
-        .header>.logo {
-            width: 100px;
-        }
+      .header > .title {
+        display: flex;
+        align-items: flex-end;
+        font-size: 20px;
+        font-weight: bold;
+        color: #375fbd;
+      }
 
-        .footer {
-            border-top: 1px solid gray;
-            position: fixed;
-            left: 0;
-            bottom: -100px;
-            height: 80px;
-            width: 100%;
-            gap: 3px;
-            font-size: 12px;
-        }
+      .header > .logo {
+        width: 100px;
+      }
 
-        .table-container {
-            border-left: 1px solid #00000055;
-            border-top: 1px solid #00000055;
-        }
+      .footer {
+        border-top: 1px solid gray;
+        position: fixed;
+        left: 0;
+        bottom: -100px;
+        height: 80px;
+        width: 100%;
+        gap: 3px;
+        font-size: 12px;
+      }
 
-        .table {
-            border-collapse: collapse;
-            border-spacing: 0;
-            width: 100%;
-        }
+      .table-container {
+        border-left: 1px solid #00000055;
+        border-top: 1px solid #00000055;
+      }
 
-        .td {
-            padding: 5px;
-            border-right: 1px solid #00000055;
-            border-bottom: 1px solid #00000055;
-        }
+      .table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+      }
 
-        .td-center {
-            text-align: center;
-        }
+      .td {
+        padding: 5px;
+        border-right: 1px solid #00000055;
+        border-bottom: 1px solid #00000055;
+      }
 
-        .td-head {
-            background-color: #375fbd;
-            color: white;
-            font-weight: bold;
-        }
+      .td-center {
+        text-align: center;
+      }
 
-        .section-title {
-            font-size: 14px;
-            font-weight: bold;
-            color: #375fbd;
-        }
+      .td-head {
+        background-color: #375fbd;
+        color: white;
+        font-weight: bold;
+      }
 
-        .section {
-            display: grid;
-            gap: 10px;
-            width: 100%;
-        }
+      .section-title {
+        font-size: 14px;
+        font-weight: bold;
+        color: #375fbd;
+      }
 
-        .section-body {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 0;
-        }
+      .section {
+        display: grid;
+        gap: 10px;
+        width: 100%;
+      }
 
-        .section-body>p {
-            padding: 5px 0;
-        }
+      .section-body {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 0;
+      }
+
+      .section-body > p {
+        padding: 5px 0;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     {% include "header.html" %}
 
-    <img src={{ data.connectorDatasheetImage }} style="width: 100%;" />
+    <img src="{{ data.connectorDatasheetImage }} style="width: 100%" />
 
     {% include "remarks-table.html" %}
 
     <br />
     <br />
 
-    <div style="page-break-before: always;" />
+    <div style="page-break-before: always" />
 
     {% if data.description %}
-    <div class="section" style="break-before: always;">
-        <div class="section-title">
-            DESCRIPTION: {{ data.description }}
-        </div>
+    <div class="section" style="break-before: always">
+      <div class="section-title">DESCRIPTION: {{ data.description }}</div>
     </div>
     {% endif %}
 
     <br />
-    <br />
-    <br />
+    
+    <div style="display: grid; grid-template-columns: 1fr; gap: 20px">
+      <!-- MATERIALS -->
+      {% include "single-interface/materials-table.html" %}
 
-    <!-- MATERIALS -->
-    {% include "single-interface/materials-table.html" %}
+      <!-- ELECTRICAL CHARACTERISTICS -->
+      {% include "single-interface/electrical-chars-table.html" %}
 
-    <!-- ELECTRICAL CHARACTERISTICS -->
-    {% include "single-interface/electrical-chars-table.html" %}
+      <!-- MECHANICAL CHARACTERISTICS -->
+      {% include "single-interface/mechanical-chars-table.html" %}
 
-    <!-- MECHANICAL CHARACTERISTICS -->
-    {% include "single-interface/mechanical-chars-table.html" %}
+      <!-- ENVIRONMENTAL CHARACTERISTICS -->
+      {% include "single-interface/environmental-chars-table.html" %}
 
-    <!-- ENVIRONMENTAL CHARACTERISTICS -->
-    {% include "single-interface/environmental-chars-table.html" %}
+      <!-- INTERFACE STANDARDS -->
+      {% include "single-interface/interface-standards-table.html" %}
 
-    <!-- INTERFACE STANDARDS -->
-    {% include "single-interface/interface-standards-table.html" %}
-
-    <!-- CUSTOM SPECIFICATIONS -->
-    {% include "single-interface/custom-specs-table.html" %}
-
+      <!-- CUSTOM SPECIFICATIONS -->
+      {% include "single-interface/custom-specs-table.html" %}
+    </div>
     {% include "footer.html" %}
-</body>
-
+  </body>
 </html>
