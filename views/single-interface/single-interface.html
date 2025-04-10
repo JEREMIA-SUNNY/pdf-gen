@@ -101,6 +101,12 @@
         color: white;
         font-weight: bold;
       }
+      table,
+      tr,
+      td {
+        page-break-inside: avoid !important;
+        break-inside: avoid-column !important;
+      }
 
       .section-title {
         font-size: 14px;
@@ -127,11 +133,8 @@
   </head>
 
   <body>
-    {% include "header.html" %}
-
-    <img src="{{ data.connectorDatasheetImage }} style="width: 100%" />
-
-    {% include "remarks-table.html" %}
+    {% include "header.html" %} <img src="{{ data.connectorDatasheetImage }}
+    style="width: 100%" /> {% include "remarks-table.html" %}
 
     <br />
     <br />
@@ -145,7 +148,7 @@
     {% endif %}
 
     <br />
-    
+
     <div style="display: grid; grid-template-columns: 1fr; gap: 20px">
       <!-- MATERIALS -->
       {% include "single-interface/materials-table.html" %}

@@ -114,6 +114,12 @@
         gap: 10px;
         width: 100%;
       }
+      table,
+      tr,
+      td {
+        page-break-inside: avoid !important;
+        break-inside: avoid-column !important;
+      }
 
       .section-body {
         display: grid;
@@ -161,8 +167,18 @@
 
       <!-- INTERFACE STANDARDS -->
       {% include "cable/interface-standards-table.html" %}
-      <!--attunation-table -->
 
+      <!--attunation-table -->
+    </div>
+
+    <div
+      style="
+        page-break-before: always;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+      "
+    >
       {% include "cable/attunation-table.html" %}
       <!-- CUSTOM SPECIFICATIONS -->
       {% include "cable/custom-specs-table.html" %}
