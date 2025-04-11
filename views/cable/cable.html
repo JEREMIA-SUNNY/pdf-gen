@@ -93,7 +93,6 @@
         border: 1px solid #00000055;
         padding: 5px;
       }
-     
 
       .td-center {
         text-align: center;
@@ -136,18 +135,9 @@
   </head>
 
   <body>
-    {% include "headerCable.html" %}
-
+    {% include "headerCable.html" %} {% if data.cableDatasheetImage %}
     <img src="{{ data.cableDatasheetImage }}" style="width: 100%" />
-
-    {% include "remarks-table.html" %}
-
-    <br />
-    <br />
-
-    <div style="page-break-before: always" />
-
-    {% if data.description %}
+    {% endif %} {% include "remarks-table.html" %} {% if data.description %}
     <div class="section" style="break-before: always">
       <div class="section-title">DESCRIPTION: {{ data.description }}</div>
     </div>

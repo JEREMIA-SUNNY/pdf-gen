@@ -133,16 +133,11 @@
   </head>
 
   <body>
-    {% include "header.html" %}
-
+    {% include "header.html" %} 
+    {% if data.connectorDatasheetImage %}
     <img src="{{ data.connectorDatasheetImage }}" style="width: 100%" />
-    {% include "remarks-table.html" %}
-
-    <br />
-    <br />
-
-    <div style="page-break-before: always" />
-
+    {% endif %} 
+    {% include "remarks-table.html" %} 
     {% if data.description %}
     <div class="section" style="break-before: always">
       <div class="section-title">DESCRIPTION: {{ data.description }}</div>
