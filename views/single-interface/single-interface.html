@@ -39,7 +39,7 @@
       }
 
       .header {
-        border-bottom: 1px solid gray;
+        border-bottom: 2px solid #00000055;
         display: flex;
         position: fixed;
         align-items: flex-end;
@@ -65,7 +65,7 @@
       }
 
       .footer {
-        border-top: 1px solid gray;
+        border-top: 2px solid #00000055;
         position: fixed;
         left: 0;
         bottom: -100px;
@@ -82,13 +82,13 @@
 
       .table {
         border-collapse: collapse;
+
         width: 100%;
       }
-      .table {
-        border: 1px solid #00000055;
-      }
-      .table td {
-        border: 1px solid #00000055;
+
+      .td {
+        border-right: 1px solid #00000055;
+        border-bottom: 1px solid #00000055;
         padding: 5px;
       }
 
@@ -133,15 +133,16 @@
   </head>
 
   <body>
-    {% include "header.html" %} 
-    {% if data.connectorDatasheetImage %}
+    {% include "header.html" %}
+
     <img src="{{ data.connectorDatasheetImage }}" style="width: 100%" />
-    {% endif %} 
-    {% include "remarks-table.html" %} 
-    {% if data.description %}
-    <div class="section" style="break-before: always">
-      <div class="section-title">DESCRIPTION: {{ data.description }}</div>
+
+    <div class="section" style="break-after: always">
+      {% include "remarks-table.html" %}
     </div>
+
+    {% if data.description %}
+    <div class="section-title">DESCRIPTION: {{ data.description }}</div>
     {% endif %}
 
     <br />

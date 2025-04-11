@@ -7,8 +7,7 @@
     <style>
       @page {
         size: A4;
-        margin-top: 120px;
-        margin-bottom: 120px;
+        margin: 100px;
 
         @bottom-left {
           margin-top: 10px;
@@ -40,7 +39,7 @@
       }
 
       .header {
-        border-bottom: 1px solid gray;
+        border-bottom: 2px solid #00000055;
         display: flex;
         position: fixed;
         align-items: flex-end;
@@ -66,7 +65,7 @@
       }
 
       .footer {
-        border-top: 1px solid gray;
+        border-top: 2px solid #00000055;
         position: fixed;
         left: 0;
         bottom: -100px;
@@ -86,11 +85,10 @@
 
         width: 100%;
       }
-      .table {
-        border: 1px solid #00000055;
-      }
-      .table td {
-        border: 1px solid #00000055;
+
+      .td {
+        border-right: 1px solid #00000055;
+        border-bottom: 1px solid #00000055;
         padding: 5px;
       }
 
@@ -135,12 +133,19 @@
   </head>
 
   <body>
-    {% include "headerCable.html" %} {% if data.cableDatasheetImage %}
+    {% include "headerCable.html" %}
+
     <img src="{{ data.cableDatasheetImage }}" style="width: 100%" />
-    {% endif %} {% include "remarks-table.html" %} {% if data.description %}
-    <div class="section" style="break-before: always">
-      <div class="section-title">DESCRIPTION: {{ data.description }}</div>
+    <div class="section" style="break-after: always">
+      {% include "remarks-table.html" %}
     </div>
+    <br />
+    <br />
+
+    {% if data.description %}
+
+    <div class="section-title">DESCRIPTION: {{ data.description }}</div>
+
     {% endif %}
 
     <br />
@@ -163,14 +168,7 @@
       <!--attunation-table -->
     </div>
 
-    <div
-      style="
-        page-break-before: always;
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 20px;
-      "
-    >
+    <div>
       {% include "cable/attunation-table.html" %}
       <!-- CUSTOM SPECIFICATIONS -->
       {% include "cable/custom-specs-table.html" %}
