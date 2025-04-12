@@ -7,7 +7,7 @@
     <style>
       @page {
         size: A4;
-        margin: 100px;
+        margin: 120px;
         @bottom-left {
           margin-top: 6px;
           content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout,Old AirportRoad, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
@@ -134,14 +134,13 @@
   </head>
 
   <body>
-    {% include "headerMulti.html" %}
-
+    {% include "headerMulti.html" %} {% if data.adaptorDatasheetImage %}
     <img src="{{ data.adaptorDatasheetImage }}" style="width: 100%" />
+    {% endif %}
+
     <div class="section" style="break-after: always">
       {% include "remarks-table.html" %}
     </div>
-    <br />
-    <br />
 
     {% if data.description %}
 
@@ -149,9 +148,7 @@
 
     {% endif %}
 
-    <br />
-
-    <div style="display: grid; grid-template-columns: 1fr; gap: 20px">
+    <div style="display: grid; grid-template-columns: 1fr; gap: 40px">
       <!-- MATERIALS -->
       {% include "multi-interface/materials-table.html" %}
 

@@ -7,7 +7,7 @@
     <style>
       @page {
         size: A4;
-        margin: 100px;
+        margin: 120px;
 
         @bottom-left {
           margin-top: 10px;
@@ -133,9 +133,9 @@
   </head>
 
   <body>
-    {% include "header.html" %}
-
+    {% include "header.html" %} {% if data.connectorDatasheetImage %}
     <img src="{{ data.connectorDatasheetImage }}" style="width: 100%" />
+    {% endif %}
 
     <div class="section" style="break-after: always">
       {% include "remarks-table.html" %}
@@ -145,9 +145,8 @@
     <div class="section-title">DESCRIPTION: {{ data.description }}</div>
     {% endif %}
 
-    <br />
-
-    <div style="display: grid; grid-template-columns: 1fr; gap: 20px">
+   
+    <div style="display: grid; grid-template-columns: 1fr; gap: 40px">
       <!-- MATERIALS -->
       {% include "single-interface/materials-table.html" %}
 

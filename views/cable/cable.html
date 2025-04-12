@@ -7,7 +7,7 @@
     <style>
       @page {
         size: A4;
-        margin: 100px;
+        margin: 120px;
 
         @bottom-left {
           margin-top: 10px;
@@ -133,14 +133,13 @@
   </head>
 
   <body>
-    {% include "headerCable.html" %}
-
+    {% include "headerCable.html" %} {% if data.cableDatasheetImage %}
     <img src="{{ data.cableDatasheetImage }}" style="width: 100%" />
+    {% endif %}
+
     <div class="section" style="break-after: always">
       {% include "remarks-table.html" %}
     </div>
-    <br />
-    <br />
 
     {% if data.description %}
 
@@ -149,7 +148,7 @@
     {% endif %}
 
     <br />
-    <div style="display: grid; grid-template-columns: 1fr; gap: 20px">
+    <div style="display: grid; grid-template-columns: 1fr; gap: 40px">
       <!-- ELECTRICAL CHARACTERISTICS -->
       {% include "cable/electrical-chars-table.html" %}
 

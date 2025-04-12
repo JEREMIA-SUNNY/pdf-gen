@@ -1,29 +1,26 @@
 {% if data.customSpecifications and data.customSpecifications | length > 0 %}
 <div class="section">
-    <div class="section-title">OTHER SPECIFICATIONS</div>
-    <div class="table-container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th class="td td-head td-center">Field Name</th>
-                    <th class="td td-head td-center">Specification</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for spec in data.customSpecifications %}
-                {% if spec.fieldName and spec.specification %}
-                <tr>
-                    <td class="td td-center">
-                        {{ spec.fieldName }}
-                    </td>
-                    <td class="td td-center">
-                        {{ spec.specification }}
-                    </td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+  <div class="section-title">OTHER SPECIFICATIONS</div>
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="td td-head td-center">Field Name</th>
+          <th class="td td-head td-center">Specification</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for spec in data.customSpecifications %} {% if spec.fieldName and
+        spec.specification %}
+        <tr>
+          <td class="td td-center" style="font-weight: bold">
+            {{ spec.fieldName }}
+          </td>
+          <td class="td td-center">{{ spec.specification }}</td>
+        </tr>
+        {% endif %} {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endif %}
