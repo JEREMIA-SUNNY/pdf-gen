@@ -7,7 +7,7 @@
     <style>
       @page {
         size: A4;
-        margin: 120px;
+        margin: 95px;
         @bottom-left {
           margin-top: 6px;
           content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout,Old AirportRoad, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
@@ -148,7 +148,14 @@
 
     {% endif %}
 
-    <div style="display: grid; grid-template-columns: 1fr; gap: 40px">
+    <div
+      style="
+        padding-top: 20px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+      "
+    >
       <!-- MATERIALS -->
       {% include "multi-interface/materials-table.html" %}
 
