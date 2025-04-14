@@ -1,10 +1,11 @@
 {% if data.cableCons and data.cableCons | length > 0 %}
-<div class="section" >
+<div class="section">
   <div class="section-title">CABLE CONSTRUCTION</div>
   <div class="table-container">
     <table class="table">
       <tbody>
-        {% for cableCon in data.cableCons %} {% if cableCon.value %}
+        {% for cableCon in data.cableCons %} {% if cableCon.value and
+        cableCon.value|lower != "not available" %}
         <tr>
           <td class="td td-center" style="width: 40%; max-width: 40%">
             <b>{{ cableCon.label }}</b>
