@@ -1,4 +1,3 @@
-
 {% for page in data.pages %} {# Check if there's a section named "Additional
 Customer Specifications" #} {% set hasCustomFieldsSection = false %} {% for sec
 in page.sections %} {% if sec.name == "Additional Customer Specifications" %} {%
@@ -58,7 +57,5 @@ page.checkBoxes.option2 or page.checkBoxes.option3 %}
   </div>
 </div>
 {% endif %}
-<br />
 {% endfor %}
-<br />
 {% endif %} {% endfor %}
