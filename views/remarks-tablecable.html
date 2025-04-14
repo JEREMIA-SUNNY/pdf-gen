@@ -1,0 +1,24 @@
+<div class="table-container">
+  <table class="table">
+    <thead>
+      <tr>
+        <td class="td td-head" style="width: 50%">{{ data.partNumber }}</td>
+        <td class="td"></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="td">
+          <p style="margin-top: 2px">Drawn by : {{ data.drawnBy }}</p>
+          <p style="margin-top: 2px">Checked by : {{ data.checkedBy }}</p>
+          <p style="margin-top: 2px">Approved by : {{ data.approvedBy }}</p>
+        </td>
+        <td class="td td-body">Issue Date {{ data.issuedDate }}</td>
+      </tr>
+      <tr>
+        <td class="td"><b>Rel No.B, Ver No. R. {{ data.versionNo }}</b></td>
+        <td class="td">Size A4</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
