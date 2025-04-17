@@ -82,7 +82,7 @@
   <h2 style="margin-top: 0; padding-top: 0;">ANNEXURE</h2>
 
       <div class="section">
-        <div class="section-heading">Payment Details</div>
+        <div class="section-heading">1. Payment Details</div>
         <table>
           <tr>
             <td width="20%">Bank Name</td>
@@ -100,7 +100,7 @@
       </div>
 
       <div class="section">
-        <div class="section-heading">Company Details</div>
+        <div class="section-heading">2. Company Details</div>
         <div class="content-value">
           1. NKRG GST Number: 29AADCN6061C1ZL<br />
           2. Udyog Aadhaar Number: KR03B0018771<br />
@@ -110,7 +110,7 @@
       </div>
 
       <div class="section">
-        <div class="section-heading">Indigenous Content</div>
+        <div class="section-heading">3. Indigenous Content</div>
         <div class="content-value">
           1. NKRF manufactures RF & MW cable assemblies & cable harnesses
           indigenously at its state-of-the-art facilities in Bangalore with a
@@ -122,7 +122,7 @@
       </div>
 
       <div class="section">
-        <div class="section-heading">Cable Assembly Labelling</div>
+        <div class="section-heading">4. Cable Assembly Labelling</div>
         <div class="content-value">
           1. As per NKRF Standard, white printing on black label. Refer Cable
           Assembly Drawings attached for more details, where applicable.<br />
@@ -132,7 +132,7 @@
       </div>
 
       <div class="section">
-        <div class="section-heading">Inspection & Tests</div>
+        <div class="section-heading">5. Inspection & Tests</div>
         <div class="content-value">
           1. All Goods manufactured by Seller are subject to Seller's standard
           inspection and quality assurance processes and, if applicable,
@@ -160,8 +160,14 @@
             desired frequency range.<br />
             b. S Plots of individual adaptors can be included with dispatch,
             detailing – VSWR, Insertion Loss over the desired frequency range,
-            at an additional cost of Rs. 1000 per adaptor from OEM or Rs. 500
-            per adaptor from NKRF.
+            at an additional cost of
+            <span>
+              {% if isBlankQuote %}
+                Rs. 1000 per adaptor from OEM or Rs. 500 per adaptor from NKRF.
+              {% else %}
+                xxxx per adaptor from OEM or xxxx per adaptor from NKRF.
+              {% endif %}
+            </span>
           </div>
           5. Certificate of Conformance to be included with dispatch for all
           cable assemblies.
@@ -171,7 +177,7 @@
       <h2>TERMS &amp; CONDITIONS</h2>
 
       <div class="section">
-        <div class="section-heading">Definitions</div>
+        <div class="section-heading">1. Definitions</div>
         <div class="content-value">
           DEFINITIONS. As used herein: "Seller" means N.K. RF Products &
           Services Private Limited. "Buyer" means the entity to which Seller's
@@ -194,7 +200,7 @@
       </div>
 
       <div class="section">
-        <div class="section-heading">Order Details</div>
+        <div class="section-heading">2. Order Details</div>
         <div class="content-value">
           a. Order to be released on N.K. RF Products & Services Pvt. Ltd. No.
           2, 2nd Cross, Rustam Bagh, Off Old Airport Road, Bangalore – 560 017.
@@ -205,9 +211,15 @@
           of receipt of these details.<br />
           c. Prices Offered are based on the MOQ as per our quotation; any
           reduction in quantity will impact the unit price.<br />
-          d. NKRF has used Rs. 86 to 1 USD as the conversion factor. We will
-          absorb any variation in the ±2.5% band. Any variation in excess of
-          that will be to the customer's account.<br />
+          <div class="content-value">
+            d. NKRF has used
+            {% if isBlankQuote %}
+              Rs. 86 to 1 USD
+            {% else %}
+              xxxx to xxxx
+            {% endif %}
+            as the conversion factor. We will absorb any variation in the ±2.5% band. Any variation in excess of that will be to the customer's account.
+          </div>
           e. HSN Codes used as follows:<br />
           <div class="sub-points">
             i. Cable Assemblies – 85442010<br />
@@ -222,7 +234,7 @@
       </div>
 
       <div class="section">
-        <div class="section-heading">Order Cancellation</div>
+        <div class="section-heading">3. Order Cancellation</div>
         <div class="content-value">
           Seller, at its sole discretion and subject to Seller's written
           authorization, may allow Buyer to cancel all or part of Buyer's Order
@@ -245,7 +257,7 @@
       </div>
 
       <div class="section">
-        <div class="section-heading">Changes or Modifications to Order</div>
+        <div class="section-heading">4. Changes or Modifications to Order</div>
         <div class="content-value">
           Buyer may request changes within the general scope of Buyer's Order by
           providing written notice to Seller; however, such changes shall not be
@@ -258,7 +270,7 @@
       </div>
 
       <div class="section">
-        <div class="section-heading">Non-Termination Clause</div>
+        <div class="section-heading">5. Non-Termination Clause</div>
         <div class="content-value">
           a. This order cannot be terminated in part or whole after its
           release.<br />
@@ -271,7 +283,7 @@
       </div>
 
       <div class="section">
-        <div class="section-heading">Payment Terms</div>
+        <div class="section-heading">6. Payment Terms</div>
         <div class="content-value">
           a. Part shipment is allowed, with pro-rata payments to be released for
           items delivered early.<br />
@@ -285,7 +297,7 @@
       </div>
 
       <div class="section">
-        <div class="section-heading">Bank Charges</div>
+        <div class="section-heading">7. Bank Charges</div>
         <div class="content-value">
           All statutory bank charges levied by the buyer's bankers will be borne
           by the buyer, and all bank charges levied by Seller (NKRF) bankers
@@ -295,7 +307,7 @@
 
       <div class="section">
         <div class="section-heading">
-          GST on Sale of Goods or Services Rendered
+          8. GST on Sale of Goods or Services Rendered
         </div>
         <div class="content-value">
           a. GST rates will be applied extra as applicable/announced/amended as
@@ -306,7 +318,7 @@
       </div>
 
       <div class="section">
-        <div class="section-heading">Delivery Conditions</div>
+        <div class="section-heading">9. Delivery Conditions</div>
         <div class="content-value">
           a. Suppliers reserve the right to request delivery date extensions if
           deliveries are delayed.<br />
@@ -316,7 +328,7 @@
       </div>
 
       <div class="section">
-        <div class="section-heading">Insurance of Goods</div>
+        <div class="section-heading">10. Insurance of Goods</div>
         <div class="content-value">
           Risk or loss of, or damage to, the furnished equipment—or any portion
           thereof—from any cause shall pass to the Purchaser upon delivery of
@@ -328,7 +340,7 @@
       </div>
 
       <div class="section">
-        <div class="section-heading">Limitation of Liability</div>
+        <div class="section-heading">11. Limitation of Liability</div>
         <div class="content-value">
           NKRF and its suppliers shall not be liable for any special, indirect,
           incidental, or consequential damages. Liability is limited to repair
@@ -338,7 +350,7 @@
       </div>
 
       <div class="section">
-        <div class="section-heading">Delivery Schedule and Force Majeure</div>
+        <div class="section-heading">12. Delivery Schedule and Force Majeure</div>
         <div class="content-value">
           All dates for delivery of Goods and provision of Services are
           approximate estimates and depend on the prompt receipt of all
@@ -355,7 +367,7 @@
       </div>
 
       <div class="section">
-        <div class="section-heading">Additional Warranty Terms</div>
+        <div class="section-heading">13. Additional Warranty Terms</div>
         <div class="content-value">
           Our standard warranty is for 12 months from the date of Delivery,
           covering repair or replacement at NKRF's discretion under standard
@@ -365,7 +377,7 @@
       </div>
 
       <div class="section">
-        <div class="section-heading">Confidentiality</div>
+        <div class="section-heading">14. Confidentiality</div>
         <div class="content-value">
           Buyer shall keep confidential and not disclose any of Seller's
           Confidential Information without Seller's prior written consent.
@@ -379,7 +391,7 @@
       </div>
 
       <div class="section">
-        <div class="section-heading">Ethics and Values</div>
+        <div class="section-heading">15. Ethics and Values</div>
         <div class="content-value">
           Seller is committed to uncompromising ethical standards, strict
           adherence to laws and regulations, and customer satisfaction. Buyer is

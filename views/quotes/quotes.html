@@ -264,8 +264,10 @@ li:not(.tc-content li),
 
     <br /><br />
     <p class="section-title">
-      <strong>Kind Attention: {{ data.contactName }}</strong>
+     <strong>Kind Attention: {{ data.contactName }}</strong>
     </p>
+    <p> Email : {{data.contactEmail}}</p>
+    <p> Mobile: {{data.contactMobile}}</p>
     <p class="section-title">Subject: {{ data.subTitle }}</p>
 
     {% if data.contactSalutation|lower == "mr" %} {% set greeting = "sir" %} {%
@@ -325,52 +327,57 @@ li:not(.tc-content li),
 
     <br /><br /><br /><br />
     <div style="page-break-before: always">
-      {% set partsWithCustomer = data.parts | selectattr("customerPartNumber",
-      "ne", "") | list %} {% set showCustomerPart = partsWithCustomer | length >
-      0 %}
-      <table class="quotation-table">
-        <thead>
-          <tr>
-            <th>Sr. No.</th>
-            {% if showCustomerPart %}
-            <th class="customer-part">Customer Part No.</th>
-            {% endif %}
-            <th class="nkrf-part">NKRF Part No.</th>
-            <th class="description">Description</th>
-            <th class="moq">MOQ</th>
-            <th class="lead-time">Lead Time</th>
-            <th class="unit-price">Unit Price</th>
-            <th class="ext-price">Extended Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for item in data.parts %}
-          <tr>
-            <td style="text-align: center">{{ loop.index }}</td>
-            {% if showCustomerPart %}
-            <td style="text-align: center">{{ item.customerPartNumber }}</td>
-            {% endif %}
-            <td style="text-align: center">{{ item.NKRFPartNumber }}</td>
-            <td>{{ item.NKRFPartDescription }}</td>
-            <td style="text-align: center">{{ item.moq }}</td>
-            <td style="text-align: center">{{ item.leadTime }} Week(s)</td>
-            <td style="text-align: center">{{ item.unitPriceFormatted }}</td>
-            <td style="text-align: center">
-              {{ item.extendedPriceFormatted }}
-            </td>
-          </tr>
-          {% endfor %}
-          <tr>
-            <td
-              colspan="{% if showCustomerPart %}7{% else %}6{% endif %}"
-              style="text-align: right"
-            >
-              <strong>Total Amount:</strong>
-            </td>
-            <td style="text-align: center">{{ data.totalAmount }}</td>
-          </tr>
-        </tbody>
-      </table>
+     {% set partsWithCustomer = data.parts | selectattr("customerPartNumber", "ne", "") | list %}
+{% set showCustomerPart = partsWithCustomer | length > 0 %}
+<table class="quotation-table">
+  <thead>
+    <tr>
+      <th>Sr. No.</th>
+      {% if showCustomerPart %}
+      <th class="customer-part">Customer Part No.</th>
+      {% endif %}
+      <th class="nkrf-part">NKRF Part No.</th>
+      <th class="description">Description</th>
+      <th class="moq">MOQ</th>
+      <th class="lead-time">Lead Time</th>
+      <th class="unit-price">Unit Price</th>
+      <th class="ext-price">
+        {% if data.isGstInclusive %}
+        Extended Price (incl. GST)
+        {% else %}
+        Extended Price (excl. GST)
+        {% endif %}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in data.parts %}
+    <tr>
+      <td style="text-align: center">{{ loop.index }}</td>
+      {% if showCustomerPart %}
+      <td style="text-align: center">{{ item.customerPartNumber }}</td>
+      {% endif %}
+      <td style="text-align: center">{{ item.NKRFPartNumber }}</td>
+      <td>{{ item.NKRFPartDescription }}</td>
+      <td style="text-align: center">{{ item.moq }}</td>
+      <td style="text-align: center">{{ item.leadTime }} Week(s)</td>
+      <td style="text-align: center">{{ item.unitPriceFormatted }}</td>
+      <td style="text-align: center">
+        {{ item.extendedPriceFormatted }}
+      </td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <td
+        colspan="{% if showCustomerPart %}7{% else %}6{% endif %}"
+        style="text-align: right"
+      >
+        <strong>Total Amount:</strong>
+      </td>
+      <td style="text-align: center">{{ data.totalAmount }}</td>
+    </tr>
+  </tbody>
+</table>
     </div>
 
     <!-- Include Additional Details from a separate file -->
