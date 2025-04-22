@@ -90,20 +90,40 @@
       }
 
       .table-container {
-        border-left: 1px solid #00000055;
-        border-top: 1px solid #00000055;
+        /* just a wrapper — no borders here */
+        margin: 1em 0;
       }
 
       .table {
-        border-collapse: collapse;
-        border-spacing: 0;
         width: 100%;
+        border-collapse: collapse; /* merge adjacent borders into one */
+        /* optional outer border on the entire table: */
+        border: 1px solid #00000055;
       }
 
+      .table th,
+      .table td {
+        /* a single border on every cell — no need for special left/right rules */
+        border: 1px solid #00000055;
+        padding: 5px;
+        vertical-align: top;
+      }
+
+      /* header styling */
+      .table th {
+        background-color: #375fbd;
+        color: #fff;
+        font-weight: bold;
+      }
+
+      /* prevent row splits across pages */
+      .table tbody tr,
+      .table tbody tr > td {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
       .td {
         padding: 5px;
-        border-right: 1px solid #00000055;
-        border-bottom: 1px solid #00000055;
       }
 
       .td-center {
