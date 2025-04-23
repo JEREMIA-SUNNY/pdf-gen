@@ -21,23 +21,18 @@ def generate_pdf():
     pdf_buffer.seek(0)
     return send_file(pdf_buffer, mimetype='application/pdf')
 
-@app.route('/generateCable-pdf/cable', methods=['POST'])
+@app.route('/generateCable-pdf/cable',methods=['POST'])
 def generateCable_pdf():
-    data = request.json
-    if not data:
-        # Log a warning and return a bad request
-        app.logger.error("No JSON payload received")
-        return "Invalid request: no JSON payload", 400
-    app.logger.info(f"Received payload: {data}")
-    try:
-        rendered_html = render_template("cable/cable.html", data=data)
-    except Exception as e:
-        app.logger.error("Template rendering failed", exc_info=e)
-        return f"Template error: {str(e)}", 400
+
+    data=request.json
+
+    rendered_html=render_template("cable/cable.html", data=data)
     pdf_buffer = io.BytesIO()
     HTML(string=rendered_html).write_pdf(pdf_buffer)
     pdf_buffer.seek(0)
     return send_file(pdf_buffer, mimetype='application/pdf')
+
+
 
 
 @app.route('/generateMulti-pdf/Multi',methods=['POST'])
@@ -73,9 +68,25 @@ def generateQuotes_pdf():
     pdf_buffer.seek(0)
     return send_file(pdf_buffer, mimetype='application/pdf')
 
+@app.route('/coverLetter/coverLetters', methods=['POST'])
+def generateCoverLetter_pdf():
+    data = request.json
+    if not data:
+        return "Invalid JSON payload", 400
+    if "quotationRef" not in data or "customerName" not in data:
+        return "Missing required fields", 400
+    if not isinstance(data.get("items"), list):
+        return "Invalid 'items' field. It must be a list.", 400
+    print(data)  # Debugging: Print the incoming JSON data
 
+    # Render the Jinja template for the cover letter
+    rendered_html = render_template("coverLetter/coverLetters.html", data=data)
 
-
+    # Convert HTML to PDF
+    pdf_buffer = io.BytesIO()
+    HTML(string=rendered_html).write_pdf(pdf_buffer)
+    pdf_buffer.seek(0)
+    return send_file(pdf_buffer, mimetype='application/pdf')
 
 if __name__ == '__main__':
     app.run(debug=True)

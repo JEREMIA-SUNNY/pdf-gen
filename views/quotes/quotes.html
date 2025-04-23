@@ -140,14 +140,12 @@ li:not(.tc-content li),
       .quotation-table th.moq {
         width: 50px;
       }
-      .quotation-table th.lead-time {
-        width: 70px;
-      }
+
       .quotation-table th.unit-price {
         width: 50px;
       }
       .quotation-table th.ext-price {
-        width: 75px;
+        width: 65px;
       }
 
       /* Force text wrapping in description cell */
@@ -263,11 +261,16 @@ li:not(.tc-content li),
     </div>
 
     <br /><br />
-    <p class="section-title">
-     <strong>Kind Attention: {{ data.contactName }}</strong>
+    <div class="to-block">
+      <p class="section-title">
+      <strong>Kind Attention: {{ data.contactName }}</strong>
     </p>
-    <p> Email : {{data.contactEmail}}</p>
-    <p> Mobile: {{data.contactMobile}}</p>
+    <span>{{ data.contactEmail }}</span><br />
+    <span>{{ data.contactMobile }}</span>
+      </div>
+
+    <br /><br />
+
     <p class="section-title">Subject: {{ data.subTitle }}</p>
 
     {% if data.contactSalutation|lower == "mr" %} {% set greeting = "sir" %} {%
@@ -332,20 +335,19 @@ li:not(.tc-content li),
 <table class="quotation-table">
   <thead>
     <tr>
-      <th>Sr. No.</th>
+      <th style="text-align: center; width: 30px;">Sr. No.</th>
       {% if showCustomerPart %}
-      <th class="customer-part">Customer Part No.</th>
+      <th style="text-align: center; width: 100px;">Customer Part No.</th>
       {% endif %}
-      <th class="nkrf-part">NKRF Part No.</th>
-      <th class="description">Description</th>
-      <th class="moq">MOQ</th>
-      <th class="lead-time">Lead Time</th>
-      <th class="unit-price">Unit Price</th>
-      <th class="ext-price">
+      <th style="text-align: center; width: auto;">NKRF Part No.</th>
+      <th style="text-align: center; width: auto;">Description</th>
+      <th style="text-align: center; width: 50px;">MOQ</th>
+      <th style="text-align: center; width: 80px;">Unit Price</th>
+      <th style="text-align: center; width: 90px;">
         {% if data.isGstInclusive %}
-        Extended Price (incl. GST)
+        Extended Price<br />(incl. GST)
         {% else %}
-        Extended Price (excl. GST)
+        Extended Price<br />(excl. GST)
         {% endif %}
       </th>
     </tr>
@@ -353,31 +355,34 @@ li:not(.tc-content li),
   <tbody>
     {% for item in data.parts %}
     <tr>
-      <td style="text-align: center">{{ loop.index }}</td>
+      <td style="text-align: center;">{{ loop.index }}</td>
       {% if showCustomerPart %}
-      <td style="text-align: center">{{ item.customerPartNumber }}</td>
+      <td style="text-align: center;">{{ item.customerPartNumber }}</td>
       {% endif %}
-      <td style="text-align: center">{{ item.NKRFPartNumber }}</td>
+      <td style="text-align: center;">{{ item.NKRFPartNumber }}</td>
       <td>{{ item.NKRFPartDescription }}</td>
-      <td style="text-align: center">{{ item.moq }}</td>
-      <td style="text-align: center">{{ item.leadTime }} Week(s)</td>
-      <td style="text-align: center">{{ item.unitPriceFormatted }}</td>
-      <td style="text-align: center">
+      <td style="text-align: center;">{{ item.moq }}</td>
+      <td style="text-align: center;">
+        {{ item.unitPriceFormatted }}
+      </td>
+      <td style="text-align: center;">
         {{ item.extendedPriceFormatted }}
       </td>
     </tr>
     {% endfor %}
     <tr>
       <td
-        colspan="{% if showCustomerPart %}7{% else %}6{% endif %}"
-        style="text-align: right"
+        colspan="{% if showCustomerPart %}6{% else %}5{% endif %}"
+        style="text-align: right;"
       >
         <strong>Total Amount:</strong>
       </td>
-      <td style="text-align: center">{{ data.totalAmount }}</td>
+      <td style="text-align: center;">{{ data.totalAmount }}</td>
     </tr>
   </tbody>
 </table>
+
+<!-- Lead Time moved to a single field below -->
     </div>
 
     <!-- Include Additional Details from a separate file -->
