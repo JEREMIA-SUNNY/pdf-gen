@@ -5,6 +5,8 @@
     <thead>
       <tr>
         <!-- <th class="td td-head">Sl No</th> -->
+        <th class="td td-head">Part Type</th>
+
         <th class="td td-head">NKRF Part Number</th>
         <th class="td td-head">Connector End A</th>
         <th class="td td-head">Connector End B</th>
@@ -20,14 +22,16 @@
       {}).get(prop, "") %} {% set endA = item.get("Connector End A",
       {}).get(prop, "") %} {% set endB = item.get("Connector End B",
       {}).get(prop, "") %} {% set insertion = item.get("Insertion Loss",
-      {}).get(prop, "") %} {% set sets_value = item.get("Number Of Sets",
-      {}).get(prop, "") %} {% set quantity = item.get("Quantity", {}).get(prop,
-      "") %} {# Check if any value is non-empty, so we know to print a row #} {%
-      set hasData = cable_part or endA or endB or insertion or sets_value or
-      quantity %} {% if hasData %} {% set rowCounter = rowCounter + 1 %}
+      {}).get(prop, "") %} {% set originalPartType = item.get("Original PartType", {}).get(prop, "") %}{% set sets_value = item.get("Number Of
+      Sets", {}).get(prop, "") %} {% set quantity = item.get("Quantity",
+      {}).get(prop, "") %} {# Check if any value is non-empty, so we know to
+      print a row #} {% set hasData = cable_part or endA or endB or insertion or
+      sets_value or quantity or originalPartType %} {% if hasData %} {% set
+      rowCounter = rowCounter + 1 %}
       <tr>
         <!-- <td class="td" style="text-align: center">{{ item.slNo }}</td> -->
-        <td class="td" style="text-align: center">{{ cable_part }}</td>
+        <td class="td" style="text-align: center">{{ originalPartType }}</td>
+        <td class="td" style="text-align: center">{{ cable_part }}</td> 
         <td class="td" style="text-align: center">{{ endA }}</td>
         <td class="td" style="text-align: center">{{ endB }}</td>
         <td class="td" style="text-align: center">{{ insertion }}</td>
@@ -39,5 +43,3 @@
   </table>
 </div>
 {% endif %}
-
-
