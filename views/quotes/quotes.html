@@ -335,15 +335,15 @@ li:not(.tc-content li),
 <table class="quotation-table">
   <thead>
     <tr>
-      <th style="text-align: center; width: 30px;">Sr. No.</th>
+      <th style="text-align: center; vertical-align: middle; width: 30px;">Sr. No.</th>
       {% if showCustomerPart %}
-      <th style="text-align: center; width: 100px;">Customer Part No.</th>
+      <th style="text-align: center; vertical-align: middle; width: 100px;">Customer Part No.</th>
       {% endif %}
-      <th style="text-align: center; width: auto;">NKRF Part No.</th>
-      <th style="text-align: center; width: auto;">Description</th>
-      <th style="text-align: center; width: 50px;">MOQ</th>
-      <th style="text-align: center; width: 80px;">Unit Price</th>
-      <th style="text-align: center; width: 90px;">
+      <th style="text-align: center; vertical-align: middle; width: 100px;">NKRF Part No.</th>
+      <th style="text-align: center; vertical-align: middle; width: auto;">Description</th>
+      <th style="text-align: center; vertical-align: middle; width: 50px;">MOQ</th>
+      <th style="text-align: center; vertical-align: middle; width: 80px;">Unit Price</th>
+      <th style="text-align: center; vertical-align: middle; width: 90px;">
         {% if data.isGstInclusive %}
         Extended Price<br />(incl. GST)
         {% else %}
@@ -355,17 +355,17 @@ li:not(.tc-content li),
   <tbody>
     {% for item in data.parts %}
     <tr>
-      <td style="text-align: center;">{{ loop.index }}</td>
+      <td style="text-align: center; vertical-align: middle;">{{ loop.index }}</td>
       {% if showCustomerPart %}
-      <td style="text-align: center;">{{ item.customerPartNumber }}</td>
+      <td style="text-align: center; vertical-align: middle;">{{ item.customerPartNumber }}</td>
       {% endif %}
-      <td style="text-align: center;">{{ item.NKRFPartNumber }}</td>
-      <td>{{ item.NKRFPartDescription }}</td>
-      <td style="text-align: center;">{{ item.moq }}</td>
-      <td style="text-align: center;">
+      <td style="text-align: center; vertical-align: middle;">{{ item.NKRFPartNumber }}</td>
+      <td style="vertical-align: middle;">{{ item.NKRFPartDescription }}</td>
+      <td style="text-align: center; vertical-align: middle;">{{ item.moq }}</td>
+      <td style="text-align: center; vertical-align: middle;">
         {{ item.unitPriceFormatted }}
       </td>
-      <td style="text-align: center;">
+      <td style="text-align: center; vertical-align: middle;">
         {{ item.extendedPriceFormatted }}
       </td>
     </tr>
@@ -373,11 +373,11 @@ li:not(.tc-content li),
     <tr>
       <td
         colspan="{% if showCustomerPart %}6{% else %}5{% endif %}"
-        style="text-align: right;"
+        style="text-align: right; vertical-align: middle;"
       >
         <strong>Total Amount:</strong>
       </td>
-      <td style="text-align: center;">{{ data.totalAmount }}</td>
+      <td style="text-align: center; vertical-align: middle;">{{ data.totalAmount }}</td>
     </tr>
   </tbody>
 </table>

@@ -16,18 +16,19 @@
       </tr>
     </thead>
     <tbody>
-      {% for item in extractedFieldsData %} {% for prop in ["value", "option1",
-      "option2", "option3"] %} {# Use .get(..., "") so missing keys yield an
-      empty string #} {% set cable_part = item.get("Cable Assembly Part Number",
-      {}).get(prop, "") %} {% set endA = item.get("Connector End A",
-      {}).get(prop, "") %} {% set endB = item.get("Connector End B",
-      {}).get(prop, "") %} {% set insertion = item.get("Insertion Loss",
-      {}).get(prop, "") %} {% set originalPartType = item.get("Original PartType", {}).get(prop, "") %}{% set sets_value = item.get("Number Of
-      Sets", {}).get(prop, "") %} {% set quantity = item.get("Quantity",
-      {}).get(prop, "") %} {# Check if any value is non-empty, so we know to
-      print a row #} {% set hasData = cable_part or endA or endB or insertion or
-      sets_value or quantity or originalPartType %} {% if hasData %} {% set
-      rowCounter = rowCounter + 1 %}
+      {% for item in extractedFieldsData %} {% for prop in ["value", "option1","option2", "option3"] %} 
+      {# Use .get(..., "") so missing keys yield an empty string #} 
+      {% set cable_part = item.get("Cable Assembly Part Number",{}).get(prop, "") or item.get("Part Number", {}).get(prop, "") %}
+      {% set endA = item.get("Connector End A",{}).get(prop, "") or item.get("Connector End A Multi", {}).get(prop, "") %}
+      {% set endB = item.get("Connector End B",{}).get(prop, "") or item.get("Connector End B Multi", {}).get(prop, "") %}
+      {% set insertion = item.get("Insertion Loss (dB)",{}).get(prop, "") or item.get("Insertion Loss", {}).get(prop, "")%} 
+      {% set originalPartType = item.get("Original PartType", {}).get(prop, "") %}
+      {% set sets_value = item.get("Number Of Sets", {}).get(prop, "") %} 
+      {% set quantity = item.get("Quantity",{}).get(prop, "") %} 
+      {# Check if any value is non-empty, so we know to print a row #} 
+      {% set hasData = cable_part or endA or endB or insertion or sets_value or quantity or originalPartType %} 
+      {% if hasData %} 
+      {% set rowCounter = rowCounter + 1 %}
       <tr>
         <!-- <td class="td" style="text-align: center">{{ item.slNo }}</td> -->
         <td class="td" style="text-align: center">{{ originalPartType }}</td>
