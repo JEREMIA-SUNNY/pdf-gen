@@ -170,13 +170,7 @@
         b. S Plots of individual adaptors can be included with dispatch,
         detailing – VSWR, Insertion Loss over the desired frequency range,
         at an additional cost of
-        <span>
-          {% if isBlankQuote %}
-            Rs. 1000 per adaptor from OEM or Rs. 500 per adaptor from NKRF.
-          {% else %}
-            xxxx per adaptor from OEM or xxxx per adaptor from NKRF.
-          {% endif %}
-        </span>
+       <span>{{ data.adaptorPriceText }}</span>
       </div>
       5. Certificate of Conformance to be included with dispatch for all
       cable assemblies.
@@ -220,15 +214,9 @@
       of receipt of these details.<br />
       c. Prices Offered are based on the MOQ as per our quotation; any
       reduction in quantity will impact the unit price.<br />
-      <div class="content-value">
-        d. NKRF has used
-        {% if isBlankQuote %}
-          Rs. 86 to 1 USD
-        {% else %}
-          xxxx to xxxx
-        {% endif %}
-        as the conversion factor. We will absorb any variation in the ±2.5% band. Any variation in excess of that will be to the customer's account.
-      </div>
+     <div class="content-value">
+  d. NKRF has used {{ data.conversionRateText }} as the conversion factor. We will absorb any variation in the ±2.5% band. Any variation in excess of that will be to the customer's account.
+</div>
       e. HSN Codes used as follows:<br />
       <div class="sub-points">
         i. Cable Assemblies – 85442010<br />
@@ -378,16 +366,11 @@
   <div class="section">
     <div class="section-heading">13. Additional Warranty Terms</div>
     <div class="content-value">
-      Our standard warranty is for 12 months from the date of Delivery,
-      covering repair or replacement at NKRF's discretion under standard
-      operating conditions. Additional Warranty can be purchased at
-      {% if isBlankQuote %}
-        xxxx
-      {% else %}
-        7.5%
-      {% endif %}
-      per annum prior to the expiry of the Manufacturer's Warranty.
-    </div>
+  Our standard warranty is for 12 months from the date of Delivery,
+  covering repair or replacement at NKRF's discretion under standard
+  operating conditions. Additional Warranty can be purchased at
+  {{ data.warrantyRateText }} per annum prior to the expiry of the Manufacturer's Warranty.
+</div>
   </div>
 
   <div class="section">
