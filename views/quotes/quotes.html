@@ -355,7 +355,7 @@ li:not(.tc-content li),
   <tbody>
     {% for item in data.parts %}
     <tr>
-      <td style="text-align: center; vertical-align: middle;">{{ loop.index }}</td>
+      <td style="text-align: center; vertical-align: middle;">{{ item.slNo }}</td>
       {% if showCustomerPart %}
       <td style="text-align: center; vertical-align: middle;">{{ item.customerPartNumber }}</td>
       {% endif %}
