@@ -4,17 +4,22 @@
   <div class="table-container">
     <table class="table">
       <tbody>
-        {% for electricalChar in data.electricalChars %} {% if
-        electricalChar.value | trim %}
-        <tr>
-          <td class="td td-center" style="width: 40%; max-width: 40%">
-            <b>{{ electricalChar.label }}</b>
-          </td>
-          <td class="td td-center" style="width: 60%">
-            {{ electricalChar.value }}
-          </td>
-        </tr>
-        {% endif %} {% endfor %}
+        {% for electricalChar in data.electricalChars %}
+        {% set label = electricalChar.label | trim %}
+        {% set value = electricalChar.value | trim %}
+        {% set normalizedLabel = label | lower | replace(" ", "") %}
+        {% if value and not (normalizedLabel == 'attenuationformula' and value == 'Not Available') %}
+          <tr>
+            <td class="td td-center" style="width: 40%; max-width: 40%">
+              <b>{{ label }}</b>
+            </td>
+            <td class="td td-center" style="width: 60%">
+              {{ value }}
+            </td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+      
       </tbody>
     </table>
   </div>
