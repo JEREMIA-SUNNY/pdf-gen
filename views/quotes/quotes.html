@@ -142,10 +142,10 @@ li:not(.tc-content li),
       }
 
       .quotation-table th.unit-price {
-        width: 60px;
+        width: 50px;
       }
       .quotation-table th.ext-price {
-        width: 75px;
+        width: 675px;
       }
 
       /* Force text wrapping in description cell */
@@ -342,8 +342,8 @@ li:not(.tc-content li),
       <th style="text-align: center; vertical-align: middle; width: 150px;">NKRF Part No.</th>
       <th style="text-align: center; vertical-align: middle; width: auto;">Description</th>
       <th style="text-align: center; vertical-align: middle; width: 50px;">MOQ</th>
-      <th style="text-align: center; vertical-align: middle; width: 120px;">Unit Price</th>
-      <th style="text-align: center; vertical-align: middle; width: 140px;">
+      <th style="text-align: center; vertical-align: middle; width: 90px;">Unit Price</th>
+      <th style="text-align: center; vertical-align: middle; width: 120px;">
         {% if data.isGstInclusive %}
         Extended Price<br />(incl. GST)
         {% else %}
@@ -362,8 +362,12 @@ li:not(.tc-content li),
       <td style="text-align: center; vertical-align: middle;">{{ item.NKRFPartNumber }}</td>
       <td style="vertical-align: middle;">{{ item.NKRFPartDescription }}</td>
       <td style="text-align: center; vertical-align: middle;">{{ item.moq }}</td>
-      <td style="text-align: center; vertical-align: middle; white-space: nowrap;">{{ item.unitPriceFormatted }}</td>
-      <td style="text-align: center; vertical-align: middle; white-space: nowrap;">{{ item.extendedPriceFormatted }}</td>
+      <td style="text-align: center; vertical-align: middle;">
+        {{ item.unitPriceFormatted }}
+      </td>
+      <td style="text-align: center; vertical-align: middle;">
+        {{ item.extendedPriceFormatted }}
+      </td>
     </tr>
     {% endfor %}
     <tr>
@@ -373,7 +377,7 @@ li:not(.tc-content li),
       >
         <strong>Total Amount:</strong>
       </td>
-      <td style="text-align: center; vertical-align: middle; white-space: nowrap;">{{ data.totalAmount }}</td>
+      <td style="text-align: center; vertical-align: middle;">{{ data.totalAmount }}</td>
     </tr>
   </tbody>
 </table>
