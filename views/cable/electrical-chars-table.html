@@ -8,7 +8,7 @@
         {% set label = electricalChar.label | trim %}
         {% set value = electricalChar.value | trim %}
         {% set normalizedLabel = label | lower | replace(" ", "") %}
-        {% if value and not (normalizedLabel == 'attenuationformula' and value == 'Not Available') %}
+        {% if value is not none and value != '' and not (normalizedLabel == 'attenuationformula' and value == 'Not Available') %}
           <tr>
             <td class="td td-center" style="width: 40%; max-width: 40%">
               <b>{{ label }}</b>
@@ -18,8 +18,7 @@
             </td>
           </tr>
         {% endif %}
-      {% endfor %}
-      
+        {% endfor %}
       </tbody>
     </table>
   </div>
