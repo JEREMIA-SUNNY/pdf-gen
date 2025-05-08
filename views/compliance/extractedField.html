@@ -5,8 +5,8 @@
     <thead>
       <tr>
         <!-- <th class="td td-head">Sl No</th> -->
+         <th class="td td-head" style="text-align: center;">  Si No</th>
         <th class="td td-head" style="text-align: center;">Part Type</th>
-
         <th class="td td-head" style="text-align: center;">NKRF Part Number</th>
         <th class="td td-head" style="text-align: center;">Connector End A</th>
         <th class="td td-head" style="text-align: center;">Connector End B</th>
@@ -20,6 +20,7 @@
   {% set options = ["value", "option1", "option2", "option3"] %}
   {% for prop in options %}
     {# Collect fields, fallback to "-" #}
+    {% set Si_No = item.get("Si No", {}).get(prop) or "-" %}
     {% set cable_part = item.get("Cable Assembly Part Number", {}).get(prop) or item.get("Part Number", {}).get(prop) or "-" %}
     {% set endA = item.get("Connector End A", {}).get(prop) or item.get("Connector End A Multi", {}).get(prop) or "-" %}
     {% set endB = item.get("Connector End B", {}).get(prop) or item.get("Connector End B Multi", {}).get(prop) or "-" %}
@@ -31,6 +32,7 @@
     {# Skip row if everything is "-" #}
     {% if cable_part != "-" or endA != "-" or endB != "-" or insertion != "-" or originalPartType != "-" or sets_value != "-" or quantity != "-" %}
     <tr>
+      <td class="td" style="text-align: center">{{ Si_No }}</td>
       <td class="td" style="text-align: center">{{ originalPartType }}</td>
       <td class="td" style="text-align: center">{{ cable_part }}</td>
       <td class="td" style="text-align: center">{{ endA }}</td>
