@@ -6,7 +6,7 @@ at least one checkbox is true #} {% if page.checkBoxes.option1 or
 page.checkBoxes.option2 or page.checkBoxes.option3 %}
 <div style="page-break-after: always" class=""></div>
 <h4 class="section-title">{{ page.name }}</h4>
-<br />
+
 
 {% for section in page.sections %} {% if section.fields|length > 0 %}
 <div class="section">
