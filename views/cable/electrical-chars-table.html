@@ -4,10 +4,10 @@
   <div class="table-container">
     <table class="table">
       <tbody>
-        {% for electricalChar in data.electricalChars %} {% set label =
-        electricalChar.label | trim %} {% set value = electricalChar.value |
-        trim %} {% set normalizedLabel = label | lower | replace(" ", "") %} {%
-        if value is not none and value != '' %}
+        {% for electricalChar in data.electricalChars %} 
+        {% set label = electricalChar.label | trim %} {% set value = electricalChar.value | trim %} 
+        {% set normalizedLabel = label | lower | replace(" ", "") %}
+        {% if value is not none and value != '' %}
         <tr>
           <td class="td td-center" style="width: 40%; max-width: 40%">
             <b>{{ label }}</b>
