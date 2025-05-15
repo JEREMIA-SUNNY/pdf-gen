@@ -16,9 +16,15 @@
       <tbody>
         {% for spec in data.attenuationPowerSpecs %}
         <tr>
-          <td class="td td-center">{{ spec.frequency }}</td>
-          <td class="td td-center">{{ spec.attenuation }}</td>
-          <td class="td td-center">{{ spec.power }}</td>
+          <td class="td td-center">
+            {{ spec.frequency if spec.frequency is not none else "N/A" }}
+          </td>
+          <td class="td td-center">
+            {{ spec.attenuation if spec.attenuation is not none else "N/A" }}
+          </td>
+          <td class="td td-center">
+            {{ spec.power if spec.power is not none else "N/A" }}
+          </td>
         </tr>
         {% endfor %}
       </tbody>
