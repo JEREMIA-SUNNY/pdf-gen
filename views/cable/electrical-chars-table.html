@@ -5,18 +5,25 @@
     <table class="table">
       <tbody>
         {% for electricalChar in data.electricalChars %} 
-        {% set label = electricalChar.label | trim %} {% set value = electricalChar.value | trim %} 
+        {% set label = electricalChar.label | trim %} 
+        {% set value = electricalChar.value | trim %} 
         {% set normalizedLabel = label | lower | replace(" ", "") %}
+
         {% if value is not none and value != '' %}
         <tr>
           <td class="td td-center" style="width: 40%; max-width: 40%">
             <b>{{ label }}</b>
           </td>
           <td class="td td-center" style="width: 60%">
-            {% if normalizedLabel == 'attenuationformula' and value == 'NotAvailable' %} N/A {% else %} {{ value }} {% endif %}
+            {% if normalizedLabel == 'attenuationformula' and (value == 'Not Available' or value == 'N/A' or value == '') %}
+              N/A
+            {% else %}
+              {{ value }}
+            {% endif %}
           </td>
         </tr>
-        {% endif %} {% endfor %}
+        {% endif %}
+        {% endfor %}
       </tbody>
     </table>
   </div>
