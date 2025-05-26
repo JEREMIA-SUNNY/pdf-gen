@@ -108,6 +108,11 @@
         font-weight: bold;
         color: #375fbd;
       }
+      .section-desc {
+        font-size: 14px;
+        font-weight: bold;
+        color: black;
+      }
 
       .section {
         display: grid;
@@ -144,7 +149,7 @@
 
     {% if data.description %}
 
-    <div class="section-title">DESCRIPTION: {{ data.description }}</div>
+    <div class="section-desc">DESCRIPTION: {{ data.description }}</div>
 
     {% endif %}
 

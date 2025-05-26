@@ -142,7 +142,11 @@
         color: #375fbd;
         padding-bottom: 12px;
       }
-
+      .section-desc {
+        font-size: 14px;
+        font-weight: bold;
+        color: black;
+      }
       .section {
         gap: 10px;
         width: 100%;
@@ -163,7 +167,7 @@
   <body>
     {% include "headerCompliance.html" %} {% if data.description %}
     <div class="section" style="break-before: always">
-      <div class="section-title">DESCRIPTION: {{ data.description }}</div>
+      <div class="section-desc">DESCRIPTION: {{ data.description }}</div>
     </div>
     {% endif %}
 
@@ -178,7 +182,7 @@
         padding-bottom: 6px;
       "
     >
-      <p style="padding-bottom: 2px;">Note:</p>
+      <p style="padding-bottom: 2px">Note:</p>
       <p style="padding-left: 2px">
         1. NKRF is India's only CEMILAC type-approved manufacturer for RF and MW
         cable assemblies.
