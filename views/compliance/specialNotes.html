@@ -1,0 +1,23 @@
+{% if data.specialNotes and data.specialNotes | length > 0 %}
+<div class="section">
+  <div class="section-title">Special Notes</div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width: 5%">Sl No</th>
+        <th style="width: 47.5%">Customer Specification</th>
+        <th style="width: 47.5%">NKRF Response</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for note in data.specialNotes %}
+      <tr>
+        <td class="td">{{ loop.index }}</td>
+        <td class="td" style="width: 47.5%">{{ note.customerRequirements }}</td>
+        <td class="td" style="width: 47.5%">{{ note.NKRFSpecification }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
