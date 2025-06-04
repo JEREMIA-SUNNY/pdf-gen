@@ -368,7 +368,15 @@
             <td style="text-align: center; vertical-align: middle;">{{ item.customerPartNumber }}</td>
             {% endif %}
             <td style="text-align: center; vertical-align: middle;">{{ item.NKRFPartNumber }}</td>
-            <td style="vertical-align: middle;">{{ item.NKRFPartDescription }}</td>
+            <td style="vertical-align: middle;">
+              {{ item.NKRFPartDescription }}
+              {% if item.phaseMatch %}
+                <br>
+                <span style="text-decoration: underline; font-size: 11px;">
+                  {{ item.phaseMatch.split('x')[0]|trim }} pcs x {{ item.phaseMatch.split('x')[1]|trim }} sets
+                </span>
+              {% endif %}
+            </td>
             <td style="text-align: center; vertical-align: middle;">{{ item.moq }}</td>
             <!-- Added price-cell class to prevent wrapping -->
             <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
