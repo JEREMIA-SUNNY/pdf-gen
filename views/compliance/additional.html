@@ -41,15 +41,30 @@ page.checkBoxes.option2 or page.checkBoxes.option3 %}
         <tr>
           <td class="td">{{ field.name }}</td>
 
-          {% if not section.hideSpecification %}
-          <td class="td" style="text-align: center;">{{ field.value }}</td>
-          {% endif %} {% if page.checkBoxes.option1 %}
-          <td class="td">{{ field.option1 }}</td>
-          {% endif %} {% if page.checkBoxes.option2 %}
-          <td class="td">{{ field.option2 }}</td>
-          {% endif %} {% if page.checkBoxes.option3 %}
-          <td class="td">{{ field.option3 }}</td>
-          {% endif %}
+         {% if not section.hideSpecification %}
+  <td class="td" style="text-align: center;">
+    {{ field.value | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
+  </td>
+{% endif %}
+
+{% if page.checkBoxes.option1 %}
+  <td class="td" style="text-align: center;">
+    {{ field.option1 | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
+  </td>
+{% endif %}
+
+{% if page.checkBoxes.option2 %}
+  <td class="td" style="text-align: center;">
+    {{ field.option2 | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
+  </td>
+{% endif %}
+
+{% if page.checkBoxes.option3 %}
+  <td class="td" style="text-align: center;">
+    {{ field.option3 | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
+  </td>
+{% endif %}
+
         </tr>
         {% endfor %}
       </tbody>
