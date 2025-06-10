@@ -53,8 +53,7 @@
         .po-section {
             margin: 15px 0;
             padding: 8px 0;
-            border-top: 1px solid #ccc;
-            border-bottom: 1px solid #ccc;
+
         }
 
         .po-number {
@@ -96,6 +95,9 @@
             <div class="po-section">
                 <div class="po-number">PO No: {{ poNumber }}</div>
                 {% if toAddress.attention %}
+                {% if toAddress.gstNo %}
+                <div class="contact-info">Gst No: {{ toAddress.gstNo }}</div>
+                {% endif %}
                 <div class="attention-line">Kind Attention: {{ toAddress.attention }}</div>
                 {% endif %}
                 {% if toAddress.email %}
@@ -104,6 +106,7 @@
                 {% if toAddress.phone %}
                 <div class="contact-info">Tel No: {{ toAddress.phone }}</div>
                 {% endif %}
+
             </div>
 
             <div class="section-header">From,</div>
