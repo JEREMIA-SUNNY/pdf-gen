@@ -8,7 +8,7 @@ app = Flask(__name__, template_folder="views")
 
 @app.route('/generate-pdf/single-interface', methods=['POST'])
 def generate_pdf():
-     # Sample data to pass into Jinja
+    # Sample data to pass into Jinja
     data = request.json
 
     # Render the Jinja template as an HTML string
@@ -21,48 +21,41 @@ def generate_pdf():
     pdf_buffer.seek(0)
     return send_file(pdf_buffer, mimetype='application/pdf')
 
-@app.route('/generateCable-pdf/cable',methods=['POST'])
+@app.route('/generateCable-pdf/cable', methods=['POST'])
 def generateCable_pdf():
+    data = request.json
 
-    data=request.json
-
-    rendered_html=render_template("cable/cable.html", data=data)
+    rendered_html = render_template("cable/cable.html", data=data)
     pdf_buffer = io.BytesIO()
     HTML(string=rendered_html).write_pdf(pdf_buffer)
     pdf_buffer.seek(0)
     return send_file(pdf_buffer, mimetype='application/pdf')
 
-
-
-
-@app.route('/generateMulti-pdf/Multi',methods=['POST'])
+@app.route('/generateMulti-pdf/Multi', methods=['POST'])
 def generateMulti_pdf():
+    data = request.json
 
-    data=request.json
-
-    rendered_html=render_template("multi-interface/multi-interface.html", data=data)
+    rendered_html = render_template("multi-interface/multi-interface.html", data=data)
     pdf_buffer = io.BytesIO()
     HTML(string=rendered_html).write_pdf(pdf_buffer)
     pdf_buffer.seek(0)
     return send_file(pdf_buffer, mimetype='application/pdf')
 
-@app.route('/compliancePDF/compliance',methods=['POST'])
+@app.route('/compliancePDF/compliance', methods=['POST'])
 def generateCompliance_pdf():
+    data = request.json
 
-    data=request.json
-
-    rendered_html=render_template("compliance/compliance.html", data=data)
+    rendered_html = render_template("compliance/compliance.html", data=data)
     pdf_buffer = io.BytesIO()
     HTML(string=rendered_html).write_pdf(pdf_buffer)
     pdf_buffer.seek(0)
     return send_file(pdf_buffer, mimetype='application/pdf')
 
-@app.route('/quotes/quotes',methods=['POST'])
+@app.route('/quotes/quotes', methods=['POST'])
 def generateQuotes_pdf():
+    data = request.json
 
-    data=request.json
-
-    rendered_html=render_template("quotes/quotes.html", data=data)
+    rendered_html = render_template("quotes/quotes.html", data=data)
     pdf_buffer = io.BytesIO()
     HTML(string=rendered_html).write_pdf(pdf_buffer)
     pdf_buffer.seek(0)
@@ -81,6 +74,57 @@ def generateCoverLetter_pdf():
 
     # Render the Jinja template for the cover letter
     rendered_html = render_template("coverLetter/coverLetters.html", data=data)
+
+    # Convert HTML to PDF
+    pdf_buffer = io.BytesIO()
+    HTML(string=rendered_html).write_pdf(pdf_buffer)
+    pdf_buffer.seek(0)
+    return send_file(pdf_buffer, mimetype='application/pdf')
+
+@app.route('/packingList/generate', methods=['POST'])
+def generatePackingList_pdf():
+    """Generate Packing List PDF from JSON data"""
+    data = request.json
+    if not data:
+        return "Invalid JSON payload", 400
+
+    # Validate required fields
+    required_fields = ["customerName"]
+    for field in required_fields:
+        if field not in data:
+            return f"Missing required field: {field}", 400
+
+    print("Packing List PDF Data:", data)  # Debugging: Print the incoming JSON data
+
+    # Render the Jinja template for the packing list
+    rendered_html = render_template("packingList/packingList.html", data=data)
+
+    # Convert HTML to PDF
+    pdf_buffer = io.BytesIO()
+    HTML(string=rendered_html).write_pdf(pdf_buffer)
+    pdf_buffer.seek(0)
+    return send_file(pdf_buffer, mimetype='application/pdf')
+
+@app.route('/addressSheet/generate', methods=['POST'])
+def generateAddressSheet_pdf():
+    """Generate Address Sheet PDF from JSON data"""
+    data = request.json
+    if not data:
+        return "Invalid JSON payload", 400
+
+    # Validate required fields
+    required_fields = ["poNumber", "toAddress", "fromAddress"]
+    for field in required_fields:
+        if field not in data:
+            return f"Missing required field: {field}", 400
+
+    print("Address Sheet PDF Data:", data)  # Debugging: Print the incoming JSON data
+
+    # Render the Jinja template for the address sheet
+    rendered_html = render_template("addressSheet/addressSheet.html",
+                                 poNumber=data.get("poNumber", ""),
+                                 toAddress=data.get("toAddress", {}),
+                                 fromAddress=data.get("fromAddress", {}))
 
     # Convert HTML to PDF
     pdf_buffer = io.BytesIO()
