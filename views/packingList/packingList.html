@@ -1,375 +1,336 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="UTF-8" />
-    <title>Multi-Page Packing Slip PDF</title>
+    <title>Packing List PDF</title>
     <style>
-        @page {
-            size: A4;
-            margin: 100px 50px 70px 50px;
-            @bottom-left {
-                margin-top: 10px;
-                content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
-                font-size: 8px;
-                white-space: pre;
-                line-height: 15px;
-            }
-            @bottom-right {
-                content: counter(page) "/" counter(pages);
-                font-size: 8px;
-            }
+      @page {
+        size: A4;
+        margin: 100px 50px 70px 50px; /* Increased top margin to make room for header */
+        @bottom-left {
+          margin-top: 10px;
+          content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
+          font-size: 8px;
+          white-space: pre;
+          line-height: 15px;
         }
-
-        body, p, div, table, span, td, th, li {
-            font-family: "Saira", "Noto Sans", "DejaVu Sans", sans-serif;
-            font-size: 12px;
+        @bottom-right {
+          content: counter(page) "/" counter(pages);
+          font-size: 8px;
         }
+      }
+      /* Global styling for main content */
+      body,
+      p,
+      div,
+      table,
+      span,
+      td,
+      th,
+      li {
+        font-family: "Saira", "Noto Sans", "DejaVu Sans", sans-serif;
+        font-size: 12px;
+      }
 
-        * {
-            font-family: "Saira", "Noto Sans", "DejaVu Sans", sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      /* Reset margins and padding globally */
+      * {
+        font-family: "Saira", "Noto Sans", "DejaVu Sans", sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        .header {
-            border-bottom: 2px solid #000;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 85px;
-            padding: 15px 0;
-            margin-bottom: 20px;
-            background-color: white;
-        }
+      img,
+      div,
+      table,
+      span {
+        min-height: 10px;
+      }
+      .header {
+        border-bottom: 1px solid gray;
+        display: flex;
+        position: fixed;
+        align-items: flex-end;
+        justify-content: space-between;
+        left: 0px; /* Match the page margin */
+        right: 0px; /* Match the page margin */
+        top: -100px;
+        height: 75px;
+        padding: 10px 0;
+        min-height: 1px;
+        background-color: white; /* Ensure header is visible */
+      }
+      .header > .title {
+        display: flex;
+        align-items: flex-end;
+        font-size: 20px;
+        font-weight: bold;
+        color: #375fbd;
+      }
+      .header > .logo {
+        width: 100px;
+      }
+      .footer {
+        border-top: 1px solid gray;
+        position: fixed;
+        left: 0;
+        bottom: -80px;
+        height: 80px;
+        width: 100%;
+        gap: 3px;
+        font-size: 12px;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        line-height: 1.5;
+        color: #000;
+      }
+      p {
+        margin: 0 0 8px 0;
+      }
+      .to-block p {
+        margin: 0;
+        line-height: 1.2;
+        padding: 0;
+      }
+      h2 {
+        margin: 0;
+        padding: 4px 0;
+        text-align: center;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 1em;
+        table-layout: fixed;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid #23272e;
+        padding: 5px;
+      }
 
-        .header > .title {
-            display: flex;
-            align-items: center;
-            font-size: 24px;
-            font-weight: bold;
-            color: #000;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
+      /* Address table styling to match quotation */
+      .address-table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 1.5em;
+      }
+      .address-table th,
+      .address-table td {
+        border: 1px solid #23272e;
+        padding: 6px 8px;
+        text-align: left;
+        vertical-align: top;
+        font-size: 12px;
+      }
+      .address-table th {
+        font-weight: bold;
+      }
+      .address-table td {
+        width: 50%;
+      }
 
-        .header > .logo {
-            width: 120px;
-            height: 60px;
-            object-fit: contain;
-        }
+      /* Packing table styling to match quotation */
+      .packing-table th {
+        font-weight: bold;
+        font-size: 12px;
+      }
 
-        body {
-            font-family: "Saira", "Noto Sans", "DejaVu Sans", sans-serif;
-            margin: 0;
-            line-height: 1.5;
-            color: #333;
-        }
+      /* Updated column widths for packing table */
+      .packing-table th:nth-child(1) {
+        width: 40px; /* Sl. No */
+      }
+      .packing-table th:nth-child(2) {
+        width: 150px; /* NKRF Part No */
+      }
+      .packing-table th:nth-child(3) {
+        width: 120px; /* Customer Part No (when present) */
+      }
+      .packing-table th:nth-child(4) {
+        width: auto; /* Description - takes remaining space */
+      }
+      .packing-table th:nth-child(5),
+      .packing-table th:last-child {
+        width: 40px; /* Qty - minimal width for quantity numbers */
+      }
 
-        p {
-            margin: 0 0 8px 0;
-        }
+      /* For tables without customer part number */
+      .packing-table th:nth-child(4):nth-last-child(2) {
+        width: auto; /* Description when it's 4th column */
+      }
+      .packing-table th:nth-child(5):nth-last-child(1) {
+        width: 50px; /* Qty when it's 5th column */
+      }
 
-        .address-container {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 25px;
-            gap: 20px;
-        }
+      /* Cell styling */
+      .packing-table td {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        vertical-align: middle;
+        font-size: 11px;
+      }
 
-        .address-box {
-            flex: 1;
-            border: 1px solid #ddd;
-            padding: 15px;
-            box-sizing: border-box;
-            background-color: #fafafa;
-        }
+      .center-text {
+        text-align: center;
+      }
 
-        .address-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-            font-size: 14px;
-            color: #375fbd;
-            border-bottom: 1px solid #375fbd;
-            padding-bottom: 5px;
-        }
+      .right-text {
+        text-align: right;
+      }
 
-        /* Updated CSS for better info row layout */
-        .info-row-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
+      .total-row {
+        font-weight: bold;
+        background: #f2f2f2;
+      }
 
-        .info-row-grid .info-item {
-            font-size: 12px;
-            color: #333;
-            padding: 5px 0;
-        }
+      .page-break {
+        page-break-before: always;
+      }
 
-        .info-row-grid .info-item strong {
-            color: #375fbd;
-            font-weight: bold;
-        }
+      .signature-section {
+        margin-top: 25px;
+      }
 
-        .box-header {
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border: 2px solid #375fbd;
-            border-radius: 8px;
-            text-align: center;
-        }
+      .signature-field {
+        margin-bottom: 12px;
+        font-size: 12px;
+        line-height: 1.4;
+        padding-bottom: 3px;
+        min-height: 20px;
+      }
 
-        .box-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #375fbd;
-            margin-bottom: 5px;
-        }
-
-        .box-summary {
-            font-size: 14px;
-            color: #666;
-        }
-
-        .packing-table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-bottom: 1em;
-            table-layout: fixed;
-        }
-
-        .packing-table th {
-            background: #375fbd;
-            color: white;
-            font-weight: bold;
-            text-align: center;
-            vertical-align: middle;
-            font-size: 12px;
-            padding: 12px 8px;
-            border: 1px solid #ddd;
-        }
-
-        .packing-table td {
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            hyphens: auto;
-            vertical-align: middle;
-            font-size: 11px;
-            padding: 10px 8px;
-            border: 1px solid #ddd;
-        }
-
-        .packing-table th:nth-child(1) { width: 60px; }
-        .packing-table th:nth-child(2) { width: 120px; }
-        .packing-table th:nth-child(3) { width: 100px; }
-        .packing-table th:nth-child(4) { width: auto; }
-        .packing-table th:nth-child(5) { width: 60px; }
-
-        .center-text {
-            text-align: center;
-        }
-
-        .right-text {
-            text-align: right;
-        }
-
-        .total-row {
-            font-weight: bold;
-            background-color: #375fbd;
-            color: white;
-        }
-
-        .page-break {
-            page-break-before: always;
-        }
-
-        .signature-section {
-            margin-top: 40px;
-        }
-
-        .company-signature {
-            text-align: left;
-            width: 100%;
-        }
-
-        .signature-field {
-            margin-bottom: 20px;
-            font-size: 12px;
-            line-height: 1.8;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 5px;
-            min-height: 25px;
-        }
-
-        .company-signature-block {
-            margin-top: 30px;
-            margin-bottom: 20px;
-        }
-
-        .signature-boxes {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 50px;
-        }
-
-        .signature-box {
-            width: 200px;
-            border-top: 1px solid #000;
-            padding-top: 5px;
-            text-align: center;
-            font-size: 12px;
-        }
-
-        .box-contents-summary {
-            background-color: #f0f4ff;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            border-left: 4px solid #375fbd;
-        }
-
-        .debug-info {
-            background-color: #ffeb3b;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #f57f17;
-            font-size: 10px;
-        }
+      .company-signature-block {
+        margin-top: 20px;
+        margin-bottom: 15px;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-
-
+  <body>
     <!-- Check if data.boxes exists and has content -->
     {% if data.boxes and data.boxes|length > 0 %}
-        <!-- Loop through each box -->
-        {% for box in data.boxes %}
-            {% set items_list = box['items'] %}
-            {% if items_list and items_list|length > 0 %}
+      <!-- Loop through each box -->
+      {% for box in data.boxes %}
+        {% set items_list = box['items'] %}
+        {% if items_list and items_list|length > 0 %}
+          <!-- Check if any item has a customer part number -->
+          {% set items_with_customer_part = items_list | selectattr("customerPartNumber", "ne", "") | list %}
+          {% set show_customer_part = items_with_customer_part | length > 0 %}
 
-                <!-- Add page break for all boxes except the first one -->
-                {% if not loop.first %}
-                    <div class="page-break"></div>
-                {% endif %}
+          <!-- Add page break for all boxes except the first one -->
+          {% if not loop.first %}
+            <div class="page-break"></div>
+          {% endif %}
 
-                <!-- Header (same for all pages) -->
-                <div class="header">
-                    <p class="title">Packing List</p>
-                    <img
-                        class="logo"
-                        src="https://cmpl.nkegroup.com/_next/image?url=%2FdataSheetLogo.png&w=384&q=75"
-                        alt="Company Logo"
-                    />
-                </div>
+          <!-- Header (same for all pages) -->
+          <div class="header">
+            <p class="title">Packing List</p>
+            <img
+              class="logo"
+              src="https://cmpl.nkegroup.com/_next/image?url=%2FdataSheetLogo.png&w=384&q=75"
+              alt="Company Logo"
+            />
+          </div>
 
-                <!-- Address containers (same for all pages) -->
-                <div class="address-container">
-                    <div class="address-box">
-                        <div class="address-title">Customer Details</div>
-                        <p><strong>{{ data.customerName if data.customerName else 'N/A' }}</strong></p>
-                        {% if data.customerGstNumber %}
-                        <p>GST: {{ data.customerGstNumber }}</p>
-                        {% endif %}
-                        {% if data.toAddress %}
-                        <p>{{ data.toAddress.line1 if data.toAddress.line1 else '' }}</p>
-                        {% if data.toAddress.line2 %}
-                        <p>{{ data.toAddress.line2 }}</p>
-                        {% endif %}
-                        <p>{{ data.toAddress.city if data.toAddress.city else '' }}{{ ', ' + data.toAddress.state if data.toAddress.state else '' }}</p>
-                        <p>{{ data.toAddress.country if data.toAddress.country else '' }}{{ ' - ' + data.toAddress.pinCode if data.toAddress.pinCode else '' }}</p>
-                        {% endif %}
-                    </div>
-
-                    <!-- Replace the "From" address with info-row-grid -->
-                    <div class="address-box">
-                        <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
-                            <div class="info-item">
-                                <strong>PO NUMBER:</strong> {{ data.poNumber if data.poNumber else 'N/A' }}
-                            </div>
-                            <div class="info-item">
-                                <strong>NKRF Enq No.:</strong> {{ data.enquiryNumber if data.enquiryNumber else 'N/A' }}
-                            </div>
-                            <div class="info-item">
-                                <strong>Date:</strong> {{ data.packingListDate if data.packingListDate else 'N/A' }}
-                            </div>
-                            <div class="info-item">
-                                <strong>Packing List Ref:</strong> {{ data.packingListRef if data.packingListRef else 'N/A' }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Items table for this specific box -->
-                <table class="packing-table">
-                    <thead>
-                        <tr>
-                            <th style="text-align: center;">Sl. No</th>
-                            <th style="text-align: center;">NKRF Part No</th>
-                            <th style="text-align: center;">Customer Part No</th>
-                            <th style="text-align: center;">Description</th>
-                            <th style="text-align: center;">Qty</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in items_list %}
-                        <tr>
-                            <td class="center-text">{{ item.slNo }}</td>
-                            <td class="center-text">{{ item.partNumber }}</td>
-                            <td class="center-text">{{ item.customerPartNumber }}</td>
-                            <td>{{ item.partDescription }}</td>
-                            <td class="center-text">{{ item.quantity }}</td>
-                        </tr>
-                        {% endfor %}
-                        <tr class="total-row">
-                            <td colspan="4" class="right-text"><strong>BOX TOTAL</strong></td>
-                            <td class="center-text"><strong>{{ box.totalQuantity }}</strong></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <!-- Signature section with flexible layout -->
-                <div class="company-signature-block" style="margin-top: 40px;">
-                    <p>For N.K. RF Products & Services Pvt. Ltd,</p>
-                    {% if data.reviewer %}
-                        <p><strong>{{ data.reviewerDesignation if data.reviewerDesignation else "Reviewer/Approver" }}:</strong> {{ data.reviewer }}</p>
+          <!-- Combined customer details and document details section -->
+          <table class="address-table">
+            <tr>
+              <td rowspan="4" style="vertical-align: top; width: 50%; border-right: 1px solid #23272e;">
+                <div class="to-block">
+                  <p><strong>Customer Details</strong></p>
+                  <p><strong>{{ data.customerName }}</strong></p>
+                  {% if data.toAddress %}
+                    <p>{{ data.toAddress.line1 if data.toAddress.line1 else '' }}</p>
+                    {% if data.toAddress.line2 %}
+                      <p>{{ data.toAddress.line2 }}</p>
                     {% endif %}
+                    <p>
+                      {{ data.toAddress.city if data.toAddress.city else '' }}{{ ', ' + data.toAddress.state if data.toAddress.state else '' }} -
+                      {{ data.toAddress.pinCode if data.toAddress.pinCode else '' }}
+                    </p>
+                  {% endif %}
 
                 </div>
+              </td>
+              <th style="width: 25%;">PO Number</th>
+              <td style="width: 25%;">{{ data.poNumber if data.poNumber else 'N/A' }}</td>
+            </tr>
+            <tr>
+              <th>NKRF Enquiry No.</th>
+              <td>{{ data.enquiryNumber if data.enquiryNumber else 'N/A' }}</td>
+            </tr>
+            <tr>
+              <th>Date</th>
+              <td>{{ data.packingListDate if data.packingListDate else 'N/A' }}</td>
+            </tr>
+          </table>
+          <!-- Items table for this specific box with conditional columns -->
+          <table class="packing-table">
+            <thead>
+              <tr>
+                <th class="center-text">Sl. No</th>
+                <th class="center-text">NKRF Part Number</th>
+                {% if show_customer_part %}
+                <th class="center-text">Customer Part Number</th>
+                {% endif %}
+                <th class="center-text">Description</th>
+                <th class="center-text">Qty</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in items_list %}
+              <tr>
+                <td class="center-text">{{ item.slNo }}</td>
+                <td class="center-text">{{ item.partNumber }}</td>
+                {% if show_customer_part %}
+                <td class="center-text">{{ item.customerPartNumber }}</td>
+                {% endif %}
+                <td>{{ item.partDescription }}</td>
+                <td class="center-text">{{ item.quantity }}</td>
+              </tr>
+              {% endfor %}
+              <tr class="total-row">
+                <td colspan="{% if show_customer_part %}4{% else %}3{% endif %}" class="right-text"><strong>TOTAL</strong></td>
+                <td class="center-text"><strong>{{ box.totalQuantity }}</strong></td>
+              </tr>
+            </tbody>
+          </table>
 
-                <!-- Receiver signature fields -->
-                <div class="receiver-signature" style="margin-top: 40px;">
-                    <div class="signature-field"><strong>Receiver's Signature :</strong></div>
-                    <div class="signature-field"><strong>Receiver's Name:</strong></div>
-                    <div class="signature-field"><strong>Designation:</strong></div>
-                    <div class="signature-field"><strong>Company Seal:</strong></div>
-                </div>
-
-            {% else %}
-                <!-- Debug: Box has no items -->
-                <div class="debug-info">
-                    DEBUG: Box "{{ box.boxName if box.boxName else 'Unknown' }}" has no items or items is empty
-                </div>
+          <!-- Signature section matching quotation style -->
+          <div class="company-signature-block">
+            <p><strong>For N.K. RF Products & Services Pvt. Ltd,</strong></p>
+            {% if data.reviewer %}
+              <p>{{ data.reviewer }}</p>
             {% endif %}
+          </div>
 
-            <!-- Debug: Show actual item data structure -->
+          <!-- Receiver signature section -->
+          <div class="signature-section">
+            <div class="signature-field"><strong>Receiver's Signature:</strong></div>
+            <div class="signature-field"><strong>Receiver's Name:</strong></div>
+            <div class="signature-field"><strong>Designation:</strong></div>
+            <div class="signature-field"><strong>Company Seal:</strong></div>
+          </div>
 
-        {% endfor %}
-
+        {% else %}
+          <!-- Debug: Box has no items -->
+          <div style="padding: 20px; text-align: center; background-color: #ffebee; border: 1px solid #f44336; margin: 20px;">
+            <p style="color: #d32f2f;"><strong>No Items Found</strong></p>
+            <p>Box "{{ box.boxName if box.boxName else 'Unknown' }}" has no items.</p>
+          </div>
+        {% endif %}
+      {% endfor %}
     {% else %}
-        <!-- No boxes found -->
-        <div style="padding: 50px; text-align: center; background-color: #ffebee; border: 1px solid #f44336; margin: 20px;">
-            <h2 style="color: #d32f2f;">No Data Found</h2>
-            <p>No boxes with items were found for this packing list.</p>
-            <p>Debug info: data.boxes = {{ data.boxes if data.boxes else 'null/undefined' }}</p>
-        </div>
+      <!-- No boxes found -->
+      <div style="padding: 50px; text-align: center; background-color: #ffebee; border: 1px solid #f44336; margin: 20px;">
+        <h2 style="color: #d32f2f;">No Data Found</h2>
+        <p>No boxes with items were found for this packing list.</p>
+      </div>
     {% endif %}
-
-</body>
+    {% include "footer.html" %}
+  </body>
 </html>
