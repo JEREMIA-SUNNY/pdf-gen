@@ -9,13 +9,13 @@
             margin: 15mm;
         }
 
-        body, p, div {
-            font-family: "Arial", "Helvetica", sans-serif;
-            font-size: 11px;
+        body, p, div, table, span, td, th, li {
+            font-family: "Saira", "Noto Sans", "DejaVu Sans", sans-serif;
+            font-size: 12px;
+            color: #000;
             margin: 0;
             padding: 0;
             line-height: 1.1;
-            color: #000;
         }
 
         .address-sheet {
@@ -80,73 +80,76 @@
     <div class="address-sheet">
         <!-- First address pair -->
         <div class="address-pair">
-            <div class="section-header">To,</div>
-            <div class="company-name">{{ toAddress.companyName }}</div>
-            {% if toAddress.line1 %}
-            <div class="address-line">{{ toAddress.line1 }}</div>
+            <!-- TO Address -->
+            {% if toAddress.attention %}
+            <div class="attention-line">Kind Attention: {{ toAddress.attention }}</div>
             {% endif %}
-            {% if toAddress.line2 %}
-            <div class="address-line">{{ toAddress.line2 }}</div>
+            {% if toAddress.email %}
+            <div class="contact-info"><a href="mailto:{{ toAddress.email }}">{{ toAddress.email }}</a></div>
             {% endif %}
-            <div class="address-line">{{ toAddress.city }} - {{ toAddress.pinCode }}</div>
-            <div class="address-line">{{ toAddress.state }}, {{ toAddress.country }}</div>
-
-            <div class="po-section">
-                <div class="po-number">PO No: {{ poNumber }}</div>
-                {% if toAddress.gstNo %}
-                <div class="contact-info">GST No: {{ toAddress.gstNo }}</div>
-                {% endif %}
-                {% if toAddress.attention %}
-                <div class="attention-line">Kind Attention: {{ toAddress.attention }}</div>
-                {% endif %}
-                {% if toAddress.email %}
-                <div class="contact-info">{{ toAddress.email }}</div>
-                {% endif %}
-                {% if toAddress.phone %}
-                <div class="contact-info">Tel No: {{ toAddress.phone }}</div>
-                {% endif %}
+            <div class="company-name">{{ toAddress.companyName or customerName }}</div>
+            {% if toAddress.line1 %}<div class="address-line">{{ toAddress.line1 }}</div>{% endif %}
+            {% if toAddress.line2 %}<div class="address-line">{{ toAddress.line2 }}</div>{% endif %}
+            <div class="address-line">
+                {{ toAddress.city }} – {{ toAddress.pinCode }}
             </div>
+            <div class="address-line">
+                {{ toAddress.state }}, {{ toAddress.country }}
+            </div>
+            {% if toAddress.gstNo or customerGstNumber %}
+            <div class="address-line">GST Number: {{ toAddress.gstNo if toAddress.gstNo else customerGstNumber }}</div>
+            {% endif %}
+            {% if poNumber %}
+            <div class="address-line">PO Number: {{ poNumber }}</div>
+            {% endif %}
 
-            <div class="section-header">From,</div>
-            <div class="company-name">N.K. RF Products & Services Private Limited</div>
-            <div class="address-line">#2, 2nd Cross, Rustam Bagh Layout, Old Airport Road,</div>
-            <div class="address-line">Bangalore - 560017,</div>
-            <div class="address-line">Karnataka State, India</div>
-            <div class="contact-info">Ph No: 91-7353346481</div>
+            <!-- FROM Address -->
+            <br>
+            <div class="address-line">From,</div>
+            <div class="company-name">
+                N. K. RF Products & Services Private Limited
+            </div>
+            <div class="address-line">#2, 2<sup>nd</sup> Cross, Rustam Bagh Layout, Old Airport Road,</div>
+            <div class="address-line">Bangalore – 560017</div>
+            <div class="address-line">Karnataka, India</div>
+            <div class="address-line">Phone Number: +91 80 25281840</div>
         </div>
 
         <!-- Second address pair (duplicate for shipping label) -->
         <div class="address-pair">
-            <div class="section-header">To,</div>
-            <div class="company-name">{{ toAddress.companyName }}</div>
-            {% if toAddress.line1 %}
-            <div class="address-line">{{ toAddress.line1 }}</div>
+            <!-- TO Address -->
+            {% if toAddress.attention %}
+            <div class="attention-line">Kind Attention: {{ toAddress.attention }}</div>
             {% endif %}
-            {% if toAddress.line2 %}
-            <div class="address-line">{{ toAddress.line2 }}</div>
+            {% if toAddress.email %}
+            <div class="contact-info"><a href="mailto:{{ toAddress.email }}">{{ toAddress.email }}</a></div>
             {% endif %}
-            <div class="address-line">{{ toAddress.city }} - {{ toAddress.pinCode }}</div>
-            <div class="address-line">{{ toAddress.state }}, {{ toAddress.country }}</div>
-
-            <div class="po-section">
-                <div class="po-number">PO No: {{ poNumber }}</div>
-                {% if toAddress.attention %}
-                <div class="attention-line">Kind Attention: {{ toAddress.attention }}</div>
-                {% endif %}
-                {% if toAddress.email %}
-                <div class="contact-info">{{ toAddress.email }}</div>
-                {% endif %}
-                {% if toAddress.phone %}
-                <div class="contact-info">Tel No: {{ toAddress.phone }}</div>
-                {% endif %}
+            <div class="company-name">{{ toAddress.companyName or customerName }}</div>
+            {% if toAddress.line1 %}<div class="address-line">{{ toAddress.line1 }}</div>{% endif %}
+            {% if toAddress.line2 %}<div class="address-line">{{ toAddress.line2 }}</div>{% endif %}
+            <div class="address-line">
+                {{ toAddress.city }} – {{ toAddress.pinCode }}
             </div>
+            <div class="address-line">
+                {{ toAddress.state }}, {{ toAddress.country }}
+            </div>
+            {% if toAddress.gstNo or customerGstNumber %}
+            <div class="address-line">GST Number: {{ toAddress.gstNo if toAddress.gstNo else customerGstNumber }}</div>
+            {% endif %}
+            {% if poNumber %}
+            <div class="address-line">PO Number: {{ poNumber }}</div>
+            {% endif %}
 
-            <div class="section-header">From,</div>
-            <div class="company-name">N.K. RF Products & Services Private Limited</div>
-            <div class="address-line">#2, 2nd Cross, Rustam Bagh Layout, Old Airport Road,</div>
-            <div class="address-line">Bangalore - 560017,</div>
-            <div class="address-line">Karnataka State, India</div>
-            <div class="contact-info">Ph No: 91-7353346481</div>
+            <!-- FROM Address -->
+            <br>
+            <div class="address-line">From,</div>
+            <div class="company-name">
+                N. K. RF Products & Services Private Limited
+            </div>
+            <div class="address-line">#2, 2<sup>nd</sup> Cross, Rustam Bagh Layout, Old Airport Road,</div>
+            <div class="address-line">Bangalore – 560017</div>
+            <div class="address-line">Karnataka, India</div>
+            <div class="address-line">Phone Number: +91 80 25281840</div>
         </div>
     </div>
 </body>

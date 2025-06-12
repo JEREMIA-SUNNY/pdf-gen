@@ -240,32 +240,36 @@
           <table class="address-table">
             <tr>
               <td rowspan="4" style="vertical-align: top; width: 50%; border-right: 1px solid #23272e;">
-                <div class="to-block">
-                  <p><strong>Customer Details</strong></p>
-                  <p><strong>{{ data.customerName }}</strong></p>
-                  {% if data.toAddress %}
-                    <p>{{ data.toAddress.line1 if data.toAddress.line1 else '' }}</p>
-                    {% if data.toAddress.line2 %}
-                      <p>{{ data.toAddress.line2 }}</p>
-                    {% endif %}
-                    <p>
-                      {{ data.toAddress.city if data.toAddress.city else '' }}{{ ', ' + data.toAddress.state if data.toAddress.state else '' }} -
-                      {{ data.toAddress.pinCode if data.toAddress.pinCode else '' }}
-                    </p>
+                <br class="to-block">
+                <p><strong>Customer Details</strong></p>
+                <div style="height: 6px;"></div> <!-- Small space between Customer Details and customer name -->
+                <p><strong>{{ data.customerName }}</strong></p>
+                {% if data.toAddress %}
+                  <p>{{ data.toAddress.line1 if data.toAddress.line1 else '' }}</p>
+                  {% if data.toAddress.line2 %}
+                    <p>{{ data.toAddress.line2 }}</p>
                   {% endif %}
+                  <p>
+                    {{ data.toAddress.city if data.toAddress.city else '' }}{{ ', ' + data.toAddress.state if data.toAddress.state else '' }} -
+                    {{ data.toAddress.pinCode if data.toAddress.pinCode else '' }}
+                  </p>
+                {% endif %}
 
-                </div>
               </td>
               <th style="width: 25%;">PO Number</th>
               <td style="width: 25%;">{{ data.poNumber if data.poNumber else 'N/A' }}</td>
             </tr>
             <tr>
-              <th>NKRF Enquiry No.</th>
+              <th>NKRF Enquiry Number</th>
               <td>{{ data.enquiryNumber if data.enquiryNumber else 'N/A' }}</td>
             </tr>
             <tr>
               <th>Date</th>
               <td>{{ data.packingListDate if data.packingListDate else 'N/A' }}</td>
+            </tr>
+            <tr>
+              <th>NKRF Packing List Number</th>
+              <td>{{ data.packingListRef if data.packingListRef else 'N/A' }}</td>
             </tr>
           </table>
           <!-- Items table for this specific box with conditional columns -->
@@ -302,7 +306,7 @@
 
           <!-- Signature section matching quotation style -->
           <div class="company-signature-block">
-            <p><strong>For N.K. RF Products & Services Pvt. Ltd,</strong></p>
+            <p><strong>Packed By:</strong></p>
             {% if data.reviewer %}
               <p>{{ data.reviewer }}</p>
             {% endif %}
