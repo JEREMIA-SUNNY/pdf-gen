@@ -15,22 +15,22 @@ page.checkBoxes.option2 or page.checkBoxes.option3 %}
     <table class="table">
       <thead>
         <tr>
-          <td class="td td-head" style="width: calc(100% / 5)">Field Name</td>
+          <td class="td td-head" style="width: calc(100% / 5); text-align: center;  vertical-align: middle;">Field Name</td>
 
           {% if not section.hideSpecification %}
-          <td class="td td-head" style="width: calc(100% / 5)">
+          <td class="td td-head" style="width: calc(100% / 5) ; text-align: center;  vertical-align: middle;">
             Customer Specification
           </td>
           {% endif %} {% if page.checkBoxes.option1 %}
-          <td class="td td-head" style="width: calc(100% / 5)">
+          <td class="td td-head" style="width: calc(100% / 5);  text-align: center; vertical-align: middle;">
             NKRF Specification
           </td>
           {% endif %} {% if page.checkBoxes.option2 %}
-          <td class="td td-head" style="width: calc(100% / 5)">
+          <td class="td td-head" style="width: calc(100% / 5 ) ; text-align: center; vertical-align: middle;">
             NKRF Alternate 1
           </td>
           {% endif %} {% if page.checkBoxes.option3 %}
-          <td class="td td-head" style="width: calc(100% / 5)">
+          <td class="td td-head" style="width: calc(100% / 5) ; text-align: center; vertical-align: middle;">
             NKRF Alternate 2
           </td>
           {% endif %}

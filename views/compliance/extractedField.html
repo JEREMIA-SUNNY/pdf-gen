@@ -5,14 +5,14 @@
     <thead>
       <tr>
         <!-- <th class="td td-head">Sl No</th> -->
-         <th class="td td-head" style="text-align: center;">Sl No</th>
-        <th class="td td-head" style="text-align: center;">Part Type</th>
-        <th class="td td-head" style="text-align: center;">NKRF Part Number</th>
-        <th class="td td-head" style="text-align: center;">Connector End A</th>
-        <th class="td td-head" style="text-align: center;">Connector End B</th>
-        <th class="td td-head" style="text-align: center;">Insertion Loss</th>
-        <th class="td td-head" style="text-align: center;">Sets</th>
-        <th class="td td-head" style="text-align: center;">Quantity</th>
+         <th class="td td-head" style="text-align: center;  vertical-align: middle;">Sl No</th>
+        <th class="td td-head" style="text-align: center; vertical-align: middle;">Part Type</th>
+        <th class="td td-head" style="text-align: center; vertical-align: middle;">NKRF Part Number</th>
+        <th class="td td-head" style="text-align: center; vertical-align: middle;">Connector End A</th>
+        <th class="td td-head" style="text-align: center; vertical-align: middle;">Connector End B</th>
+        <th class="td td-head" style="text-align: center; vertical-align: middle;">Insertion Loss</th>
+        <!-- <th class="td td-head" style="text-align: center; vertical-align: middle;">Sets</th> -->
+        <th class="td td-head" style="text-align: center; vertical-align: middle;">Quantity</th>
       </tr>
     </thead>
     <tbody>
@@ -26,7 +26,7 @@
     {% set endB = item.get("Connector End B", {}).get(prop) or item.get("Connector End B Multi", {}).get(prop) or "-" %}
     {% set insertion = item.get("Insertion Loss (dB)", {}).get(prop) or item.get("Insertion Loss", {}).get(prop) or "-" %}
     {% set originalPartType = item.get("Original PartType", {}).get(prop) or "-" %}
-    {% set sets_value = item.get("Number Of Sets", {}).get(prop) or "-" %}
+    <!-- {% set sets_value = item.get("Number Of Sets", {}).get(prop) or "-" %} -->
     {% set quantity = item.get("Quantity", {}).get(prop) or "-" %}
 
     {# Skip row if everything is "-" #}
@@ -38,7 +38,7 @@
       <td class="td" style="text-align: center">{{ endA }}</td>
       <td class="td" style="text-align: center">{{ endB }}</td>
       <td class="td" style="text-align: center">{{ insertion }}</td>
-      <td class="td" style="text-align: center">{{ sets_value }}</td>
+      <!-- <td class="td" style="text-align: center">{{ sets_value }}</td> -->
       <td class="td" style="text-align: center">{{ quantity }}</td>
     </tr>
     {% endif %}
