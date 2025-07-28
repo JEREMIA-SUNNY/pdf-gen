@@ -26,6 +26,14 @@ def generate_pdf():
     except Exception as e:
         logging.exception("Error generating PDF")
         return jsonify({'error': str(e)}), 500
+    
+@app.before_first_request
+def warmup_pdf():
+    try:
+        HTML(string="<p>warm up weasyprint pdf</p>").write_pdf()
+        app.logger.info("weasyprint warmed up successfully")
+    except Exception as e:
+        app.logger.exception("Error during warm up: %s", e)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
