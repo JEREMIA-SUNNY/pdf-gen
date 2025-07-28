@@ -4,17 +4,17 @@
         <table class="table">
             <tbody>
                 {% for material in data.materials %}
-    {% if material.label and material.value %} // Checks if BOTH label and value exist
-    <tr>
-        <td class="td td-center" style="width: 40%; max-width: 40%;">
-            <b>{{ material.label }}</b>
-        </td>
-        <td class="td td-center" style="width: 60%;">
-            {{ material.value }}
-        </td>
-    </tr>
-    {% endif %}
-{% endfor %}
+                {% if material.value %}
+                <tr>
+                    <td class="td td-center" style="width: 40%; max-width: 40%;">
+                        <b>{{ material.label }}</b>
+                    </td>
+                    <td class="td td-center" style="width: 60%;">
+                        {{ material.value }}
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
             </tbody>
         </table>
     </div>
