@@ -142,7 +142,9 @@
       {% include "remarks-table.html" %}
     </div>
 
-   
+    {% if data.description %}
+    <div class="section-desc">DESCRIPTION: {{ data.description }}</div>
+    {% endif %}
 
     <div
       style="

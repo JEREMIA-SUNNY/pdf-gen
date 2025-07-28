@@ -1,23 +1,21 @@
 <div class="section">
-    <div class="section-title">MATERIALS</div>
-    <div class="table-container">
-        <table class="table">
-            <tbody>
-                {% for material in data.materials %}
-                {% if material.value %}
-                <tr>
-                    <td class="td td-center" style="width: 40%; max-width: 40%;">
-                        <b>{{ material.label }}</b>
-                    </td>
-                    <td class="td td-center" style="width: 60%;">
-                        {{ material.value }}
-                    </td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+  <div class="section-title">MATERIALS</div>
+  <div class="table-container">
+    <table class="table" style="page-break-inside: auto;">
+      <tbody>
+        {% for material in data.materials %}
+        {% if material.value %}
+        <tr style="page-break-inside: auto; break-inside: auto;">
+          <td class="td td-center" style="width: 40%; max-width: 40%;">
+            <b>{{ material.label }}</b>
+          </td>
+          <td class="td td-center" style="width: 60%;">
+            {{ material.value }}
+          </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
-
-
