@@ -18,6 +18,7 @@
           line-height: 15px;
         }
 
+        
         @bottom-right {
           content: counter(page) "/" counter(pages);
           font-size: 12px;
@@ -141,18 +142,18 @@
       {% include "remarks-table.html" %}
     </div>
 
+    {% if data.description %}
+    <div class="section-desc">DESCRIPTION: {{ data.description }}</div>
+    {% endif %}
+
     <div
       style="
         padding-top: 20px;
         display: grid;
         grid-template-columns: 1fr;
         gap: 25px;
-        break-after: avoid;
       "
     >
-      {% if data.description %}
-      <div class="section-desc">DESCRIPTION: {{ data.description }}</div>
-      {% endif %}
       <!-- MATERIALS -->
       {% include "single-interface/materials-table.html" %}
 
