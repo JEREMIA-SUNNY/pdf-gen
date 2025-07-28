@@ -1,23 +1,32 @@
+{% set non_empty_materials = data.materials | selectattr('value') | list %}
+
 <div class="section">
-    <div class="section-title">MATERIALS</div>
-    <div class="table-container">
-        <table class="table">
-            <tbody>
-                {% for material in data.materials %}
-                {% if material.value %}
-                <tr>
-                    <td class="td td-center" style="width: 40%; max-width: 40%;">
-                        <b>{{ material.label }}</b>
-                    </td>
-                    <td class="td td-center" style="width: 60%;">
-                        {{ material.value }}
-                    </td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+  <div class="section-title">MATERIALS</div>
+  <div class="table-container">
+    <table class="table">
+      <tbody>
+        {% if non_empty_materials %}
+          {% for material in non_empty_materials %}
+          <tr>
+            <td class="td td-center" style="width: 40%; max-width: 40%;">
+              <b>{{ material.label }}</b>
+            </td>
+            <td class="td td-center" style="width: 60%;">
+              {{ material.value }}
+            </td>
+          </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td class="td td-center" style="width: 40%; max-width: 40%;">
+              <b>a</b>
+            </td>
+            <td class="td td-center" style="width: 60%;">
+              a
+            </td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
 </div>
-
-
