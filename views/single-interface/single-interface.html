@@ -85,6 +85,18 @@
         width: 100%;
         page-break-inside: auto;
       }
+      thead {
+        display: table-header-group; /* this forces it to repeat on page breaks */
+      }
+
+      .contd-header td {
+        background-color: #f1f1f1;
+        text-align: center;
+        font-style: italic;
+        font-weight: bold;
+        border-bottom: 1px solid #000;
+        padding: 6px;
+      }
 
       .td {
         border-right: 1px solid #00000055;
@@ -157,6 +169,11 @@
       <div class="section-title">MATERIALS</div>
       <div class="table-container">
         <table class="table">
+          <thead>
+            <tr class="contd-header">
+              <td colspan="2">MATERIALS (contd.)</td>
+            </tr>
+          </thead>
           <tbody>
             {% set has_data = false %} {% for material in data.materials %} {%
             if material.value %} {% set has_data = true %}
@@ -168,7 +185,7 @@
                 {{ material.value }}
               </td>
             </tr>
-            {% endif %} {% endfor %}
+            {% endif %} {% endfor %} {% if not has_data %} {% endif %}
           </tbody>
         </table>
       </div>
