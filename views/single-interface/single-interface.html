@@ -50,7 +50,6 @@
         height: 75px;
         width: 100%;
         padding: 10px 0;
-        min-height: 1px;
       }
 
       .header > .title {
@@ -83,9 +82,8 @@
 
       .table {
         border-collapse: collapse;
-        page-break-inside: auto !important; /* For older rendering engines */
-        break-inside: auto !important;
         width: 100%;
+        page-break-inside: auto;
       }
 
       .td {
@@ -109,69 +107,110 @@
         font-weight: bold;
         color: #375fbd;
       }
+
       .section-desc {
         font-size: 14px;
         font-weight: bold;
         color: black;
+        margin-bottom: 10px;
       }
 
       .section {
-        display: grid;
-        gap: 10px;
+        display: block;
         width: 100%;
+        margin-bottom: 20px;
+        page-break-inside: auto;
       }
 
       .section-body {
-        display: grid;
-        grid-template-columns: 1fr 2fr;
-        gap: 0;
+        display: block;
       }
 
       .section-body > p {
         padding: 5px 0;
       }
+
+      tr {
+        page-break-inside: auto;
+        break-inside: auto;
+      }
     </style>
   </head>
 
   <body>
-    {% include "header.html" %} {% if data.connectorDatasheetImage %}
+    {% include "header.html" %}
+
+    {% if data.connectorDatasheetImage %}
     <img src="{{ data.connectorDatasheetImage }}" style="width: 100%" />
     {% endif %}
 
+    <!-- FIRST PAGE ENDS HERE -->
     <div class="section" style="break-after: always">
       {% include "remarks-table.html" %}
     </div>
 
+    <!-- START PAGE 2 -->
     {% if data.description %}
     <div class="section-desc">DESCRIPTION: {{ data.description }}</div>
     {% endif %}
 
-    <div
-      style="
-        padding-top: 20px;
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 25px;
-      "
-    >
-      <!-- MATERIALS -->
-      {% include "single-interface/materials-table.html" %}
+    <!-- MATERIALS -->
+    <div class="section">
+      <div class="section-title">MATERIALS</div>
+      <div class="table-container">
+        <table class="table">
+          <tbody>
+            {% set has_data = false %}
+            {% for material in data.materials %}
+              {% if material.value %}
+                {% set has_data = true %}
+                <tr>
+                  <td class="td td-center" style="width: 40%; max-width: 40%;">
+                    <b>{{ material.label }}</b>
+                  </td>
+                  <td class="td td-center" style="width: 60%;">
+                    {{ material.value }}
+                  </td>
+                </tr>
+              {% endif %}
+            {% endfor %}
 
-      <!-- ELECTRICAL CHARACTERISTICS -->
+            {% if not has_data %}
+            <tr>
+              <td class="td td-center" style="width: 40%; max-width: 40%;"><b>andii</b></td>
+              <td class="td td-center" style="width: 60%;">andii</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ELECTRICAL CHARACTERISTICS -->
+    <div class="section">
       {% include "single-interface/electrical-chars-table.html" %}
+    </div>
 
-      <!-- MECHANICAL CHARACTERISTICS -->
+    <!-- MECHANICAL CHARACTERISTICS -->
+    <div class="section">
       {% include "single-interface/mechanical-chars-table.html" %}
+    </div>
 
-      <!-- ENVIRONMENTAL CHARACTERISTICS -->
+    <!-- ENVIRONMENTAL CHARACTERISTICS -->
+    <div class="section">
       {% include "single-interface/environmental-chars-table.html" %}
+    </div>
 
-      <!-- INTERFACE STANDARDS -->
+    <!-- INTERFACE STANDARDS -->
+    <div class="section">
       {% include "single-interface/interface-standards-table.html" %}
+    </div>
 
-      <!-- CUSTOM SPECIFICATIONS -->
+    <!-- CUSTOM SPECIFICATIONS -->
+    <div class="section">
       {% include "single-interface/custom-specs-table.html" %}
     </div>
+
     {% include "footer.html" %}
   </body>
 </html>
