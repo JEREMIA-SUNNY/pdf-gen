@@ -234,6 +234,29 @@
         margin-left: 0;
         padding-left: 0;
       }
+
+      .bold-text {
+        font-weight: 500; /* Medium weight instead of bold */
+      }
+
+      /* Add this to your existing CSS styles */
+      strong, b {
+        font-weight: 500; /* Reduce from default bold (700) to medium (500) */
+      }
+
+      /* Or if you want to completely remove bold styling */
+      /* 
+      strong, b {
+        font-weight: normal;
+      }
+      */
+
+      /* Ensure consistent font weight for specific elements */
+      .to-block strong,
+      .section-title,
+      p strong {
+        font-weight: 500;
+      }
     </style>
   </head>
 
@@ -247,17 +270,14 @@
       />
     </div>
 
-    <!-- Removed the include header line as we're now placing it directly in the HTML -->
-    <!-- {% include "headerQuotes.html" %} -->
-
-    <p><strong>Quotation Reference: {{ data.quotationRef }}</strong></p>
-    <p><strong>Enquiry Number: {{ data.enquiryNumber }}</strong></p>
+    <p><span class="bold-text">Quotation Reference: {{ data.quotationRef }}</span></p>
+    <p><span class="bold-text">Enquiry Number: {{ data.enquiryNumber }}</span></p>
     <p>Date: {{ data.quoteDate }}</p>
     <br />
 
     <div class="to-block">
       <p>To,</p>
-      <p><strong>{{ data.customerName }}</strong></p>
+      <p><span class="bold-text">{{ data.customerName }}</span></p>
       <p>{{ data.billingAddress.line1 }}</p>
       <p>{{ data.billingAddress.line2 }}</p>
       <p>
@@ -270,7 +290,7 @@
     <br /><br />
     <div class="to-block">
       <p class="section-title">
-      <strong>Kind Attention: {{ data.contactName }}</strong>
+      <span class="bold-text">Kind Attention: {{ data.contactName }}</span>
     </p>
     <span>{{ data.contactEmail }}</span><br />
     <span>{{ data.contactMobile }}</span>
@@ -286,19 +306,19 @@
     <p>Dear {{ greeting }},</p>
 
     <p>
-      NKRF is a <b>full-stack harness manufacturer</b> with capabilities to
+      NKRF is a <span class="bold-text">full-stack harness manufacturer</span> with capabilities to
       support any interconnecting harnesses in
-      <b>RF, copper, &amp; fiber optics</b>. Our capabilities in copper extend
+      <span class="bold-text">RF, copper, &amp; fiber optics</span>. Our capabilities in copper extend
       to power, control &amp; signal with connector types ranging across
       circular D38999 connectors, D-sub, micro-D, nano-D, USB, RJ45 (Ethernet).
-      In <b>fiber</b>, we support standard optical connectors as well as
-      <b>termini used in military applications</b>. NKRF also supports machined
+      In <span class="bold-text">fiber</span>, we support standard optical connectors as well as
+      <span class="bold-text">termini used in military applications</span>. NKRF also supports machined
       components per customer spec.
     </p>
 
     <p>
       NKRF is also proud to share that we have been awarded
-      <b>"Certificate for Qualification – For Space Use"</b> from ISRO, thus
+      <span class="bold-text">"Certificate for Qualification – For Space Use"</span> from ISRO, thus
       becoming the 1st and only indigenous vendor to be qualified for supply of
       RF &amp; MW cable assemblies for space missions. NKRF is also proud to
       have supplied RF Cables which are currently flying on satellites on ESA
@@ -307,7 +327,7 @@
 
     <p>
       NKRF is an AS9100 Rev D Certified company and its
-      <b>RF Cable Assemblies are CEMILAC qualified for airborne applications</b>
+      <span class="bold-text">RF Cable Assemblies are CEMILAC qualified for airborne applications</span>
       on fixed and rotary wing aircraft.
     </p>
 
@@ -333,7 +353,7 @@
     <p>Yours Sincerely,</p>
     <img src="{{ data.signImage }}" alt="Signature" style="width: 150px" />
     <p>For N.K. RF Products &amp; Services Pvt. Ltd,</p>
-    <p><strong>Alok Sood</strong></p>
+    <p><span class="bold-text">Alok Sood</span></p>
 
     <br /><br /><br /><br />
    <div style="page-break-before: always">
