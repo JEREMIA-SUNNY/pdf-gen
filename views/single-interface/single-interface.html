@@ -52,16 +52,21 @@
         padding: 10px 0;
       }
 
-      .header > .title {
+     .header > .title {
         display: flex;
         align-items: flex-end;
-        font-size: 20px;
         font-weight: bold;
         color: #375fbd;
+        white-space: nowrap;
+        max-width: calc(100% - 120px);
+        flex-shrink: 0;
+        /* Fixed font size to match section-desc */
+        font-size: 14px;
       }
 
       .header > .logo {
         width: 100px;
+        flex-shrink: 0;
       }
 
       .footer {
@@ -73,9 +78,6 @@
         width: 100%;
         gap: 3px;
         font-size: 12px;
-      }
-
-      .table-container {
       }
 
       .table {
@@ -141,9 +143,6 @@
     {% endif %}
 
     <!-- FIRST PAGE ENDS HERE -->
-    <div class="section" style="break-after: always">
-      {% include "remarks-table.html" %}
-    </div>
 
     <!-- START PAGE 2 -->
     {% if data.description %}
@@ -195,6 +194,11 @@
     <!-- CUSTOM SPECIFICATIONS -->
     <div class="section">
       {% include "single-interface/custom-specs-table.html" %}
+    </div>
+
+     <!-- REMARKS TABLE  -->
+    <div class="section" style="page-break-before: always;">
+      {% include "remarks-table.html" %}
     </div>
 
     {% include "footer.html" %}
