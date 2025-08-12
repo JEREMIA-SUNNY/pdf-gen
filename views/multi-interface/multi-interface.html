@@ -57,16 +57,22 @@
         page-break-inside: avoid !important;
         break-inside: avoid-column !important;
       }
-      .header > .title {
+      
+     .header > .title {
         display: flex;
         align-items: flex-end;
-        font-size: 20px;
         font-weight: bold;
         color: #375fbd;
+        white-space: nowrap;
+        max-width: calc(100% - 120px);
+        flex-shrink: 0;
+        /* Fixed font size to match section-desc */
+        font-size: 14px;
       }
 
       .header > .logo {
         width: 100px;
+        flex-shrink: 0;
       }
 
       .footer {
@@ -144,10 +150,6 @@
     <img src="{{ data.adaptorDatasheetImage }}" style="width: 100%" />
     {% endif %}
 
-    <div class="section" style="break-after: always">
-      {% include "remarks-table.html" %}
-    </div>
-
     {% if data.description %}
 
     <div class="section-desc">DESCRIPTION: {{ data.description }}</div>
@@ -180,6 +182,11 @@
       <!-- CUSTOM SPECIFICATIONS -->
       {% include "multi-interface/custom-specs-table.html" %}
     </div>
+
+       <div class="section" style="break-after: always">
+      {% include "remarks-table.html" %}
+    </div>
+
     {% include "footer.html" %}
   </body>
 </html>
