@@ -143,10 +143,6 @@
     <img src="{{ data.cableDatasheetImage }}" style="width: 100%" />
     {% endif %}
 
-    <div class="section" style="break-after: always">
-      {% include "remarks-tablecable.html" %}
-    </div>
-
     {% if data.description %}
 
     <div class="section-desc">DESCRIPTION: {{ data.description }}</div>
@@ -185,6 +181,11 @@
       <!-- CUSTOM SPECIFICATIONS -->
       {% include "cable/custom-specs-table.html" %}
     </div>
+
+    <div class="section" style="page-break-before: always;">
+      {% include "remarks-tablecable.html" %}
+    </div>
+    
     {% include "footer.html" %}
   </body>
 </html>

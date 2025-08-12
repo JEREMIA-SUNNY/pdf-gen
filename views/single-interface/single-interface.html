@@ -150,13 +150,21 @@
     {% endif %}
 
     <!-- MATERIALS -->
+    {% set has_material_data = false %}
+    {% for material in data.materials %}
+      {% if material.value %}
+        {% set has_material_data = true %}
+      {% endif %}
+    {% endfor %}
+    
+    {% if has_material_data %}
     <div class="section">
       <div class="section-title">MATERIALS</div>
       <div class="table-container">
         <table class="table">
           <tbody>
-            {% set has_data = false %} {% for material in data.materials %} {%
-            if material.value %} {% set has_data = true %}
+            {% for material in data.materials %}
+            {% if material.value %}
             <tr>
               <td class="td td-center" style="width: 40%; max-width: 40%">
                 <b>{{ material.label }}</b>
@@ -165,11 +173,13 @@
                 {{ material.value }}
               </td>
             </tr>
-            {% endif %} {% endfor %}
+            {% endif %}
+            {% endfor %}
           </tbody>
         </table>
       </div>
     </div>
+    {% endif %}
 
     <!-- ELECTRICAL CHARACTERISTICS -->
     <div class="section">
