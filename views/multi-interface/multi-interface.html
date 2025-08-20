@@ -126,24 +126,18 @@
       }
 
       .section {
-        display: grid;
-        gap: 10px;
+        display: block;
         width: 100%;
+        margin-bottom: 20px;
+        page-break-inside: auto;
       }
 
       .section-body {
-        display: grid;
-        grid-template-columns: 1fr 2fr;
-        gap: 0;
+        display: block;
       }
 
       .section-body > p {
         padding: 5px 0;
-      }
-      main-body {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 20px;
       }
     </style>
   </head>
@@ -162,35 +156,43 @@
     <div
       style="
         padding-top: 20px;
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 25px;
       "
     >
       <!-- MATERIALS -->
-      {% include "multi-interface/materials-table.html" %}
+      <div class="section">
+        {% include "multi-interface/materials-table.html" %}
+      </div>
 
       <!-- ELECTRICAL CHARACTERISTICS -->
-      {% include "multi-interface/electrical-chars-table.html" %}
+      <div class="section">
+        {% include "multi-interface/electrical-chars-table.html" %}
+      </div>
 
       <!-- MECHANICAL CHARACTERISTICS -->
-      {% include "multi-interface/mechanical-chars-table.html" %}
+      <div class="section">
+        {% include "multi-interface/mechanical-chars-table.html" %}
+      </div>
 
       <!-- ENVIRONMENTAL CHARACTERISTICS -->
-      {% include "multi-interface/environmental-chars-table.html" %}
+      <div class="section">
+        {% include "multi-interface/environmental-chars-table.html" %}
+      </div>
 
       <!-- INTERFACE STANDARDS -->
-      {% include "multi-interface/interface-standards-table.html" %}
+      <div class="section">
+        {% include "multi-interface/interface-standards-table.html" %}
+      </div>
 
       <!-- CUSTOM SPECIFICATIONS -->
-      {% include "multi-interface/custom-specs-table.html" %}
+      <div class="section">
+        {% include "multi-interface/custom-specs-table.html" %}
+      </div>
 
-       <div class="section" style="break-after: always">
-      {% include "remarks-table.html" %}
+      <!-- REMARKS TABLE - Will start on new page -->
+      <div class="section" style="page-break-before: always;">
+        {% include "remarks-table.html" %}
+      </div>
     </div>
-    </div>
-
-     
 
     {% include "footer.html" %}
   </body>
