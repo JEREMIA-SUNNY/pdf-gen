@@ -1,76 +1,83 @@
-{% for page in data.pages %} {# Check if there's a section named "Additional
-Customer Specifications" #} {% set hasCustomFieldsSection = false %} {% for sec
-in page.sections %} {% if sec.name == "Additional Customer Specifications" %} {%
-set hasCustomFieldsSection = true %} {% endif %} {% endfor %} {# Render only if
-at least one checkbox is true #} {% if page.checkBoxes.option1 or
-page.checkBoxes.option2 or page.checkBoxes.option3 %}
-<div style="page-break-after: always" class=""></div>
-<h4 class="section-title">{{ page.name }}</h4>
+{% for page in data.pages %}
+  {% set selected_options = [] %}
+  {% if page.checkBoxes.option1 %}{% set _ = selected_options.append("option1") %}{% endif %}
+  {% if page.checkBoxes.option2 %}{% set _ = selected_options.append("option2") %}{% endif %}
+  {% if page.checkBoxes.option3 %}{% set _ = selected_options.append("option3") %}{% endif %}
+  {% set selected_count = selected_options | length %}
 
+  {% if selected_count > 0 %}
+    <div style="page-break-after: always"></div>
+    <h4 class="section-title">{{ page.name }}</h4>
 
-{% for section in page.sections %} {% if section.fields|length > 0 %}
-<div class="section">
-  <h4 class="section-title" style="padding-top: 20px">{{ section.name }}</h4>
-  <div class="table-container">
-    <table class="table">
-      <thead>
-        <tr>
-          <td class="td td-head" style="width: calc(100% / 5); text-align: center;  vertical-align: middle;">Field Name</td>
+    {% for section in page.sections %}
+      {% if section.fields|length > 0 %}
+        <div class="section">
+          <h4 class="section-title" style="padding-top: 20px">{{ section.name }}</h4>
+          <div class="table-container">
+            <table class="table">
+              <thead>
+                <tr>
+                  <td class="td td-head" style="width: calc(100% / 5); text-align: center; vertical-align: middle;">Field Name</td>
 
-          {% if not section.hideSpecification %}
-          <td class="td td-head" style="width: calc(100% / 5) ; text-align: center;  vertical-align: middle;">
-            Customer Specification
-          </td>
-          {% endif %} {% if page.checkBoxes.option1 %}
-          <td class="td td-head" style="width: calc(100% / 5);  text-align: center; vertical-align: middle;">
-            NKRF Specification
-          </td>
-          {% endif %} {% if page.checkBoxes.option2 %}
-          <td class="td td-head" style="width: calc(100% / 5 ) ; text-align: center; vertical-align: middle;">
-            NKRF Alternate 1
-          </td>
-          {% endif %} {% if page.checkBoxes.option3 %}
-          <td class="td td-head" style="width: calc(100% / 5) ; text-align: center; vertical-align: middle;">
-            NKRF Alternate 2
-          </td>
-          {% endif %}
-        </tr>
-      </thead>
-      <tbody>
-        {% for field in section.fields %}
-        <tr>
-          <td class="td " style="vertical-align: middle;">{{ field.name }}</td>
+                  {% if not section.hideSpecification %}
+                    <td class="td td-head" style="width: calc(100% / 5); text-align: center; vertical-align: middle;">Customer Specification</td>
+                  {% endif %}
 
-         {% if not section.hideSpecification %}
-  <td class="td" style="text-align: center; vertical-align: middle;">
-    {{ field.value | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
-  </td>
-{% endif %}
+                  {# Generate NKRF headers dynamically #}
+                  {% if selected_count == 1 %}
+                    <td class="td td-head" style="width: calc(100% / 5); text-align: center; vertical-align: middle;">NKRF Specification</td>
+                  {% elif selected_count == 2 %}
+                    <td class="td td-head" style="width: calc(100% / 5); text-align: center; vertical-align: middle;">NKRF Option 1</td>
+                    <td class="td td-head" style="width: calc(100% / 5); text-align: center; vertical-align: middle;">NKRF Option 2</td>
+                  {% elif selected_count == 3 %}
+                    <td class="td td-head" style="width: calc(100% / 5); text-align: center; vertical-align: middle;">NKRF Option 1</td>
+                    <td class="td td-head" style="width: calc(100% / 5); text-align: center; vertical-align: middle;">NKRF Option 2</td>
+                    <td class="td td-head" style="width: calc(100% / 5); text-align: center; vertical-align: middle;">NKRF Option 3</td>
+                  {% endif %}
+                </tr>
+              </thead>
 
-{% if page.checkBoxes.option1 %}
-  <td class="td" style="text-align: center;vertical-align: middle;">
-    {{ field.option1 | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
-  </td>
-{% endif %}
+              <tbody>
+                {% for field in section.fields %}
+                  <tr>
+                    <td class="td" style="vertical-align: middle;">{{ field.name }}</td>
 
-{% if page.checkBoxes.option2 %}
-  <td class="td" style="text-align: center; vertical-align: middle;">
-    {{ field.option2 | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
-  </td>
-{% endif %}
+                    {% if not section.hideSpecification %}
+                      <td class="td" style="text-align: center; vertical-align: middle;">
+                        {{ field.value | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
+                      </td>
+                    {% endif %}
 
-{% if page.checkBoxes.option3 %}
-  <td class="td" style="text-align: center; vertical-align: middle;">
-    {{ field.option3 | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
-  </td>
-{% endif %}
-
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-</div>
-{% endif %}
+                    {# Now render the correct number of columns for values #}
+                    {% if selected_count == 1 %}
+                      <td class="td" style="text-align: center; vertical-align: middle;">
+                        {{ field[selected_options[0]] | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
+                      </td>
+                    {% elif selected_count == 2 %}
+                      <td class="td" style="text-align: center; vertical-align: middle;">
+                        {{ field[selected_options[0]] | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
+                      </td>
+                      <td class="td" style="text-align: center; vertical-align: middle;">
+                        {{ field[selected_options[1]] | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
+                      </td>
+                    {% elif selected_count == 3 %}
+                      <td class="td" style="text-align: center; vertical-align: middle;">
+                        {{ field.option1 | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
+                      </td>
+                      <td class="td" style="text-align: center; vertical-align: middle;">
+                        {{ field.option2 | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
+                      </td>
+                      <td class="td" style="text-align: center; vertical-align: middle;">
+                        {{ field.option3 | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
+                      </td>
+                    {% endif %}
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
 {% endfor %}
-{% endif %} {% endfor %}
