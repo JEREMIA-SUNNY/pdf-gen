@@ -37,42 +37,63 @@
                 </tr>
               </thead>
 
-              <tbody>
-                {% for field in section.fields %}
-                  <tr>
-                    <td class="td" style="vertical-align: middle;">{{ field.name }}</td>
+             <tbody>
+                  {% for field in section.fields %}
+                    <tr>
+                      <td class="td" style="vertical-align: middle;">{{ field.name }}</td>
 
-                    {% if not section.hideSpecification %}
-                      <td class="td" style="text-align: center; vertical-align: middle;">
-                        {{ field.value | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
-                      </td>
-                    {% endif %}
+                      {% if not section.hideSpecification %}
+                        <td class="td" style="text-align: center; vertical-align: middle;">
+                          {{ field.value
+                            | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
+                            | replace("\n", "<br>")
+                            | safe }}
+                        </td>
+                      {% endif %}
 
-                    {# Now render the correct number of columns for values #}
-                    {% if selected_count == 1 %}
-                      <td class="td" style="text-align: center; vertical-align: middle;">
-                        {{ field[selected_options[0]] | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
-                      </td>
-                    {% elif selected_count == 2 %}
-                      <td class="td" style="text-align: center; vertical-align: middle;">
-                        {{ field[selected_options[0]] | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
-                      </td>
-                      <td class="td" style="text-align: center; vertical-align: middle;">
-                        {{ field[selected_options[1]] | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
-                      </td>
-                    {% elif selected_count == 3 %}
-                      <td class="td" style="text-align: center; vertical-align: middle;">
-                        {{ field.option1 | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
-                      </td>
-                      <td class="td" style="text-align: center; vertical-align: middle;">
-                        {{ field.option2 | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
-                      </td>
-                      <td class="td" style="text-align: center; vertical-align: middle;">
-                        {{ field.option3 | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>") | safe }}
-                      </td>
-                    {% endif %}
-                  </tr>
-                {% endfor %}
+                      {# Now render the correct number of columns for values #}
+                      {% if selected_count == 1 %}
+                        <td class="td" style="text-align: center; vertical-align: middle;">
+                          {{ field[selected_options[0]]
+                            | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
+                            | replace("\n", "<br>")
+                            | safe }}
+                        </td>
+                      {% elif selected_count == 2 %}
+                        <td class="td" style="text-align: center; vertical-align: middle;">
+                          {{ field[selected_options[0]]
+                            | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
+                            | replace("\n", "<br>")
+                            | safe }}
+                        </td>
+                        <td class="td" style="text-align: center; vertical-align: middle;">
+                          {{ field[selected_options[1]]
+                            | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
+                            | replace("\n", "<br>")
+                            | safe }}
+                        </td>
+                      {% elif selected_count == 3 %}
+                        <td class="td" style="text-align: center; vertical-align: middle;">
+                          {{ field.option1
+                            | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
+                            | replace("\n", "<br>")
+                            | safe }}
+                        </td>
+                        <td class="td" style="text-align: center; vertical-align: middle;">
+                          {{ field.option2
+                            | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
+                            | replace("\n", "<br>")
+                            | safe }}
+                        </td>
+                        <td class="td" style="text-align: center; vertical-align: middle;">
+                          {{ field.option3
+                            | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
+                            | replace("\n", "<br>")
+                            | safe }}
+                        </td>
+                      {% endif %}
+                    </tr>
+                  {% endfor %}
               </tbody>
             </table>
           </div>
