@@ -1,9 +1,15 @@
-from flask import Flask, request, render_template, send_file
+from flask import Flask, request, Response, jsonify, render_template, send_file
 from weasyprint import HTML
 import os
 import io
 
 # Tell Flask to look for templates in the 'views' folder
+from cable_assembly_part_description_generator import (
+    singl_if_generate_part_description,
+    generate_assembly_pn_length,
+    generate_assembly_type,
+    generate_phase_matched_string,
+)
 app = Flask(__name__, template_folder="views")
 
 @app.route('/generate-pdf/single-interface', methods=['POST'])
@@ -104,6 +110,44 @@ def generatePackingList_pdf():
     HTML(string=rendered_html).write_pdf(pdf_buffer)
     pdf_buffer.seek(0)
     return send_file(pdf_buffer, mimetype='application/pdf')
+
+@app.route('/generate-description', methods=['POST'])
+def generate_description():
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'Missing input data'}), 400
+
+        end_a = data.get("connectorA", {})
+        end_b = data.get("connectorB", {})
+        cable = data.get("cable", {})
+        assembly = data.get("assembly", {})
+
+        # import functions at top:
+        # from cable_assembly_part_description_generator import (
+        #     singl_if_generate_part_description,
+        #     generate_assembly_pn_length,
+        #     generate_assembly_type,
+        #     generate_phase_matched_string,
+        # )
+
+        end_a_description = singl_if_generate_part_description(end_a)
+        end_b_description = singl_if_generate_part_description(end_b)
+        assembly_pn_length = generate_assembly_pn_length(assembly)
+        assembly_type = generate_assembly_type(cable)
+        phase_matched_string = generate_phase_matched_string(assembly)
+
+        final_string = (
+            f"{assembly_pn_length}, {assembly_type}. "
+            f"{end_a_description} on End A and {end_b_description} on End B. "
+            f"{phase_matched_string}"
+        )
+
+        return jsonify({"description": final_string})
+    except Exception as e:
+        app.logger.exception("Error generating description")
+        return jsonify({'error': str(e)}), 500
+
 
 @app.route('/addressSheet/generate', methods=['POST'])
 def generateAddressSheet_pdf():
