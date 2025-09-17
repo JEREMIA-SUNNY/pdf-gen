@@ -128,6 +128,8 @@
         font-size: 14px;
         font-weight: bold;
         color: #375fbd;
+        /* Small spacing, but don't force pushing table to next page */
+        margin-bottom: 6px;
       }
       .section-desc {
         font-size: 14px;
@@ -136,8 +138,7 @@
       }
 
       .section {
-        display: grid;
-        gap: 10px;
+        display: block; /* allow more natural pagination, no internal grid gaps */
         width: 100%;
       }
 
