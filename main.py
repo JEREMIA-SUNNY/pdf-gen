@@ -42,6 +42,7 @@ def generateMulti_pdf():
     data = request.json
 
     rendered_html = render_template("multi-interface/multi-interface.html", data=data)
+    
     pdf_buffer = io.BytesIO()
     HTML(string=rendered_html).write_pdf(pdf_buffer)
     pdf_buffer.seek(0)

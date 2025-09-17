@@ -1,5 +1,8 @@
-{% if data.customSpecifications and data.customSpecifications | length > 0 %}
-<div class="section">
+{% set specs = data.customSpecifications or data.customSpecs or data.otherSpecifications %}
+{% if specs and specs | length > 0 %}
+{# If there are many rows, start the section on a fresh page to keep it readable #}
+{% set needs_new_page = specs|length > 12 %}
+<div class="section {{ 'force-page-break' if needs_new_page else '' }}">
   <div class="section-title">OTHER SPECIFICATIONS</div>
   <div class="table-container">
     <table class="table">
@@ -10,15 +13,24 @@
         </tr>
       </thead>
       <tbody>
-        {% for spec in data.customSpecifications %} {% if spec.fieldName and
-        spec.specification %}
-        <tr>
-          <td class="td td-center" style="font-weight: bold">
-            {{ spec.fieldName }}
-          </td>
-          <td class="td td-center">{{ spec.specification }}</td>
-        </tr>
-        {% endif %} {% endfor %}
+        {% for spec in specs %}
+          {% set name = (spec.fieldName if spec.fieldName is defined else None)
+                        or (spec.label if spec.label is defined else None)
+                        or (spec.name if spec.name is defined else None)
+                        or (spec.key if spec.key is defined else None)
+                        or (spec.title if spec.title is defined else None) %}
+          {% set value = (spec.specification if spec.specification is defined else None)
+                         or (spec.value if spec.value is defined else None)
+                         or (spec.val if spec.val is defined else None)
+                         or (spec.text if spec.text is defined else None)
+                         or (spec.desc if spec.desc is defined else None) %}
+          {% if name or value %}
+          <tr>
+            <td class="td td-center" style="font-weight: bold">{{ name or "-" }}</td>
+            <td class="td td-center">{{ value or "-" }}</td>
+          </tr>
+          {% endif %}
+        {% endfor %}
       </tbody>
     </table>
   </div>
