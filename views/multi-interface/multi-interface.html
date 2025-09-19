@@ -104,15 +104,23 @@
         font-size: 12px;
       }
 
-      .table-container {
+      /* .table-container {
         border-left: 1px solid #00000055;
         border-top: 1px solid #00000055;
-      }
+      } */
 
       .td {
         border-right: 1px solid #00000055;
         border-bottom: 1px solid #00000055;
         padding: 5px;
+      }
+
+       .table td:first-child,
+       .table th:first-child {
+        border-left: 1px solid #00000055;
+      }
+      .table tr:first-child > .td {
+        border-top: 1px solid #00000055;
       }
       .td-center {
         text-align: center;
@@ -138,7 +146,7 @@
       }
 
       .section {
-        display: block; /* allow more natural pagination, no internal grid gaps */
+        display: block; 
         width: 100%;
       }
 
