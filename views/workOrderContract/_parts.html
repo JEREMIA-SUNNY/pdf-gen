@@ -1,0 +1,37 @@
+{% if parts %}
+<div class="section page-break">
+  <div class="section-title">Parts Details</div>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Part Type</th>
+        <th>Customer PN</th>
+        <th>NKRF PN</th>
+        <th>NKRF Serial</th>
+        <th>Length</th>
+        <th>Length Tolerance</th>
+        <th>Phase Matching</th>
+        <th>Cables per Set</th>
+        <th>No. of Sets</th>
+        <th>Total Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for part in parts %}
+      <tr>
+        <td>{{ part.partType or 'N/A' }}</td>
+        <td>{{ part.customerPartNumber or 'N/A' }}</td>
+        <td>{{ part.nkrfPartNumber or 'N/A' }}</td>
+        <td>{{ part.nkrfSerialNumber or 'N/A' }}</td>
+        <td>{{ part.length or 'N/A' }}</td>
+        <td>{{ part.lengthTolerance or 'N/A' }}</td>
+        <td>{{ part.phaseMatching or 'N/A' }}</td>
+        <td>{{ part.cablesPerSet or 'N/A' }}</td>
+        <td>{{ part.noOfSets or 'N/A' }}</td>
+        <td>{{ part.totalQuantity or 'N/A' }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}

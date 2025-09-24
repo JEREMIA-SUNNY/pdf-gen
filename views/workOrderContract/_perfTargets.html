@@ -1,0 +1,42 @@
+{% if perfTargets and perfTargets[0] %}
+<div class="section page-break">
+  <div class="section-title">Performance Targets</div>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Parameter</th>
+        <th>Committed Target</th>
+        <th>Internal Target</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Operating Frequency</strong></td>
+        <td colspan="2">{{ perfTargets[0].operatingFrequency or 'N/A' }}</td>
+      </tr>
+      <tr>
+        <td><strong>Insertion Loss (IL)</strong></td>
+        <td>{{ perfTargets[0].committedILTarget or 'N/A' }}</td>
+        <td>{{ perfTargets[0].internalILTarget or 'N/A' }}</td>
+      </tr>
+      <tr>
+        <td><strong>VSWR</strong></td>
+        <td>{{ perfTargets[0].committedVSWRTarget or 'N/A' }}</td>
+        <td>{{ perfTargets[0].internalVSWRTarget or 'N/A' }}</td>
+      </tr>
+      <tr>
+        <td><strong>Phase Matching (PM)</strong></td>
+        <td>{{ perfTargets[0].committedPMTarget or 'N/A' }}</td>
+        <td>{{ perfTargets[0].internalPMTarget or 'N/A' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  {% if perfTargets[0].notes %}
+  <div class="subsection show-if-available">
+    <div class="subsection-title">Performance Target Notes</div>
+    <p>{{ perfTargets[0].notes }}</p>
+  </div>
+  {% endif %}
+</div>
+{% endif %}

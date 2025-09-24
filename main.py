@@ -176,6 +176,24 @@ def generateAddressSheet_pdf():
     HTML(string=rendered_html).write_pdf(pdf_buffer)
     pdf_buffer.seek(0)
     return send_file(pdf_buffer, mimetype='application/pdf')
+    
+@app.route('/workOrder/generate', methods=['POST'])
+def generateWorkOrder_pdf():
+    """Generate Work Order PDF from JSON data"""
+    data = request.json
+    if not data:
+        return "Invalid JSON payload", 400
+
+    print("Work Order PDF Data:", data)  # Debugging
+
+    # Render the Jinja template for Work Order (uses partials inside workOrder.html)
+    rendered_html = render_template("workOrder/workOrder.html", **data)
+
+    # Convert HTML to PDF
+    pdf_buffer = io.BytesIO()
+    HTML(string=rendered_html).write_pdf(pdf_buffer)
+    pdf_buffer.seek(0)
+    return send_file(pdf_buffer, mimetype='application/pdf')
 
 if __name__ == '__main__':
     app.run(debug=True)
