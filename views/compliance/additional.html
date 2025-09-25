@@ -10,7 +10,7 @@
     <h4 class="section-title">{{ page.name }}</h4>
 
     {% for section in page.sections %}
-      {% if section.fields|length > 0 %}
+      {% if section.fields|length > 0 and section.name != "Cable Assembly Drawing Specifications" %}
         <div class="section">
           <h4 class="section-title" style="padding-top: 20px">{{ section.name }}</h4>
           <div class="table-container">
@@ -36,8 +36,6 @@
                   {% endif %}
                 </tr>
               </thead>
-
-              
 
              <tbody>
                   {% for field in section.fields %}
@@ -102,5 +100,53 @@
         </div>
       {% endif %}
     {% endfor %}
+   
+  {% if page.extraCableAssemblyFields and page.extraCableAssemblyFields|length > 0 %}
+  {% for option in selected_options %}
+    <div style="page-break-before: always;"></div>
+    <h4 class="section-title">CABLE ASSEMBLY SPECIFICATIONS ({{ option | capitalize }})</h4>
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr>
+            <td class="td td-head" style="width: 50%">Field Name</td>
+            <td class="td td-head" style="width: 50%">Value</td>
+          </tr>
+        </thead>
+        <tbody>
+          {% for field in page.extraCableAssemblyFields %}
+            <tr>
+              <td class="td">{{ field.name }}</td>
+              <td class="td" style="text-align: center;">
+                {# --- Special handling --- #}
+                {% if field.name == "Compliance Serial #" %}
+                  {{ field[option] | default("-")
+                     | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
+                     | replace("\n", "<br>")
+                     | safe }}
+                {% elif field.name == "Customer Part Number" %}
+                  {{ field.value | default("-")
+                     | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
+                     | replace("\n", "<br>")
+                     | safe }}
+                {% else %}
+                  {{ (
+                    (field[option] if field[option] and field[option] | trim != "" else field.value)
+                      if field.value and field.value | trim != "" or (field[option] and field[option] | trim != "")
+                      else "-"
+                  )
+                  | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
+                  | replace("\n", "<br>")
+                  | safe }}
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endfor %}
+  {% endif %}
+
   {% endif %}
 {% endfor %}
