@@ -101,130 +101,140 @@
       {% endif %}
     {% endfor %}
    
-  {% if page.extraCableAssemblyFields and page.extraCableAssemblyFields|length > 0 %}
-  {% for option in selected_options %}
-  <div style="page-break-before: always;"></div>
-  <h4 class="section-title">CABLE ASSEMBLY SPECIFICATIONS ({{ option | capitalize }})</h4>
-  <div class="table-container">
-    <table class="cable-specs-table">
-      <tbody>
-        {% set full_row_fields = [
-          "Compliance Serial #",
-          "NKRF Part Number", 
-          "Customer Part Number",
-          "Strain Relief Sleeve Type & Length",
-          "Marker Type & Length",
-          "Marker Position",
-          "Jacket & Colour"
-        ] %}
-        
-        {% set fields = page.extraCableAssemblyFields %}
-        
-        {% for field_name in full_row_fields %}
-          {% set field = fields | selectattr("name", "equalto", field_name) | first %}
-          {% if field %}
-            <tr>
-              <td class="spec-field-name">{{ field.name }}</td>
-              <td class="spec-field-value" colspan="3">
-                {% if field.name == "Customer Part Number" %}
-                  {{ field.value | default("-")
+   {% if page.extraCableAssemblyFields and page.extraCableAssemblyFields|length > 0 %}
+    {% for option in selected_options %}
+    <div style="page-break-before: always;"></div>
+    <h4 class="section-title">CABLE ASSEMBLY SPECIFICATIONS ({{ option | capitalize }})</h4>
+    <div class="table-container">
+      <table class="cable-specs-table">
+        <tbody>
+          {# Full-row fields at the TOP #}
+          {% set top_full_row_fields = [
+            "Compliance Serial #",
+            "NKRF Part Number",
+            "Customer Part Number"
+          ] %}
+
+          {% set fields = page.extraCableAssemblyFields %}
+
+          {% for field_name in top_full_row_fields %}
+            {% set field = fields | selectattr("name", "equalto", field_name) | first %}
+            {% if field %}
+              <tr>
+                <td class="spec-field-name">{{ field.name }}</td>
+                <td class="spec-field-value" colspan="3">
+                  {% if field.name == "Customer Part Number" %}
+                    {# Always use field.value for Customer Part Number #}
+                    {% set val = field.value | default("-") %}
+                  {% else %}
+                    {% set val = (field[option] if field[option] and field[option]|trim != "" else field.value|default("-")) %}
+                  {% endif %}
+                  {{ val if val|trim != "" else "-" 
                     | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
                     | replace("\n", "<br>")
                     | safe }}
-                {% elif field.name == "Jacket & Colour" %}
-                  {{ (field[option] if field[option] and field[option]|trim != "" else field.value|default("-"))
-                    | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
-                    | replace("\n", "<br>")
-                    | safe }}
-                {% else %}
-                  {{ (field[option] if field[option] and field[option]|trim != "" else field.value|default("-"))
-                    | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
-                    | replace("\n", "<br>")
-                    | safe }}
-                {% endif %}
-              </td>
-            </tr>
-          {% endif %}
-        {% endfor %}
-        
-        {% set remaining_fields = fields | rejectattr("name", "in", full_row_fields) | list %}
-        
-        {% for i in range(0, remaining_fields|length, 2) %}
-          <tr>
-            <td class="spec-field-name">{{ remaining_fields[i].name }}</td>
-            <td class="spec-field-value">
-              {% if remaining_fields[i].name == "Jacket & Colour" %}
-                {{ (remaining_fields[i][option] if remaining_fields[i][option] and remaining_fields[i][option]|trim != "" else remaining_fields[i].value|default("-"))
-                  | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
-                  | replace("\n", "<br>")
-                  | safe }}
-              {% else %}
-                {{ (remaining_fields[i][option] if remaining_fields[i][option] and remaining_fields[i][option]|trim != "" else remaining_fields[i].value|default("-"))
-                  | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
-                  | replace("\n", "<br>")
-                  | safe }}
-              {% endif %}
-            </td>
-            
-            {% if i + 1 < remaining_fields|length %}
-              <td class="spec-field-name">{{ remaining_fields[i + 1].name }}</td>
-              <td class="spec-field-value">
-                {% if remaining_fields[i + 1].name == "Jacket & Colour" %}
-                  {{ (remaining_fields[i + 1][option] if remaining_fields[i + 1][option] and remaining_fields[i + 1][option]|trim != "" else remaining_fields[i + 1].value|default("-"))
-                    | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
-                    | replace("\n", "<br>")
-                    | safe }}
-                {% else %}
-                  {{ (remaining_fields[i + 1][option] if remaining_fields[i + 1][option] and remaining_fields[i + 1][option]|trim != "" else remaining_fields[i + 1].value|default("-"))
-                    | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
-                    | replace("\n", "<br>")
-                    | safe }}
-                {% endif %}
-              </td>
-            {% else %}
-              <td class="spec-field-name"></td>
-              <td class="spec-field-value"></td>
+                </td>
+              </tr>
             {% endif %}
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  {% endfor %}
-  {% endif %}
+          {% endfor %}
 
-<style>
-  .cable-specs-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 10px;
-    margin-top: 10px;
-  }
+          {# Ordered pairs (middle section) #}
+          {% set ordered_pairs = [
+            ["Connector End A", "Connector End B"],
+            ["Cable Part Number", "Centre Conductor"],
+            ["Impedance", "Outer Diameter"],
+            ["Velocity of Propagation", "Shielding Effectiveness"],
+            ["Jacket & Colour", "Static Bend Radius"],
+            ["Assembly Length", "Length Tolerance"],
+            ["Operating Frequency", "Cable Attenuation"],
+            ["VSWR", "Insertion Loss"],
+            ["Assembly Weight", "Assembly Operating Temperature"],
+            ["Phase Match Tolerance", "Phase Match Frequency"]
+          ] %}
 
-  .cable-specs-table td {
-    border: 1px solid #000;
-    padding: 4px 8px;
-    vertical-align: middle;
-  }
+          {% for pair in ordered_pairs %}
+            <tr>
+              {% for fname in pair %}
+                {% set field = fields | selectattr("name", "equalto", fname) | first %}
+                {% if field %}
+                  <td class="spec-field-name">{{ field.name }}</td>
+                  <td class="spec-field-value">
+                    {% set val = (field[option] if field[option] and field[option]|trim != "" else field.value|default("-")) %}
+                    {{ val if val|trim != "" else "-" 
+                      | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
+                      | replace("\n", "<br>")
+                      | safe }}
+                  </td>
+                {% else %}
+                  <td class="spec-field-name"></td>
+                  <td class="spec-field-value">-</td>
+                {% endif %}
+              {% endfor %}
+            </tr>
+          {% endfor %}
 
-  .spec-field-name {
-    width: 25%;
-    font-weight: bold;
-    background-color: #f5f5f5;
-  }
+          {# Bottom full-row fields #}
+          {% set bottom_full_row_fields = [
+            "Strain Relief Sleeve Type & Length",
+            "Marker Type & Length",
+            "Marker Position"
+          ] %}
 
-  .spec-field-value {
-    width: 25%;
-    text-align: center;
-  }
-  .cable-specs-table tr:has(td[colspan="3"]) .spec-field-name {
-    width: 25%;
-  }
+          {% for field_name in bottom_full_row_fields %}
+            {% set field = fields | selectattr("name", "equalto", field_name) | first %}
+            {% if field %}
+              <tr>
+                <td class="spec-field-name">{{ field.name }}</td>
+                <td class="spec-field-value" colspan="3">
+                  {% set val = (field[option] if field[option] and field[option]|trim != "" else field.value|default("-")) %}
+                  {{ val if val|trim != "" else "-" 
+                    | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
+                    | replace("\n", "<br>")
+                    | safe }}
+                </td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endfor %}
+    {% endif %}
 
-  .cable-specs-table tr:has(td[colspan="3"]) .spec-field-value {
-    width: 75%;
-  }
-</style>
+
+
+    <style>
+      .cable-specs-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 10px;
+        margin-top: 10px;
+      }
+
+      .cable-specs-table td {
+        border: 1px solid #000;
+        padding: 4px 8px;
+        vertical-align: middle;
+      }
+
+      .spec-field-name {
+        width: 25%;
+        font-weight: 600;
+        background-color: #ffffff;
+      }
+
+      .spec-field-value {
+        width: 25%;
+        text-align: center;
+      }
+      .cable-specs-table tr:has(td[colspan="3"]) .spec-field-name {
+        width: 25%;
+      }
+
+      .cable-specs-table tr:has(td[colspan="3"]) .spec-field-value {
+        width: 75%;
+      }
+    </style>
 
 
 
