@@ -198,10 +198,46 @@
         </tbody>
       </table>
     </div>
+
+    <!-- CUSTOM MARKER SPECIFICATIONS - NOW INSIDE THE OPTION LOOP -->
+    {% if page.markerFields and page.markerFields|length > 0 %}
+      <div style="margin-top: 30px;">
+        <h4 class="section-title">CUSTOM MARKER SPECIFICATIONS ({{ option | capitalize }})</h4>
+        <div class="table-container">
+          <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <thead>
+              <tr>
+                <th style="border: 1px solid #000; padding: 8px; background-color: #f0f0f0; text-align: center; font-weight: bold; color: #000;">Customer Part Number</th>
+                {% for i in range(1, 6) %}
+                  <th style="border: 1px solid #000; padding: 8px; background-color: #f0f0f0; text-align: center; font-weight: bold; color: #000;">Row Header {{ i }}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="border: 1px solid #000; padding: 8px; text-align: center; vertical-align: middle;">
+                  {% set partNumberField = page.extraCableAssemblyFields | selectattr("name", "equalto", "Customer Part Number") | first %}
+                  {{ partNumberField.value if partNumberField else "-" }}
+                </td>
+                {% for i in range(0, 5) %}
+                  <td style="border: 1px solid #000; padding: 8px; text-align: center; vertical-align: middle;">
+                    {% if page.markerFields[i] %}
+                      {{ page.markerFields[i].rowHeader | default("-") }}
+                    {% else %}
+                      -
+                    {% endif %}
+                  </td>
+                {% endfor %}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    {% endif %}
+    <!-- END CUSTOM MARKER SPECIFICATIONS -->
+
     {% endfor %}
     {% endif %}
-
-
 
     <style>
       .cable-specs-table {
@@ -236,9 +272,5 @@
       }
     </style>
 
-
-
-
   {% endif %}
 {% endfor %}
-
