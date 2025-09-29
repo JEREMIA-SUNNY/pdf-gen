@@ -23,7 +23,6 @@
                     <td class="td td-head" style="width: calc(100% / 5); text-align: center; vertical-align: middle;">Customer Specification</td>
                   {% endif %}
 
-                  {# Generate NKRF headers dynamically #}
                   {% if selected_count == 1 %}
                     <td class="td td-head" style="width: calc(100% / 5); text-align: center; vertical-align: middle;">NKRF Specification</td>
                   {% elif selected_count == 2 %}
@@ -51,7 +50,6 @@
                         </td>
                       {% endif %}
 
-                      {# Now render the correct number of columns for values #}
                       {% if selected_count == 1 %}
                         <td class="td" style="text-align: center; vertical-align: middle;">
                           {{ field[selected_options[0]]
@@ -102,15 +100,108 @@
     {% endfor %}
    
    {% if page.extraCableAssemblyFields and page.extraCableAssemblyFields|length > 0 %}
+   <div style="page-break-before: always;"></div>
+    <div class="details-box">
+      <h1 style="color: #375fbd">NKRF Cable Assembly Drawing</h1>
+      <div class="table-container" style="margin-bottom: 20px; display: grid">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td class="td td-bold">Enquiry Number</td>
+              <td class="td">{{ data.enquiryNumber }}</td>
+              <td class="td td-bold">Date</td>
+              <td class="td">{{ data.date }}</td>
+            </tr>
+            <tr>
+              <td class="td td-bold">Customer Name</td>
+              <td class="td">{{ data.customerName }}</td>
+              <td class="td td-bold">Reference Number</td>
+              <td class="td">{{ data.referenceNumber }}</td>
+            </tr>
+            <tr>
+              <td class="td td-bold">Quotation Type</td>
+              <td class="td">{{ data.quatationType }}</td>
+              <td class="td td-bold">Revision Number</td>
+              <td class="td">{{ data.revisionNumber }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+       <!-- Note section -->
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          padding-bottom: 6px;
+        "
+      >
+        <p style="padding-bottom: 2px">Note:</p>
+        <p style="padding-left: 2px">
+          1. NKRF is India's only CEMILAC type-approved manufacturer for RF and MW
+          cable assemblies.
+        </p>
+        <p style="padding-left: 2px">
+          2. NKRF is India's only Space Qualified manufacturer for RF and MW
+          cable assemblies.
+        </p>
+      </div>
+
+      {# ✅ Show extractedFieldsData only for Part Type = RF Cable Assembly #}
+      {% if data.extractedFieldsData and data.extractedFieldsData|length > 0 %}
+      <div class="table-container" style="margin-bottom: 20px">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="td td-head" style="text-align: center; vertical-align: middle;">Sl No</th>
+              <th class="td td-head" style="text-align: center; vertical-align: middle;">Part Type</th>
+              <th class="td td-head" style="text-align: center; vertical-align: middle;">NKRF Part Number</th>
+              <th class="td td-head" style="text-align: center; vertical-align: middle;">Connector End A</th>
+              <th class="td td-head" style="text-align: center; vertical-align: middle;">Connector End B</th>
+              <th class="td td-head" style="text-align: center; vertical-align: middle;">Insertion Loss</th>
+              <th class="td td-head" style="text-align: center; vertical-align: middle;">Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in data.extractedFieldsData %}
+              {% set options = ["value", "option1", "option2", "option3"] %}
+              {% for prop in options %}
+                {% set Si_No = item.get("Si No", {}).get(prop) or "-" %}
+                {% set cable_part = item.get("Cable Assembly Part Number", {}).get(prop) or item.get("Part Number", {}).get(prop) or "-" %}
+                {% set endA = item.get("Connector End A", {}).get(prop) or item.get("Connector End A Multi", {}).get(prop) or "-" %}
+                {% set endB = item.get("Connector End B", {}).get(prop) or item.get("Connector End B Multi", {}).get(prop) or "-" %}
+                {% set insertion = item.get("Insertion Loss (dB)", {}).get(prop) or item.get("Insertion Loss", {}).get(prop) or "-" %}
+                {% set originalPartType = item.get("Original PartType", {}).get(prop) or "-" %}
+                {% set quantity = item.get("Quantity", {}).get(prop) or "-" %}
+
+                {% if originalPartType == "RF Cable Assembly" %}
+                <tr>
+                  <td class="td" style="text-align: center; vertical-align: middle;">{{ Si_No }}</td>
+                  <td class="td" style="text-align: center; vertical-align: middle;">{{ originalPartType }}</td>
+                  <td class="td" style="text-align: center; vertical-align: middle;">{{ cable_part }}</td>
+                  <td class="td" style="text-align: center; vertical-align: middle;">{{ endA }}</td>
+                  <td class="td" style="text-align: center; vertical-align: middle;">{{ endB }}</td>
+                  <td class="td" style="text-align: center; vertical-align: middle;">{{ insertion }}</td>
+                  <td class="td" style="text-align: center; vertical-align: middle;">{{ quantity }}</td>
+                </tr>
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+      {% include "compliance/specialNotes.html" %}
+    </div>
+
     {% for option in selected_options %}
-    <!-- Technical Specification & Drawing Section -->
+    <!-- Technical Specification & Drawing Section for each option -->
     <div style="page-break-before: always; margin-bottom: 30px;">
-      <!-- Main Title -->
       <h3 style="text-align: center; font-weight: bold; font-size: 16px; margin-bottom: 15px; color: #333;">
         TECHNICAL SPECIFICATION & DRAWING – LOW LOSS RF CABLE ASSEMBLY
       </h3>
       
-      <!-- Image Container -->
       <div style="text-align: center; margin: 15px 0;">
         {% if page.cableAssemblyDrawings and page.cableAssemblyDrawings[option] and page.cableAssemblyDrawings[option] != "" %}
         <img 
@@ -127,7 +218,6 @@
         {% endif %}
       </div>
       
-      <!-- Dimension Note - Below Image, Left Aligned -->
       <p style="text-align: left; font-style: italic; font-size: 11px; color: #666; margin-top: 10px;">
         Unless Otherwise Specified All Dimensions Are In mm
       </p>
@@ -137,9 +227,8 @@
     <div style="margin-top: 20px;">
       <h4 class="section-title">CABLE ASSEMBLY SPECIFICATIONS</h4>
       <div class="table-container">
-        <table class="cable-specs-table">
+        <table class="table" style="font-size: 10px; margin-top: 10px;">
           <tbody>
-            {# Full-row fields at the TOP #}
             {% set top_full_row_fields = [
               "Compliance Serial #",
               "NKRF Part Number",
@@ -155,7 +244,6 @@
                   <td class="spec-field-name">{{ field.name }}</td>
                   <td class="spec-field-value" colspan="3">
                     {% if field.name == "Customer Part Number" %}
-                      {# Always use field.value for Customer Part Number #}
                       {% set val = field.value | default("-") %}
                     {% else %}
                       {% set val = (field[option] if field[option] and field[option]|trim != "" else field.value|default("-")) %}
@@ -169,7 +257,6 @@
               {% endif %}
             {% endfor %}
 
-            {# Ordered pairs (middle section) #}
             {% set ordered_pairs = [
               ["Connector End A", "Connector End B"],
               ["Cable Part Number", "Centre Conductor"],
@@ -204,7 +291,6 @@
               </tr>
             {% endfor %}
 
-            {# Bottom full-row fields #}
             {% set bottom_full_row_fields = [
               "Strain Relief Sleeve Type & Length",
               "Marker Type & Length",
@@ -231,28 +317,27 @@
       </div>
     </div>
 
-    <!-- CUSTOM MARKER SPECIFICATIONS  -->
     {% if page.markerFields and page.markerFields|length > 0 %}
       <div style="margin-top: 30px;">
         <h4 class="section-title">CUSTOM MARKER SPECIFICATIONS</h4>
         <div class="table-container">
-          <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+          <table class="table" style="width: 100%; margin-top: 10px;">
             <thead>
               <tr>
-                <th style="border: 1px solid #000; padding: 8px; background-color: #f0f0f0; text-align: center; font-weight: bold; color: #000;">Customer Part Number</th>
+                <th class="td td-head" style="text-align: center; vertical-align: middle;">Customer Part Number</th>
                 {% for i in range(1, 6) %}
-                  <th style="border: 1px solid #000; padding: 8px; background-color: #f0f0f0; text-align: center; font-weight: bold; color: #000;">Row Header {{ i }}</th>
+                  <th class="td td-head" style="text-align: center; vertical-align: middle;">Row Header {{ i }}</th>
                 {% endfor %}
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td style="border: 1px solid #000; padding: 8px; text-align: center; vertical-align: middle;">
+                <td class="td" style="text-align: center; vertical-align: middle;">
                   {% set partNumberField = page.extraCableAssemblyFields | selectattr("name", "equalto", "Customer Part Number") | first %}
                   {{ partNumberField.value if partNumberField else "-" }}
                 </td>
                 {% for i in range(0, 5) %}
-                  <td style="border: 1px solid #000; padding: 8px; text-align: center; vertical-align: middle;">
+                  <td class="td" style="text-align: center; vertical-align: middle;">
                     {% if page.markerFields[i] %}
                       {{ page.markerFields[i].rowHeader | default("-") }}
                     {% else %}
@@ -266,8 +351,6 @@
         </div>
       </div>
     {% endif %}
-    <!-- END CUSTOM MARKER SPECIFICATIONS -->
-
     {% endfor %}
     {% endif %}
 
@@ -303,6 +386,5 @@
         width: 75%;
       }
     </style>
-
   {% endif %}
 {% endfor %}
