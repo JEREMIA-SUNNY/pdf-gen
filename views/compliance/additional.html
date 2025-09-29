@@ -103,106 +103,138 @@
    
    {% if page.extraCableAssemblyFields and page.extraCableAssemblyFields|length > 0 %}
     {% for option in selected_options %}
-    <div style="page-break-before: always;"></div>
-    <h4 class="section-title">CABLE ASSEMBLY SPECIFICATIONS ({{ option | capitalize }})</h4>
-    <div class="table-container">
-      <table class="cable-specs-table">
-        <tbody>
-          {# Full-row fields at the TOP #}
-          {% set top_full_row_fields = [
-            "Compliance Serial #",
-            "NKRF Part Number",
-            "Customer Part Number"
-          ] %}
+    <!-- Technical Specification & Drawing Section -->
+    <div style="page-break-before: always; margin-bottom: 30px;">
+      <!-- Main Title -->
+      <h3 style="text-align: center; font-weight: bold; font-size: 16px; margin-bottom: 15px; color: #333;">
+        TECHNICAL SPECIFICATION & DRAWING – LOW LOSS RF CABLE ASSEMBLY
+      </h3>
+      
+      <!-- Image Container -->
+      <div style="text-align: center; margin: 15px 0;">
+        {% if page.cableAssemblyDrawings and page.cableAssemblyDrawings[option] and page.cableAssemblyDrawings[option] != "" %}
+        <img 
+          src="{{ page.cableAssemblyDrawings[option] }}" 
+          style="max-width: 650px; max-height: 130px; display: block; margin: 0 auto; border: 1px solid #ccc;"
+          alt="Cable Assembly Drawing"
+        />
+        {% else %}
+        <div style="width: 650px; height: 130px; padding: 20px; background-color: #f9f9f9; border: 1px dashed #ccc; display: inline-block; margin: 0 auto;">
+          <p style="font-style: italic; color: #999; margin: 0; line-height: 90px; text-align: center;">
+            No drawing available
+          </p>
+        </div>
+        {% endif %}
+      </div>
+      
+      <!-- Dimension Note - Below Image, Left Aligned -->
+      <p style="text-align: left; font-style: italic; font-size: 11px; color: #666; margin-top: 10px;">
+        Unless Otherwise Specified All Dimensions Are In mm
+      </p>
+    </div>
 
-          {% set fields = page.extraCableAssemblyFields %}
+    <!-- Cable Assembly Specifications -->
+    <div style="margin-top: 20px;">
+      <h4 class="section-title">CABLE ASSEMBLY SPECIFICATIONS</h4>
+      <div class="table-container">
+        <table class="cable-specs-table">
+          <tbody>
+            {# Full-row fields at the TOP #}
+            {% set top_full_row_fields = [
+              "Compliance Serial #",
+              "NKRF Part Number",
+              "Customer Part Number"
+            ] %}
 
-          {% for field_name in top_full_row_fields %}
-            {% set field = fields | selectattr("name", "equalto", field_name) | first %}
-            {% if field %}
-              <tr>
-                <td class="spec-field-name">{{ field.name }}</td>
-                <td class="spec-field-value" colspan="3">
-                  {% if field.name == "Customer Part Number" %}
-                    {# Always use field.value for Customer Part Number #}
-                    {% set val = field.value | default("-") %}
-                  {% else %}
-                    {% set val = (field[option] if field[option] and field[option]|trim != "" else field.value|default("-")) %}
-                  {% endif %}
-                  {{ val if val|trim != "" else "-" 
-                    | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
-                    | replace("\n", "<br>")
-                    | safe }}
-                </td>
-              </tr>
-            {% endif %}
-          {% endfor %}
+            {% set fields = page.extraCableAssemblyFields %}
 
-          {# Ordered pairs (middle section) #}
-          {% set ordered_pairs = [
-            ["Connector End A", "Connector End B"],
-            ["Cable Part Number", "Centre Conductor"],
-            ["Impedance", "Outer Diameter"],
-            ["Velocity of Propagation", "Shielding Effectiveness"],
-            ["Jacket & Colour", "Static Bend Radius"],
-            ["Assembly Length", "Length Tolerance"],
-            ["Operating Frequency", "Cable Attenuation"],
-            ["VSWR", "Insertion Loss"],
-            ["Assembly Weight", "Assembly Operating Temperature"],
-            ["Phase Match Tolerance", "Phase Match Frequency"]
-          ] %}
-
-          {% for pair in ordered_pairs %}
-            <tr>
-              {% for fname in pair %}
-                {% set field = fields | selectattr("name", "equalto", fname) | first %}
-                {% if field %}
+            {% for field_name in top_full_row_fields %}
+              {% set field = fields | selectattr("name", "equalto", field_name) | first %}
+              {% if field %}
+                <tr>
                   <td class="spec-field-name">{{ field.name }}</td>
-                  <td class="spec-field-value">
+                  <td class="spec-field-value" colspan="3">
+                    {% if field.name == "Customer Part Number" %}
+                      {# Always use field.value for Customer Part Number #}
+                      {% set val = field.value | default("-") %}
+                    {% else %}
+                      {% set val = (field[option] if field[option] and field[option]|trim != "" else field.value|default("-")) %}
+                    {% endif %}
+                    {{ val if val|trim != "" else "-" 
+                      | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
+                      | replace("\n", "<br>")
+                      | safe }}
+                  </td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+
+            {# Ordered pairs (middle section) #}
+            {% set ordered_pairs = [
+              ["Connector End A", "Connector End B"],
+              ["Cable Part Number", "Centre Conductor"],
+              ["Impedance", "Outer Diameter"],
+              ["Velocity of Propagation", "Shielding Effectiveness"],
+              ["Jacket & Colour", "Static Bend Radius"],
+              ["Assembly Length", "Length Tolerance"],
+              ["Operating Frequency", "Cable Attenuation"],
+              ["VSWR", "Insertion Loss"],
+              ["Assembly Weight", "Assembly Operating Temperature"],
+              ["Phase Match Tolerance", "Phase Match Frequency"]
+            ] %}
+
+            {% for pair in ordered_pairs %}
+              <tr>
+                {% for fname in pair %}
+                  {% set field = fields | selectattr("name", "equalto", fname) | first %}
+                  {% if field %}
+                    <td class="spec-field-name">{{ field.name }}</td>
+                    <td class="spec-field-value">
+                      {% set val = (field[option] if field[option] and field[option]|trim != "" else field.value|default("-")) %}
+                      {{ val if val|trim != "" else "-" 
+                        | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
+                        | replace("\n", "<br>")
+                        | safe }}
+                    </td>
+                  {% else %}
+                    <td class="spec-field-name"></td>
+                    <td class="spec-field-value">-</td>
+                  {% endif %}
+                {% endfor %}
+              </tr>
+            {% endfor %}
+
+            {# Bottom full-row fields #}
+            {% set bottom_full_row_fields = [
+              "Strain Relief Sleeve Type & Length",
+              "Marker Type & Length",
+              "Marker Position"
+            ] %}
+
+            {% for field_name in bottom_full_row_fields %}
+              {% set field = fields | selectattr("name", "equalto", field_name) | first %}
+              {% if field %}
+                <tr>
+                  <td class="spec-field-name">{{ field.name }}</td>
+                  <td class="spec-field-value" colspan="3">
                     {% set val = (field[option] if field[option] and field[option]|trim != "" else field.value|default("-")) %}
                     {{ val if val|trim != "" else "-" 
                       | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
                       | replace("\n", "<br>")
                       | safe }}
                   </td>
-                {% else %}
-                  <td class="spec-field-name"></td>
-                  <td class="spec-field-value">-</td>
-                {% endif %}
-              {% endfor %}
-            </tr>
-          {% endfor %}
-
-          {# Bottom full-row fields #}
-          {% set bottom_full_row_fields = [
-            "Strain Relief Sleeve Type & Length",
-            "Marker Type & Length",
-            "Marker Position"
-          ] %}
-
-          {% for field_name in bottom_full_row_fields %}
-            {% set field = fields | selectattr("name", "equalto", field_name) | first %}
-            {% if field %}
-              <tr>
-                <td class="spec-field-name">{{ field.name }}</td>
-                <td class="spec-field-value" colspan="3">
-                  {% set val = (field[option] if field[option] and field[option]|trim != "" else field.value|default("-")) %}
-                  {{ val if val|trim != "" else "-" 
-                    | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
-                    | replace("\n", "<br>")
-                    | safe }}
-                </td>
-              </tr>
-            {% endif %}
-          {% endfor %}
-        </tbody>
-      </table>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <!-- CUSTOM MARKER SPECIFICATIONS - NOW INSIDE THE OPTION LOOP -->
+    <!-- CUSTOM MARKER SPECIFICATIONS  -->
     {% if page.markerFields and page.markerFields|length > 0 %}
       <div style="margin-top: 30px;">
-        <h4 class="section-title">CUSTOM MARKER SPECIFICATIONS ({{ option | capitalize }})</h4>
+        <h4 class="section-title">CUSTOM MARKER SPECIFICATIONS</h4>
         <div class="table-container">
           <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
             <thead>
