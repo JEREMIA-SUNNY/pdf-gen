@@ -3,8 +3,7 @@
   <div class="section-title">Work Order Summary</div>
 
   <!-- Parts Table -->
-  {% if parts and parts|length > 0 %} 
-  {% set show_phase_columns = parts[0] is defined and 'phaseMatching' in parts[0] %}
+  {% if parts and parts|length > 0 %}  {% set show_phase_columns = parts and parts|length > 0 and parts[0].phaseMatching is defined and parts[0].phaseMatching is not sameas 'N/A' %}
   <table class="data-table">
     <thead>
       <tr>

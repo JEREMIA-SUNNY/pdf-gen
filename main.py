@@ -195,5 +195,23 @@ def generateWorkOrder_pdf():
     pdf_buffer.seek(0)
     return send_file(pdf_buffer, mimetype='application/pdf')
 
+@app.route('/workOrderContract/generate', methods=['POST'])
+def generateWorkOrderContract_pdf():
+    """Generate Work Order Contract PDF from JSON data"""
+    data = request.json
+    if not data:
+        return "Invalid JSON payload", 400
+
+    print("Work Order Contract PDF Data:", data)  # Debugging
+
+    # Render the Jinja template for Work Order Contract
+    rendered_html = render_template("workOrderContract/workorder.html", **data)
+
+    # Convert HTML to PDF
+    pdf_buffer = io.BytesIO()
+    HTML(string=rendered_html).write_pdf(pdf_buffer)
+    pdf_buffer.seek(0)
+    return send_file(pdf_buffer, mimetype='application/pdf')
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -4,14 +4,26 @@
     <tr>
       <td><strong>Work Order Number:</strong></td>
       <td>{{ header.workOrderNumber or 'N/A' }}</td>
-      <td><strong>Enquiry Number:</strong></td>
-      <td>{{ header.enquiryNumber or 'N/A' }}</td>
+      <td><strong>Version Number:</strong></td>
+      <td>{{ header.version or 'N/A' }}</td>
     </tr>
     <tr>
-      <td><strong>Customer PO:</strong></td>
+      <td><strong>Enquiry Number:</strong></td>
+      <td>{{ header.enquiryNumber or 'N/A' }}</td>
+      <td><strong>Creation Date:</strong></td>
+      <td>{{ header.creationDate or 'N/A' }}</td>
+    </tr>
+    <tr>
+      <td><strong>Customer PO Number:</strong></td>
       <td>{{ header.customerPO or 'N/A' }}</td>
-      <td><strong>Delivery Date:</strong></td>
+      <td><strong>NKRF OA Number:</strong></td>
+      <td>{{ header.NKRFOANumber or 'N/A' }}</td>
+    </tr>
+    <tr>
+      <td><strong>Delivery Date (as per PO):</strong></td>
       <td>{{ header.deliveryDate or 'N/A' }}</td>
+      <td><strong>Internal Delivery Date:</strong></td>
+      <td>{{ header.internalDeliveryDate or 'N/A' }}</td>
     </tr>
     <tr>
       <td><strong>Order Type:</strong></td>
@@ -19,35 +31,38 @@
       <td><strong>Delivery Terms:</strong></td>
       <td>{{ header.deliveryTerms or 'N/A' }}</td>
     </tr>
-    <tr>
-      <td><strong>Internal Delivery Date:</strong></td>
-      <td>{{ header.internalDeliveryDate or 'N/A' }}</td>
-      <td><strong>NKRF OA Number:</strong></td>
-      <td>{{ header.NKRFOANumber or 'N/A' }}</td>
-    </tr>
   </table>
 
+  {# Conditional sections - only show if data exists #}
   {% if header.staggeredDeliveryTerms %}
   <div class="subsection show-if-available">
     <div class="subsection-title">Staggered Delivery Terms</div>
     <p>{{ header.staggeredDeliveryTerms }}</p>
   </div>
-  {% endif %} {% if header.additionalCustomerNotes %}
+  {% endif %}
+
+  {% if header.additionalCustomerNotes %}
   <div class="subsection show-if-available">
     <div class="subsection-title">Additional Customer Notes</div>
     <p>{{ header.additionalCustomerNotes }}</p>
   </div>
-  {% endif %} {% if header.notes %}
+  {% endif %}
+
+  {% if header.notes %}
   <div class="subsection show-if-available">
     <div class="subsection-title">Notes</div>
     <p>{{ header.notes }}</p>
   </div>
-  {% endif %} {% if header.oldEnquiryNumbers %}
+  {% endif %}
+
+  {% if header.oldEnquiryNumbers %}
   <div class="subsection show-if-available">
     <div class="subsection-title">Old Enquiry Numbers</div>
     <p>{{ header.oldEnquiryNumbers }}</p>
   </div>
-  {% endif %} {% if header.oldWorkOrderNumbers %}
+  {% endif %}
+
+  {% if header.oldWorkOrderNumbers %}
   <div class="subsection show-if-available">
     <div class="subsection-title">Old Work Order Numbers</div>
     <p>{{ header.oldWorkOrderNumbers }}</p>

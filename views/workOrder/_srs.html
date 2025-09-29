@@ -13,52 +13,80 @@
 </p>
 {% endmacro %}
 
-{% if srs and srs[0] %}
+{% if srs and srs|length > 0 %}
 <div class="section page-break">
-  <div class="section-title">Strain Relief Sleeve & Marker Details </div>
+  <div class="section-title">Strain Relief Sleeve & Marker Details</div>
 
-  {# Vertical display of sleeve types using macro #}
-  {{ detail_item("Strain Relief Sleeve Type", srs[0].strainReliefSleeveType) }}
-  {{ detail_item("Marker Sleeve Type", srs[0].markerSleeveType) }}
+  {# Group SRS data by main SRS marker to avoid duplication #}
+  {% set srs_groups = {} %}
+  {% for item in srs %}
+    {% if item.id not in srs_groups %}
+      {% set _ = srs_groups.update({item.id: {'main': item, 'nkrf_details': []}}) %}
+    {% endif %}
+    {% if item.nkrfPartNumber %}  {# Only add if it has NKRf details #}
+      {% set _ = srs_groups[item.id]['nkrf_details'].append(item) %}
+    {% endif %}
+  {% endfor %}
 
-  <table class="data-table">
-    <thead>
-      <tr>
-        <th>Strain Relief Sleeve</th>
-        <th>Marker Sleeve</th>
-        <th>NKRF Part No</th>
-        <th>Assembly Length</th>
-        <th>SRS Sleeves</th>
-        <th>SRS Length</th>
-        <th>No. of Markers</th>
-        <th>Marker Length</th>
-        <th>Font</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for m in srs %}
-      <tr>
-        <td>{{ m.strainReliefSleeveType or 'N/A' }}</td>
-        <td>{{ m.markerSleeveType or 'N/A' }}</td>
-        <td>{{ m.nkrfPartNumber or 'N/A' }}</td>
-        <td>{{ m.assemblyLength or 'N/A' }}</td>
-        <td>{{ m.noOfSrsSleeves or 'N/A' }}</td>
-        <td>{{ m.srsLength or 'N/A' }}</td>
-        <td>{{ m.noOfMarkers or 'N/A' }}</td>
-        <td>{{ m.markerLength or 'N/A' }}</td>
-        <td>{{ m.font or 'N/A' }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  {% for group_id, group_data in srs_groups.items() %}
+    {# Display main SRS details only once per group #}
+    {% set main_srs = group_data.main %}
+    {{ detail_item("Strain Relief Sleeve Type", main_srs.strainReliefSleeveType) }}
+    {{ detail_item("Marker Sleeve Type", main_srs.markerSleeveType) }}
 
-  {% if srs[0].additionalMarkerSleeveDetails %}
-    {{ detail_item("Additional Marker Details", srs[0].additionalMarkerSleeveDetails) }}
-  {% endif %}
+    {# Display NKRf details in table if they exist #}
+    {% if group_data.nkrf_details|length > 0 %}
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>NKRF Part No</th>
+          <th>Assembly Length</th>
+          <th>SRS Sleeves</th>
+          <th>SRS Length</th>
+          <th>No. of Markers</th>
+          <th>Marker Length</th>
+          <th>Font</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for nkrf_item in group_data.nkrf_details %}
+        <tr>
+          <td>{{ nkrf_item.nkrfPartNumber or 'N/A' }}</td>
+          <td>{{ nkrf_item.assemblyLength or 'N/A' }}</td>
+          <td>{{ nkrf_item.noOfSrsSleeves or 'N/A' }}</td>
+          <td>{{ nkrf_item.srsLength or 'N/A' }}</td>
+          <td>{{ nkrf_item.noOfMarkers or 'N/A' }}</td>
+          <td>{{ nkrf_item.markerLength or 'N/A' }}</td>
+          <td>{{ nkrf_item.font or 'N/A' }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p style="margin: 15px 0; color: #666;">No NKRf details available</p>
+    {% endif %}
 
-  {% for m in srs %}
-    {% if m.customerMarkerDetailsDrawing %}
-      {{ detail_item("Marker Drawing Available", "PDF drawing attached - reference: " ~ m.customerMarkerDetailsDrawing[:50] ~ "...") }}
+    {# Additional details #}
+    {% if main_srs.additionalMarkerSleeveDetails %}
+      {{ detail_item("Additional Marker Details", main_srs.additionalMarkerSleeveDetails) }}
+    {% endif %}
+
+{% if customerMarkerDetailsDrawingUrl %}
+<!-- Dedicated page for image -->
+<div class="section" style="page-break-before: always;">
+  <div class="subsection-title">Customer Marker Details Drawing</div>
+  
+  <div style="text-align: center; margin-top: 20px;">
+    <img src="{{ customerMarkerDetailsDrawingUrl }}"
+         alt="Customer Marker Details Drawing"
+         style="max-width: 90%; max-height: 580px; height: auto; border: 1px solid #ddd; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+   
+  </div>
+</div>
+{% endif %}
+
+    {% if not loop.last %}
+    <div style="margin: 20px 0; border-bottom: 1px dashed #ccc;"></div>
     {% endif %}
   {% endfor %}
 </div>
