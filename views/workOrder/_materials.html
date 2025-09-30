@@ -1,16 +1,16 @@
 {% macro detail_item(label, value) %}
-<p style="margin-bottom: 12px;">
-    <strong style="font-size: 14px;">{{ label }}</strong><br>
+<div style="margin-bottom: 12px;">
+    <div class="subsection-title">{{ label }}</div>
     {% if value %}
         {% if '\n' in value %}
-            <span style="white-space: pre-line;">{{ value }}</span>
+            <div style="white-space: pre-line;">{{ value }}</div>
         {% else %}
-            <span>{{ value }}</span>
+            <div>{{ value }}</div>
         {% endif %}
     {% else %}
-        <span>N/A</span>
+        <div>N/A</div>
     {% endif %}
-</p>
+</div>
 {% endmacro %}
 
 {% if materials %}

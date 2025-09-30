@@ -4,7 +4,7 @@
 
   <!-- Parts Table -->
   {% if parts and parts|length > 0 %} 
-  {% set show_phase_columns = parts[0] is defined and 'phaseMatching' in parts[0] %}
+ {% set show_phase_columns = parts and parts|length > 0 and parts[0].phaseMatching is defined and parts[0].phaseMatching is not sameas 'N/A' %}
   <table class="data-table">
     <thead>
       <tr>
@@ -40,24 +40,24 @@
   {% endif %}
 
   <!-- Work Order Details -->
-  <div class="subsection">
+  <!-- <div class="subsection">
     <div class="subsection-title">Work Order Type</div>
     <p>{{ summary[0].workOrderType or 'N/A' }}</p>
-  </div>
+  </div> -->
 
-  <div class="subsection">
+  <!-- <div class="subsection">
     <div class="subsection-title">First Article Inspection</div>
     <p>{{ summary[0].firstArticleInspection or 'N/A' }}</p>
-  </div>
+  </div> -->
 
   {% if summary[0].inspectionDetails %}
   <div class="subsection show-if-available">
-    <div class="subsection-title">Inspection Details</div>
+    <div class="subsection-title">First Article Inspection Details</div>
     <p>{{ summary[0].inspectionDetails }}</p>
   </div>
   {% endif %} {% if summary[0].testingSpecs %}
   <div class="subsection show-if-available">
-    <div class="subsection-title">Testing Specifications</div>
+    <div class="subsection-title">Testing & Calibration Specifications</div>
     <p>{{ summary[0].testingSpecs }}</p>
   </div>
   {% endif %} {% if summary[0].specialConditions %}

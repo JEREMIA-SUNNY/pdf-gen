@@ -1,42 +1,54 @@
-{% if perfTargets and perfTargets[0] %}
+{% if perfTargets and perfTargets|length > 0 %}
 <div class="section page-break">
   <div class="section-title">Performance Targets</div>
+  
+  {# Check if any performance target has phase matching data #}
+  {% set has_phase_matching = false %}
+  {% for target in perfTargets %}
+    {% if target.committedPMTarget or target.internalPMTarget or target.pmMarkers %}
+      {% set has_phase_matching = true %}
+    {% endif %}
+  {% endfor %}
+
   <table class="data-table">
     <thead>
       <tr>
-        <th>Parameter</th>
-        <th>Committed Target</th>
-        <th>Internal Target</th>
+        <th>NKRF Part Number</th>
+        <th>Op Freq (GHz)</th>
+        <th>Comm. IL Target</th>
+        <th>Int. IL Target</th>
+        <th>IL Markers</th>
+        <th>Comm. VSWR Target</th>
+        <th>Int. VSWR Target</th>
+        <th>VSWR Markers</th>
+        {% if has_phase_matching %}
+        <th>Comm. PM Target</th>
+        <th>Int. PM Target</th>
+        <th>PM Markers</th>
+        {% endif %}
+        <th>Notes</th>
       </tr>
     </thead>
     <tbody>
+      {% for target in perfTargets %}
       <tr>
-        <td><strong>Operating Frequency</strong></td>
-        <td colspan="2">{{ perfTargets[0].operatingFrequency or 'N/A' }}</td>
+        <td>{{ target.nkrfPartNumber or 'N/A' }}</td>
+        <td>{{ target.operatingFrequency or 'N/A' }}</td>
+        <td>{{ target.committedILTarget or 'N/A' }}</td>
+        <td>{{ target.internalILTarget or 'N/A' }}</td>
+        <td>{{ target.ilMarkers or 'N/A' }}</td>
+        <td>{{ target.committedVSWRTarget or 'N/A' }}</td>
+        <td>{{ target.internalVSWRTarget or 'N/A' }}</td>
+        <td>{{ target.vswrMarkers or 'N/A' }}</td>
+        {% if has_phase_matching %}
+        <td>{{ target.committedPMTarget or 'N/A' }}</td>
+        <td>{{ target.internalPMTarget or 'N/A' }}</td>
+        <td>{{ target.pmMarkers or 'N/A' }}</td>
+        {% endif %}
+        <td>{{ target.notes or 'N/A' }}</td>
       </tr>
-      <tr>
-        <td><strong>Insertion Loss (IL)</strong></td>
-        <td>{{ perfTargets[0].committedILTarget or 'N/A' }}</td>
-        <td>{{ perfTargets[0].internalILTarget or 'N/A' }}</td>
-      </tr>
-      <tr>
-        <td><strong>VSWR</strong></td>
-        <td>{{ perfTargets[0].committedVSWRTarget or 'N/A' }}</td>
-        <td>{{ perfTargets[0].internalVSWRTarget or 'N/A' }}</td>
-      </tr>
-      <tr>
-        <td><strong>Phase Matching (PM)</strong></td>
-        <td>{{ perfTargets[0].committedPMTarget or 'N/A' }}</td>
-        <td>{{ perfTargets[0].internalPMTarget or 'N/A' }}</td>
-      </tr>
+      {% endfor %}
     </tbody>
   </table>
-
-  {% if perfTargets[0].notes %}
-  <div class="subsection show-if-available">
-    <div class="subsection-title">Performance Target Notes</div>
-    <p>{{ perfTargets[0].notes }}</p>
-  </div>
-  {% endif %}
 </div>
 {% endif %}
