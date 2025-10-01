@@ -231,7 +231,7 @@
           <tbody>
             {% set top_full_row_fields = [
               "Compliance Serial #",
-              "NKRF Part Number",
+              "NKRF Part Number", 
               "Customer Part Number"
             ] %}
 
@@ -241,17 +241,18 @@
               {% set field = fields | selectattr("name", "equalto", field_name) | first %}
               {% if field %}
                 <tr>
-                  <td class="spec-field-name">{{ field.name }}</td>
-                  <td class="spec-field-value" colspan="3">
+                  <td class="spec-field-name" style="text-align: left; vertical-align: middle;">{{ field.name }}</td>
+                  <td class="spec-field-value" colspan="3" style="text-align: left; vertical-align: middle;">
                     {% if field.name == "Customer Part Number" %}
                       {% set val = field.value | default("-") %}
                     {% else %}
                       {% set val = (field[option] if field[option] and field[option]|trim != "" else field.value|default("-")) %}
                     {% endif %}
-                    {{ val if val|trim != "" else "-" 
-                      | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
-                      | replace("\n", "<br>")
-                      | safe }}
+                    {% if val and val|trim != "" %}
+                      {{ val | replace("Complied,", "") | replace("Complied", "") | replace("\n", "<br>") | safe }}
+                    {% else %}
+                      -
+                    {% endif %}
                   </td>
                 </tr>
               {% endif %}
@@ -275,17 +276,18 @@
                 {% for fname in pair %}
                   {% set field = fields | selectattr("name", "equalto", fname) | first %}
                   {% if field %}
-                    <td class="spec-field-name">{{ field.name }}</td>
-                    <td class="spec-field-value">
+                    <td class="spec-field-name" style="text-align: left; vertical-align: middle;">{{ field.name }}</td>
+                    <td class="spec-field-value" style="text-align: left; vertical-align: middle;">
                       {% set val = (field[option] if field[option] and field[option]|trim != "" else field.value|default("-")) %}
-                      {{ val if val|trim != "" else "-" 
-                        | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
-                        | replace("\n", "<br>")
-                        | safe }}
+                      {% if val and val|trim != "" %}
+                        {{ val | replace("Complied,", "") | replace("Complied", "") | replace("\n", "<br>") | safe }}
+                      {% else %}
+                        -
+                      {% endif %}
                     </td>
                   {% else %}
-                    <td class="spec-field-name"></td>
-                    <td class="spec-field-value">-</td>
+                    <td class="spec-field-name" style="text-align: left; vertical-align: middle;"></td>
+                    <td class="spec-field-value" style="text-align: left; vertical-align: middle;">-</td>
                   {% endif %}
                 {% endfor %}
               </tr>
@@ -293,7 +295,7 @@
 
             {% set bottom_full_row_fields = [
               "Strain Relief Sleeve Type & Length",
-              "Marker Type & Length",
+              "Marker Type & Length", 
               "Marker Position"
             ] %}
 
@@ -301,13 +303,14 @@
               {% set field = fields | selectattr("name", "equalto", field_name) | first %}
               {% if field %}
                 <tr>
-                  <td class="spec-field-name">{{ field.name }}</td>
-                  <td class="spec-field-value" colspan="3">
+                  <td class="spec-field-name" style="text-align: left; vertical-align: middle;">{{ field.name }}</td>
+                  <td class="spec-field-value" colspan="3" style="text-align: left; vertical-align: middle;">
                     {% set val = (field[option] if field[option] and field[option]|trim != "" else field.value|default("-")) %}
-                    {{ val if val|trim != "" else "-" 
-                      | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
-                      | replace("\n", "<br>")
-                      | safe }}
+                    {% if val and val|trim != "" %}
+                      {{ val | replace("Complied,", "") | replace("Complied", "") | replace("\n", "<br>") | safe }}
+                    {% else %}
+                      -
+                    {% endif %}
                   </td>
                 </tr>
               {% endif %}
