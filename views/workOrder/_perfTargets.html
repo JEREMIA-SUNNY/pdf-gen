@@ -2,13 +2,15 @@
 <div class="section page-break">
   <div class="section-title">Performance Targets</div>
   
-  {# Check if any performance target has phase matching data #}
-  {% set has_phase_matching = false %}
+  {# Check if any performance target has phase matching data AND parts exist #}
+  {% set has_phase_matching_data = false %}
   {% for target in perfTargets %}
     {% if target.committedPMTarget or target.internalPMTarget or target.pmMarkers %}
-      {% set has_phase_matching = true %}
+      {% set has_phase_matching_data = true %}
     {% endif %}
   {% endfor %}
+  
+  {% set show_phase_columns = hasParts and has_phase_matching_data %}
 
   <table class="data-table">
     <thead>
@@ -21,7 +23,7 @@
         <th>Comm. VSWR Target</th>
         <th>Int. VSWR Target</th>
         <th>VSWR Markers</th>
-        {% if has_phase_matching %}
+        {% if show_phase_columns %}
         <th>Comm. PM Target</th>
         <th>Int. PM Target</th>
         <th>PM Markers</th>
@@ -40,7 +42,7 @@
         <td>{{ target.committedVSWRTarget or 'N/A' }}</td>
         <td>{{ target.internalVSWRTarget or 'N/A' }}</td>
         <td>{{ target.vswrMarkers or 'N/A' }}</td>
-        {% if has_phase_matching %}
+        {% if show_phase_columns %}
         <td>{{ target.committedPMTarget or 'N/A' }}</td>
         <td>{{ target.internalPMTarget or 'N/A' }}</td>
         <td>{{ target.pmMarkers or 'N/A' }}</td>
