@@ -100,8 +100,8 @@
     {% endfor %}
    
    {% if page.extraCableAssemblyFields and page.extraCableAssemblyFields|length > 0 %}
-   <div style="page-break-before: always;"></div>
-    <div class="details-box">
+   <!-- <div style="page-break-before: always;"></div> -->
+    <!-- <div class="details-box">
       <h1 style="color: #375fbd">NKRF Cable Assembly Drawing</h1>
       <div class="table-container" style="margin-bottom: 20px; display: grid">
         <table class="table">
@@ -128,7 +128,7 @@
         </table>
       </div>
 
-       <!-- Note section -->
+    
       <div
         style="
           display: flex;
@@ -193,7 +193,7 @@
       </div>
       {% endif %}
       {% include "compliance/specialNotes.html" %}
-    </div>
+    </div> -->
 
     {% for option in selected_options %}
     <!-- Technical Specification & Drawing Section for each option -->
@@ -231,7 +231,7 @@
           <tbody>
             {% set top_full_row_fields = [
               "Compliance Serial #",
-              "NKRF Part Number",
+              "NKRF Part Number", 
               "Customer Part Number"
             ] %}
 
@@ -241,17 +241,18 @@
               {% set field = fields | selectattr("name", "equalto", field_name) | first %}
               {% if field %}
                 <tr>
-                  <td class="spec-field-name">{{ field.name }}</td>
-                  <td class="spec-field-value" colspan="3">
+                  <td class="spec-field-name" style="text-align: left; vertical-align: middle;">{{ field.name }}</td>
+                  <td class="spec-field-value" colspan="3" style="text-align: left; vertical-align: middle;">
                     {% if field.name == "Customer Part Number" %}
                       {% set val = field.value | default("-") %}
                     {% else %}
                       {% set val = (field[option] if field[option] and field[option]|trim != "" else field.value|default("-")) %}
                     {% endif %}
-                    {{ val if val|trim != "" else "-" 
-                      | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
-                      | replace("\n", "<br>")
-                      | safe }}
+                    {% if val and val|trim != "" %}
+                      {{ val | replace("Complied,", "") | replace("Complied", "") | replace("\n", "<br>") | safe }}
+                    {% else %}
+                      -
+                    {% endif %}
                   </td>
                 </tr>
               {% endif %}
@@ -275,17 +276,18 @@
                 {% for fname in pair %}
                   {% set field = fields | selectattr("name", "equalto", fname) | first %}
                   {% if field %}
-                    <td class="spec-field-name">{{ field.name }}</td>
-                    <td class="spec-field-value">
+                    <td class="spec-field-name" style="text-align: left; vertical-align: middle;">{{ field.name }}</td>
+                    <td class="spec-field-value" style="text-align: left; vertical-align: middle;">
                       {% set val = (field[option] if field[option] and field[option]|trim != "" else field.value|default("-")) %}
-                      {{ val if val|trim != "" else "-" 
-                        | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
-                        | replace("\n", "<br>")
-                        | safe }}
+                      {% if val and val|trim != "" %}
+                        {{ val | replace("Complied,", "") | replace("Complied", "") | replace("\n", "<br>") | safe }}
+                      {% else %}
+                        -
+                      {% endif %}
                     </td>
                   {% else %}
-                    <td class="spec-field-name"></td>
-                    <td class="spec-field-value">-</td>
+                    <td class="spec-field-name" style="text-align: left; vertical-align: middle;"></td>
+                    <td class="spec-field-value" style="text-align: left; vertical-align: middle;">-</td>
                   {% endif %}
                 {% endfor %}
               </tr>
@@ -293,7 +295,7 @@
 
             {% set bottom_full_row_fields = [
               "Strain Relief Sleeve Type & Length",
-              "Marker Type & Length",
+              "Marker Type & Length", 
               "Marker Position"
             ] %}
 
@@ -301,13 +303,14 @@
               {% set field = fields | selectattr("name", "equalto", field_name) | first %}
               {% if field %}
                 <tr>
-                  <td class="spec-field-name">{{ field.name }}</td>
-                  <td class="spec-field-value" colspan="3">
+                  <td class="spec-field-name" style="text-align: left; vertical-align: middle;">{{ field.name }}</td>
+                  <td class="spec-field-value" colspan="3" style="text-align: left; vertical-align: middle;">
                     {% set val = (field[option] if field[option] and field[option]|trim != "" else field.value|default("-")) %}
-                    {{ val if val|trim != "" else "-" 
-                      | replace("Complied", "<span style='color: green; font-weight: bold;'>Complied</span>")
-                      | replace("\n", "<br>")
-                      | safe }}
+                    {% if val and val|trim != "" %}
+                      {{ val | replace("Complied,", "") | replace("Complied", "") | replace("\n", "<br>") | safe }}
+                    {% else %}
+                      -
+                    {% endif %}
                   </td>
                 </tr>
               {% endif %}
@@ -317,6 +320,8 @@
       </div>
     </div>
 
+   
+    <!-- Custom Marker Specifications - PER OPTION VERSION -->
     {% if page.markerFields and page.markerFields|length > 0 %}
       <div style="margin-top: 30px;">
         <h4 class="section-title">CUSTOM MARKER SPECIFICATIONS</h4>
@@ -325,25 +330,33 @@
             <thead>
               <tr>
                 <th class="td td-head" style="text-align: center; vertical-align: middle;">Customer Part Number</th>
-                {% for i in range(1, 6) %}
-                  <th class="td td-head" style="text-align: center; vertical-align: middle;">Row Header {{ i }}</th>
+                {% for marker in page.markerFields %}
+                  {% if marker.rowHeader and marker.rowHeader|trim != "" %}
+                    <th class="td td-head" style="text-align: center; vertical-align: middle;">{{ marker.rowHeader }}</th>
+                  {% endif %}
                 {% endfor %}
               </tr>
             </thead>
             <tbody>
               <tr>
+                <!-- Customer Part Number -->
                 <td class="td" style="text-align: center; vertical-align: middle;">
                   {% set partNumberField = page.extraCableAssemblyFields | selectattr("name", "equalto", "Customer Part Number") | first %}
                   {{ partNumberField.value if partNumberField else "-" }}
                 </td>
-                {% for i in range(0, 5) %}
-                  <td class="td" style="text-align: center; vertical-align: middle;">
-                    {% if page.markerFields[i] %}
-                      {{ page.markerFields[i].rowHeader | default("-") }}
-                    {% else %}
-                      -
-                    {% endif %}
-                  </td>
+
+                <!-- For each valid row header, show ONLY current NKRF option -->
+                {% for marker in page.markerFields %}
+                  {% if marker.rowHeader and marker.rowHeader|trim != "" %}
+                    {% set cellValue = marker[option] %}
+                    <td class="td" style="text-align: center; vertical-align: middle;">
+                      {% if cellValue and cellValue|trim != "" %}
+                        {{ cellValue | replace("\n", "<br>") | safe }}
+                      {% else %}
+                        -
+                      {% endif %}
+                    </td>
+                  {% endif %}
                 {% endfor %}
               </tr>
             </tbody>
@@ -351,6 +364,7 @@
         </div>
       </div>
     {% endif %}
+
     {% endfor %}
     {% endif %}
 
