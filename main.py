@@ -187,7 +187,7 @@ def generateWorkOrder_pdf():
     print("Work Order PDF Data:", data)  # Debugging
 
     # Render the Jinja template for Work Order (uses partials inside workOrder.html)
-    rendered_html = render_template("workOrder/workOrder.html", **data)
+    rendered_html = render_template("workOrder/workorder.html", **data)
 
     # Convert HTML to PDF
     pdf_buffer = io.BytesIO()

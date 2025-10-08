@@ -4,12 +4,12 @@
     <strong style="font-size: 16px;">{{ question }}</strong><br>
     {% if answer %}
         {% if '\n' in answer %}
-            <span style="white-space: pre-line;">Answer - {{ answer }}</span>
+            <span style="white-space: pre-line;">{{ answer }}</span>
         {% else %}
-            <span>Answer - {{ answer }}</span>
+            <span>{{ answer }}</span>
         {% endif %}
     {% else %}
-        <span>Answer - N/A</span>
+        <span>N/A</span>
     {% endif %}
 </p>
 {% endmacro %}
