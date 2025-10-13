@@ -413,29 +413,37 @@
           </tr>
           {% endfor %}
           <tr>
-      <td colspan="{% if showCustomerPart %}6{% else %}5{% endif %}" style="text-align: right; vertical-align: middle;">
-        <strong>Discount:</strong>
-      </td>
-      <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
-        {{ data.discountPercentage }}
-      </td>
-    </tr>
-    <tr>
-      <td colspan="{% if showCustomerPart %}6{% else %}5{% endif %}" style="text-align: right; vertical-align: middle;">
-        <strong>Rounding Off:</strong>
-      </td>
-      <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
-        {{ data.roundingAdjustment }}
-      </td>
-    </tr>
-    <tr>
-      <td colspan="{% if showCustomerPart %}6{% else %}5{% endif %}" style="text-align: right; vertical-align: middle;">
-        <strong>Total Amount:</strong>
-      </td>
-      <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
-        {{ data.totalAmount }}
-      </td>
-    </tr>
+            <td colspan="{% if showCustomerPart %}6{% else %}5{% endif %}" style="text-align: right; vertical-align: middle;">
+              <strong>Sub Total:</strong>
+            </td>
+            <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
+              {{ data.subTotal}}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="{% if showCustomerPart %}6{% else %}5{% endif %}" style="text-align: right; vertical-align: middle;">
+              <strong>Discount:</strong>
+            </td>
+            <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
+              {{ data.discountPercentage }}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="{% if showCustomerPart %}6{% else %}5{% endif %}" style="text-align: right; vertical-align: middle;">
+              <strong>Rounding Off:</strong>
+            </td>
+            <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
+              {{ data.roundingAdjustment }}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="{% if showCustomerPart %}6{% else %}5{% endif %}" style="text-align: right; vertical-align: middle;">
+              <strong>Total Amount:</strong>
+            </td>
+            <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
+              {{ data.totalAmount }}
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
