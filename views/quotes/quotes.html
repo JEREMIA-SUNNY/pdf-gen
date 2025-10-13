@@ -10,7 +10,7 @@
     <style>
       @page {
         size: A4;
-        margin: 100px 50px 70px 50px; /* Increased top margin to make room for header */
+        margin: 100px 50px 90px 50px; /* Increased bottom margin for footer space */
         @bottom-left {
           margin-top: 10px;
           content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
@@ -23,6 +23,7 @@
           font-size: 8px;
         }
       }
+      
       /* Global styling for main content - BUT not applying to TC section */
       body,
       p,
@@ -59,6 +60,7 @@
       span {
         min-height: 10px;
       }
+      
       .header {
         border-bottom: 1px solid gray;
         display: flex;
@@ -73,6 +75,7 @@
         min-height: 1px;
         background-color: white; /* Ensure header is visible */
       }
+      
       .header > .title {
         display: flex;
         align-items: flex-end;
@@ -80,73 +83,77 @@
         font-weight: bold;
         color: #375fbd;
       }
+      
       .header > .logo {
         width: 100px;
       }
-      .footer {
-        border-top: 1px solid gray;
-        position: fixed;
-        left: 0;
-        bottom: -80px;
-        height: 80px;
-        width: 100%;
-        gap: 3px;
-        font-size: 12px;
-      }
+      
       body {
         font-family: "Noto Sans", "DejaVu Sans", sans-serif;
         margin: 0;
         line-height: 1.5;
         color: #000;
       }
+      
       p {
         margin: 0 0 8px 0;
       }
+      
       .to-block p {
         margin: 0;
         line-height: 1.2;
         padding: 0;
       }
+      
       h2 {
         margin: 0;
         padding: 4px 0;
         text-align: center;
       }
+      
       table {
         border-collapse: collapse;
         width: 100%;
         margin-bottom: 1em;
         table-layout: fixed;
       }
+      
       table,
       th,
       td {
         border: 1px solid #23272e;
         padding: 5px;
       }
+      
       .quotation-table th {
         background: #f2f2f2;
       }
 
-      /* Fixed column widths for quotation table - MODIFIED FOR BETTER SPACING */
+      /* Fixed column widths for quotation table */
       .quotation-table th:nth-child(1) {
         width: 40px;
       }
+      
       .quotation-table th.customer-part {
         width: 100px;
       }
+      
       .quotation-table th.nkrf-part {
         width: 110px;
       }
+      
       .quotation-table th.description {
         width: 170px;
       }
+      
       .quotation-table th.moq {
         width: 50px;
       }
+      
       .quotation-table th.unit-price {
         width: 70px;
       }
+      
       /* Increased width for extended price column */
       .quotation-table th.ext-price {
         width: 120px;
@@ -173,9 +180,16 @@
         font-weight: bold;
       }
 
+      /* NEW: Keep summary rows together */
+      .quotation-summary {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
       .tc-table {
         margin-top: 0;
       }
+      
       .tc-table td.heading {
         font-size: 12px;
         width: 220px;
@@ -185,15 +199,18 @@
         vertical-align: middle;
         color: #375fbd;
       }
+      
       .tc-table td.content {
         vertical-align: top;
         font-size: 12px;
       }
+      
       .address-table {
         border-collapse: collapse;
         width: 100%;
         margin-bottom: 1.5em;
       }
+      
       .address-table th,
       .address-table td {
         border: 1px solid #23272e;
@@ -202,21 +219,26 @@
         vertical-align: top;
         font-size: 12px;
       }
+      
       .address-table th {
         background: #f2f2f2;
         font-weight: bold;
       }
+      
       .address-table td {
         width: 50%;
       }
+      
       .details-list {
         margin-left: 0;
         padding-left: 1.2em;
         margin-bottom: 1.5em;
       }
+      
       .details-list li {
         margin-bottom: 0.5em;
       }
+      
       .special-conditions {
         margin-bottom: 1.5em;
         text-align: left;
@@ -248,18 +270,22 @@
         font-weight: 500; /* Reduce from default bold (700) to medium (500) */
       }
 
-      /* Or if you want to completely remove bold styling */
-      /* 
-      strong, b {
-        font-weight: normal;
-      }
-      */
-
       /* Ensure consistent font weight for specific elements */
       .to-block strong,
       .section-title,
       p strong {
         font-weight: 500;
+      }
+      
+      /* NEW: Prevent page break inside important sections */
+      .keep-together {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      
+      /* NEW: Force page break before T&C section if needed */
+      .tc-content {
+        page-break-before: auto;
       }
     </style>
   </head>
@@ -360,7 +386,9 @@
     <p><span class="bold-text">Alok Sood</span></p>
 
     <br /><br /><br /><br />
-   <div style="page-break-before: always">
+    
+    <!-- Quotation Table with improved page break handling -->
+    <div style="page-break-before: always">
       {% set partsWithCustomer = data.parts | selectattr("customerPartNumber", "ne", "") | list %}
       {% set showCustomerPart = partsWithCustomer | length > 0 %}
       <table class="quotation-table">
@@ -412,6 +440,10 @@
             </td>
           </tr>
           {% endfor %}
+        </tbody>
+        
+        <!-- Summary section - kept together -->
+        <tbody class="quotation-summary">
           <tr>
             <td colspan="{% if showCustomerPart %}6{% else %}5{% endif %}" style="text-align: right; vertical-align: middle;">
               <strong>Sub Total:</strong>
@@ -449,12 +481,13 @@
     </div>
 
     <!-- Include Additional Details from a separate file -->
-    <!-- Quotation Table and other content -->
-    {% include "quotes/totalamount.html" %}
+    <div class="keep-together">
+      {% include "quotes/totalamount.html" %}
+    </div>
 
     <!-- Include T&C using a separate partial with small font -->
     <div class="tc-content">
-      {%- include "quotes/termsAndCondition.html" -%} {% include "footer.html" %}
+      {%- include "quotes/termsAndCondition.html" -%}
     </div>
 
     <br />
