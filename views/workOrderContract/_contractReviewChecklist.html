@@ -1,41 +1,79 @@
-
-{% macro checklist_item(question, answer) %}
-<p style="margin-bottom: 15px;">
-    <strong style="font-size: 16px;">{{ question }}</strong><br>
-    {% if answer %}
-        {% if '\n' in answer %}
-            <span style="white-space: pre-line;">{{ answer }}</span>
-        {% else %}
-            <span>{{ answer }}</span>
-        {% endif %}
-    {% else %}
-        <span>N/A</span>
-    {% endif %}
-</p>
-{% endmacro %}
-
-
 {% if contractChecklist %}
 <div class="section page-break" style="margin-top: 30px;">
-  <div class="section-title" >
+  <div class="section-title">
     Contract Review Checklist
   </div>
 
-  <div class="subsection" >
-    {{ checklist_item("Have all raw materials been procured per the approved production plan?", contractChecklist.rawMaterialsProcured) }}
-    {{ checklist_item("Are all material certifications and compliance documents verified and available?", contractChecklist.certificationsVerified) }}
-    {{ checklist_item("Are the materials for this order sourced locally, internationally, or from both locations?", contractChecklist.materialSource) }}
-    {{ checklist_item("Is the testing infrastructure fully operational for required quality and performance checks?", contractChecklist.testingInfrastructureOperational) }}
-    {{ checklist_item("Are all calibration certificates current and compliant with applicable standards?", contractChecklist.calibrationCertificatesCompliant) }}
-    {{ checklist_item("Are all necessary tools, machines, and fixtures available and maintained as per the preventive maintenance schedule?", contractChecklist.toolsAndFixturesAvailable) }}
-    {{ checklist_item("Are contingency measures in place for critical equipment failure?", contractChecklist.contingencyMeasuresInPlace) }}
-    {{ checklist_item("Tooling kit required to execute this order", contractChecklist.toolingKitRequired) }}
-    {{ checklist_item("Are adequate personnel available for production and quality control activities?", contractChecklist.adequatePersonnelAvailable) }}
-    {{ checklist_item("Any requirement that cannot be met and requires formal customer concurrence?", contractChecklist.unmetRequirements) }}
-    {{ checklist_item("Are there any statutory or regulatory requirements applicable to this order?", contractChecklist.statutoryRequirements) }}
-    {{ checklist_item("Is Customer First Article Inspection (FAI) required?", contractChecklist.customerFAIRequired) }}
-    {{ checklist_item("If FAI is required, please specify conditions", contractChecklist.faiConditions) }}
-    {{ checklist_item("Is Third Party Inspection (TPI) required?", contractChecklist.tpiRequired) }}
+  <div class="subsection">
+    <div class="checklist-item subsectionGap" >
+      <p class="subsectionFont"><strong>Have all raw materials been procured per the approved production plan?</strong></p>
+      <p style="white-space: pre-line;">{{ contractChecklist.rawMaterialsProcured or 'N/A' }}</p>
+    </div>
+
+    <div class="checklist-item subsectionGap">
+      <p class="subsectionFont"><strong>Are all material certifications and compliance documents verified and available?</strong></p>
+      <p style="white-space: pre-line;">{{ contractChecklist.certificationsVerified or 'N/A' }}</p>
+    </div>
+
+    <div class="checklist-item subsectionGap">
+      <p class="subsectionFont"><strong>Are the materials for this order sourced locally, internationally, or from both locations?</strong></p>
+      <p style="white-space: pre-line;">{{ contractChecklist.materialSource or 'N/A' }}</p>
+    </div>
+
+    <div class="checklist-item subsectionGap">
+      <p class="subsectionFont"><strong>Is the testing infrastructure fully operational for required quality and performance checks?</strong></p>
+      <p style="white-space: pre-line;">{{ contractChecklist.testingInfrastructureOperational or 'N/A' }}</p>
+    </div>
+
+    <div class="checklist-item subsectionGap">
+      <p class="subsectionFont"><strong>Are all calibration certificates current and compliant with applicable standards?</strong></p>
+      <p style="white-space: pre-line;">{{ contractChecklist.calibrationCertificatesCompliant or 'N/A' }}</p>
+    </div>
+
+    <div class="checklist-item subsectionGap">
+      <p class="subsectionFont"><strong>Are all necessary tools, machines, and fixtures available and maintained as per the preventive maintenance schedule?</strong></p>
+      <p style="white-space: pre-line;">{{ contractChecklist.toolsAndFixturesAvailable or 'N/A' }}</p>
+    </div>
+
+    <div class="checklist-item subsectionGap">
+      <p class="subsectionFont"><strong>Are contingency measures in place for critical equipment failure?</strong></p>
+      <p style="white-space: pre-line;">{{ contractChecklist.contingencyMeasuresInPlace or 'N/A' }}</p>
+    </div>
+
+    <div class="checklist-item subsectionGap">
+      <p class="subsectionFont"><strong>Tooling kit required to execute this order</strong></p>
+      <p style="white-space: pre-line;">{{ contractChecklist.toolingKitRequired or 'N/A' }}</p>
+    </div>
+
+    <div class="checklist-item subsectionGap">
+      <p class="subsectionFont"><strong>Are adequate personnel available for production and quality control activities?</strong></p>
+      <p style="white-space: pre-line;">{{ contractChecklist.adequatePersonnelAvailable or 'N/A' }}</p>
+    </div>
+
+    <div class="checklist-item subsectionGap">
+      <p class="subsectionFont"><strong>Any requirement that cannot be met and requires formal customer concurrence?</strong></p>
+      <p style="white-space: pre-line;">{{ contractChecklist.unmetRequirements or 'N/A' }}</p>
+    </div>
+
+    <div class="checklist-item subsectionGap">
+      <p class="subsectionFont"><strong>Are there any statutory or regulatory requirements applicable to this order?</strong></p>
+      <p style="white-space: pre-line;">{{ contractChecklist.statutoryRequirements or 'N/A' }}</p>
+    </div>
+
+    <div class="checklist-item subsectionGap">
+      <p class="subsectionFont"><strong>Is Customer First Article Inspection (FAI) required?</strong></p>
+      <p style="white-space: pre-line;">{{ contractChecklist.customerFAIRequired or 'N/A' }}</p>
+    </div>
+
+    <div class="checklist-item subsectionGap">
+      <p class="subsectionFont"><strong>If FAI is required, please specify conditions</strong></p>
+      <p style="white-space: pre-line;">{{ contractChecklist.faiConditions or 'N/A' }}</p>
+    </div>
+
+    <div class="checklist-item subsectionGap">
+      <p class="subsectionFont"><strong>Is Third Party Inspection (TPI) required?</strong></p>
+      <p style="white-space: pre-line;">{{ contractChecklist.tpiRequired or 'N/A' }}</p>
+    </div>
   </div>
 </div>
 {% endif %}

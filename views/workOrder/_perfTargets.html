@@ -38,16 +38,16 @@
         <td>{{ target.operatingFrequency or 'N/A' }}</td>
         <td>{{ target.committedILTarget or 'N/A' }}</td>
         <td>{{ target.internalILTarget or 'N/A' }}</td>
-        <td>{{ target.ilMarkers or 'N/A' }}</td>
+        <td style="white-space: pre-line;">{{ target.ilMarkers or 'N/A' }}</td>
         <td>{{ target.committedVSWRTarget or 'N/A' }}</td>
         <td>{{ target.internalVSWRTarget or 'N/A' }}</td>
-        <td>{{ target.vswrMarkers or 'N/A' }}</td>
+        <td style="white-space: pre-line;">{{ target.vswrMarkers or 'N/A' }}</td>
         {% if show_phase_columns %}
         <td>{{ target.committedPMTarget or 'N/A' }}</td>
         <td>{{ target.internalPMTarget or 'N/A' }}</td>
-        <td>{{ target.pmMarkers or 'N/A' }}</td>
+        <td style="white-space: pre-line;">{{ target.pmMarkers or 'N/A' }}</td>
         {% endif %}
-        <td>{{ target.notes or 'N/A' }}</td>
+        <td style="white-space: pre-line;">{{ target.notes or 'N/A' }}</td>
       </tr>
       {% endfor %}
     </tbody>

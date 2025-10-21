@@ -1,120 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Work Order Document</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    @page {
-      size: A4 landscape;
-      margin-top: 100px; /* space for the header */
-      margin-bottom: 40px; /* minimal bottom margin */
-      margin-left: 70px;
-      margin-right: 70px;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <title>Work Order Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @page {
+        size: A4 landscape;
+        margin-top: 100px; /* space for the header */
+        margin-bottom: 40px; /* minimal bottom margin */
+        margin-left: 70px;
+        margin-right: 70px;
+      }
 
-    * {
-      font-family: "Noto Sans", "DejaVu Sans", sans-serif;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-size: 12px;
-    }
+      * {
+        font-family: "Noto Sans", "DejaVu Sans", sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-size: 12px;
+      }
 
-    body {
-      color: #333;
-      line-height: 1.4;
-    }
+      body {
+        color: #333;
+        line-height: 1.4;
+      }
 
-    /* Fixed header */
-    .header {
-      border-bottom: 1px solid gray;
-      display: flex;
-      position: fixed;
-      align-items: flex-end;
-      justify-content: space-between;
-      left: 0;
-      top: -90px; /* push it into page margin */
-      height: 75px;
-      width: 100%;
-      padding: 10px 0;
-    }
+      /* Fixed header */
+      .header {
+        border-bottom: 1px solid gray;
+        display: flex;
+        position: fixed;
+        align-items: flex-end;
+        justify-content: space-between;
+        left: 0;
+        top: -90px; /* push it into page margin */
+        height: 75px;
+        width: 100%;
+        padding: 10px 0;
+      }
 
-    .header > .title {
-      display: flex;
-      align-items: flex-end;
-      font-size: 20px;
-      font-weight: bold;
-      color: #375fbd;
-    }
+      .header > .title {
+        display: flex;
+        align-items: flex-end;
+        font-size: 20px;
+        font-weight: bold;
+        color: #375fbd;
+      }
 
-    .header > .logo {
-      width: 100px;
-    }
+      .header > .logo {
+        width: 100px;
+      }
 
-    .section {
-      margin-bottom: 20px;
-      page-break-inside: avoid;
-    }
+      .section {
+        margin-bottom: 20px;
+        page-break-inside: avoid;
+      }
 
-    .section-title {
-      font-size: 24px;
-      font-weight: bold;
-      color: #375fbd;
-      padding-bottom: 12px;
-    }
+      .section-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #375fbd;
+        padding-bottom: 12px;
+      }
 
-    /* Table improvements for readability */
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  font-size: 12px;
-}
+      /* Table improvements for readability */
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        font-size: 12px;
+      }
 
-.data-table th,
-.data-table td {
-  border: 1px solid #ccc;
-  padding: 8px 10px;
-  text-align: left;
-  vertical-align: top;
-}
+      .data-table th,
+      .data-table td {
+        border: 1px solid #ccc;
+        padding: 8px 10px;
+        text-align: left;
+        vertical-align: top;
+      }
 
-.data-table th {
-  background-color: #375fbd;
-  color: #fff;
-  font-weight: 600;
-  font-size: 13px;
-}
-    .subsection-title{
+      .data-table th {
+        background-color: #375fbd;
+        color: #fff;
+        font-weight: 600;
+        font-size: 13px;
+      }
+      .subsection-title {
         font-size: 14px;
-      font-weight: bold;
-      padding-bottom: 12px;  
-    }
+        font-weight: bold;
+        padding-bottom: 12px;
+      }
 
-    .subsection {
-      padding-top: 10px;
-    }
-    .page-break {
-    page-break-before: always;   /* Force a new page before this element */
-    break-before: page;          /* Modern alternative */
-}
+      .subsection {
+        padding-top: 10px;
+      }
+      .page-break {
+        page-break-before: always; /* Force a new page before this element */
+        break-before: page; /* Modern alternative */
+      }
+      .subsectionGap {
+        padding-bottom: 20px;
+      }
+      .subsectionFont {
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header Include -->
+    {% include "headerCompliance.html" %}
 
-  </style>
-</head>
-<body>
-  <!-- Header Include -->
-  {% include "headerCompliance.html" %}
-
-  <div class="content">
-    
-    {% include "workOrderContract/_header.html" %}
-    {% include "workOrderContract/_summary.html" %}
-    {% include "workOrderContract/_contractReviewChecklist.html" %}
-   
-  </div>
-</body>
+    <div class="content">
+      {% include "workOrderContract/_header.html" %} {% include
+      "workOrderContract/_summary.html" %} {% include
+      "workOrderContract/_contractReviewChecklist.html" %}
+    </div>
+  </body>
 </html>
