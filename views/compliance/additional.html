@@ -98,6 +98,14 @@
         </div>
       {% endif %}
     {% endfor %}
+
+     {% set has_drawing_sections = false %}
+    {% for option in selected_options %}
+      {% set isDrawingChecked = page.drawingCheckBoxes[option] == true or page.drawingCheckBoxes[option] == "true" %}
+      {% if isDrawingChecked %}
+        {% set has_drawing_sections = true %}
+      {% endif %}
+    {% endfor %}
    
    {% if page.extraCableAssemblyFields and page.extraCableAssemblyFields|length > 0 %}
    <!-- <div style="page-break-before: always;"></div> -->
@@ -195,7 +203,9 @@
       {% include "compliance/specialNotes.html" %}
     </div> -->
 
-    {% for option in selected_options %}
+       {% for option in selected_options %}
+    {% set isDrawingChecked = page.drawingCheckBoxes[option] == true or page.drawingCheckBoxes[option] == "true" %}
+        {% if isDrawingChecked %}
     <!-- Technical Specification & Drawing Section for each option -->
     <div style="page-break-before: always; margin-bottom: 30px;">
       <h3 style="text-align: center; font-weight: bold; font-size: 16px; margin-bottom: 15px; color: #333;">
@@ -364,7 +374,7 @@
         </div>
       </div>
     {% endif %}
-
+    {% endif %}
     {% endfor %}
     {% endif %}
 
