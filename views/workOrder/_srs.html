@@ -1,26 +1,21 @@
 {% macro detail_item(label, value) %}
-<p style="margin-bottom: 12px;">
-    <strong style="font-size: 14px;">{{ label }}</strong><br>
-    {% if value %}
-        <span style="white-space: pre-line;">{{ value }}</span>
-    {% else %}
-        <span>N/A</span>
-    {% endif %}
+<p style="margin-bottom: 12px">
+  <strong style="font-size: 14px">{{ label }}</strong><br />
+  {% if value %}
+  <span style="white-space: pre-line">{{ value }}</span>
+  {% else %}
+  <span>N/A</span>
+  {% endif %}
 </p>
-{% endmacro %}
-
-{% if srs and srs|length > 0 %}
-<div class="section page-break">
+{% endmacro %} {% if srs and srs|length > 0 %}
+<div class="section">
   <div class="section-title">Strain Relief Sleeve & Marker Details</div>
 
-  {# Get the first item to use for standalone fields - they should be the same for all parts #}
-  {% set main_srs = srs[0] %}
-  
-  {# STANDALONE FIELDS - Only display once for the entire work order #}
-  {{ detail_item("Strain Relief Sleeve Type", main_srs.strainReliefSleeveType) }}
-  {{ detail_item("Marker Sleeve Type", main_srs.markerSleeveType) }}
-
-  {# SINGLE TABLE for all parts #}
+  {# Get the first item to use for standalone fields - they should be the same
+  for all parts #} {% set main_srs = srs[0] %} {# STANDALONE FIELDS - Only
+  display once for the entire work order #} {{ detail_item("Strain Relief Sleeve
+  Type", main_srs.strainReliefSleeveType) }} {{ detail_item("Marker Sleeve
+  Type", main_srs.markerSleeveType) }} {# SINGLE TABLE for all parts #}
   <table class="data-table">
     <thead>
       <tr>
@@ -44,7 +39,9 @@
         <td>{{ item.noOfMarkers or 'N/A' }}</td>
         <td>{{ item.markerLength or 'N/A' }}</td>
         <td>{{ item.font or 'N/A' }}</td>
-        <td style="white-space: pre-line;">{{ item.additionalMarkerSleeveDetails or 'N/A' }}</td>
+        <td style="white-space: pre-line">
+          {{ item.additionalMarkerSleeveDetails or 'N/A' }}
+        </td>
       </tr>
       {% endfor %}
     </tbody>
@@ -52,16 +49,23 @@
 
   {% if customerMarkerDetailsDrawingUrl %}
   <!-- Dedicated page for image -->
-  <div class="section" style="page-break-before: always;">
+  <div class="section" style="page-break-before: always">
     <div class="subsection-title">Customer Marker Details Drawing</div>
-    
-    <div style="text-align: center; margin-top: 20px;">
-      <img src="{{ customerMarkerDetailsDrawingUrl }}"
-           alt="Customer Marker Details Drawing"
-           style="max-width: 90%; max-height: 580px; height: auto; border: 1px solid #ddd; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+
+    <div style="text-align: center; margin-top: 20px">
+      <img
+        src="{{ customerMarkerDetailsDrawingUrl }}"
+        alt="Customer Marker Details Drawing"
+        style="
+          max-width: 90%;
+          max-height: 580px;
+          height: auto;
+          border: 1px solid #ddd;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        "
+      />
     </div>
   </div>
   {% endif %}
-
 </div>
 {% endif %}

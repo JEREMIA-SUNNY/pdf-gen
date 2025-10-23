@@ -1,31 +1,14 @@
-{% macro detail_item(label, value) %}
-<div style="margin-bottom: 12px;">
-    <div class="subsection-title">{{ label }}</div>
-    {% if value %}
-        {% if '\n' in value %}
-            <div style="white-space: pre-line;">{{ value }}</div>
-        {% else %}
-            <div>{{ value }}</div>
-        {% endif %}
-    {% else %}
-        <div>N/A</div>
-    {% endif %}
-</div>
-{% endmacro %}
-
 {% if materials %}
-<div class="section page-break">
+<div class="section">
   <div class="section-title">Material Details</div>
 
-  {# Show MRS Numbers if available above the table #}
-  {% for m in materials %}
-    {{ detail_item("MRS Numbers", m.mrsNumbers) }}
-  {% endfor %}
+  {% if mrsNumbers %}
+  <div class="subsection-title">MRS Numbers</div>
+  {{ mrsNumbers }} {% endif %}
 
   <table class="data-table">
     <thead>
       <tr>
-        <th>MRS Numbers</th>
         <th>NKRF Component Part No</th>
         <th>Quantity Required</th>
         <th>Lot Number</th>
@@ -35,11 +18,10 @@
     <tbody>
       {% for m in materials %}
       <tr>
-        <td>{{ m.mrsNumbers or 'N/A' }}</td>
-        <td>{{ m.nkrfComponentPartNumber or 'N/A' }}</td>
-        <td>{{ m.quantityRequired or 'N/A' }}</td>
-        <td>{{ m.lotNumber or 'N/A' }}</td>
-        <td>{{ m.remarks or 'N/A' }}</td>
+        <td>{{ m.nkrfComponentPartNumber | default('N/A') }}</td>
+        <td>{{ m.quantityRequired | default('N/A') }}</td>
+        <td>{{ m.lotNumber | default('N/A') }}</td>
+        <td>{{ m.remarks | default('N/A') }}</td>
       </tr>
       {% endfor %}
     </tbody>
