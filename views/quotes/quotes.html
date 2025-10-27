@@ -401,7 +401,7 @@
             <th style="text-align: center; vertical-align: middle; width: 150px;">NKRF Part No.</th>
             <th style="text-align: center; vertical-align: middle; width: auto;">Description</th>
             <th style="text-align: center; vertical-align: middle; width: 50px;">MOQ</th>
-            <th style="text-align: center; vertical-align: middle; width: 90px;">Unit Price</th>
+            <th style="text-align: center; vertical-align: middle; width: 90px;">Unit Price<br />(excl. GST)</th>
             <!-- Increased width for extended price -->
             <th style="text-align: center; vertical-align: middle; width: 120px;">
               {% if data.isGstInclusive %}
@@ -478,6 +478,12 @@
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="keep-together">
+      <p>
+         GST rates will be applied extra as applicable/announced/amended as per Govt. of India notifications, currently at 18%
+      </p>
     </div>
 
     <!-- Include Additional Details from a separate file -->
