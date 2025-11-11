@@ -13,9 +13,23 @@
       @page {
         size: A4 landscape;
         margin-top: 100px; /* space for the header */
-        margin-bottom: 40px; /* minimal bottom margin */
+        margin-bottom: 70px; /* minimal bottom margin */
         margin-left: 70px;
         margin-right: 70px;
+
+      @bottom-left {
+      margin-top: 10px;
+      content: "Work Order Number: {{ header.workOrderNumber }}";
+      font-size: 12px;
+      white-space: pre;
+      margin-bottom: 20px;
+    }
+
+    @bottom-right {
+      content: "Page " counter(page) " of " counter(pages);
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
       }
 
       * {
@@ -29,6 +43,7 @@
       body {
         color: #333;
         line-height: 1.4;
+        padding-bottom: 30px;
       }
 
       /* Fixed header */
@@ -67,6 +82,16 @@
         font-weight: bold;
         color: #375fbd;
         padding-bottom: 12px;
+      }
+
+      /* ===== FOOTER BORDER ===== */
+      body::after {
+        content: "";
+        position: fixed;
+        bottom: 5px;
+        left: 0;
+        right: 0;
+        border-top: 1px solid #00000080;
       }
 
       /* Table improvements for readability */
@@ -115,7 +140,7 @@
   </head>
   <body>
     <!-- Header Include -->
-    {% include "headerCompliance.html" %}
+    {% include "headerWorkorder.html" %}
 
     <div class="content">
       {% include "workOrderContract/_header.html" %} {% include
