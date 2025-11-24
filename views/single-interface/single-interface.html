@@ -3,7 +3,6 @@
   <head>
     <title>{{ data.title }}</title>
     <meta charset="UTF-8" />
-    <!-- Import Noto Sans font from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -55,7 +54,7 @@
         padding: 10px 0;
       }
 
-     .header > .title {
+      .header > .title {
         display: flex;
         align-items: flex-end;
         font-weight: bold;
@@ -63,7 +62,6 @@
         white-space: nowrap;
         max-width: calc(100% - 120px);
         flex-shrink: 0;
-        /* Fixed font size to match section-desc */
         font-size: 14px;
       }
 
@@ -137,29 +135,34 @@
         page-break-inside: avoid;
         break-inside: avoid;
       }
+
+      /* Added remarks section styling */
+      .remarks-section {
+        margin-top: 25px;
+      }
     </style>
   </head>
 
   <body>
-    {% include "header.html" %} {% if data.connectorDatasheetImage %}
-    <img src="{{ data.connectorDatasheetImage }}" style="width: 100%" />
+    {% include "header.html" %}
+
+    {% if data.connectorDatasheetImage %}
+      <img src="{{ data.connectorDatasheetImage }}" style="width: 100%" />
     {% endif %}
 
-    <!-- FIRST PAGE ENDS HERE -->
-
-    <!-- START PAGE 2 -->
     {% if data.description %}
-    <div class="section-desc">DESCRIPTION: {{ data.description }}</div>
+      <div class="section-desc">DESCRIPTION: {{ data.description }}</div>
     {% endif %}
 
-    <!-- MATERIALS -->
+    {# Conditional MATERIALS section only if at least one value exists #}
+    {% set materials_with_values = data.materials | selectattr('value') | list %}
+    {% if materials_with_values|length > 0 %}
     <div class="section">
       <div class="section-title">MATERIALS</div>
       <div class="table-container">
         <table class="table">
           <tbody>
-            {% set has_data = false %} {% for material in data.materials %} {%
-            if material.value %} {% set has_data = true %}
+            {% for material in materials_with_values %}
             <tr>
               <td class="td td-center" style="width: 40%; max-width: 40%">
                 <b>{{ material.label }}</b>
@@ -168,39 +171,35 @@
                 {{ material.value }}
               </td>
             </tr>
-            {% endif %} {% endfor %}
+            {% endfor %}
           </tbody>
         </table>
       </div>
     </div>
+    {% endif %}
 
-    <!-- ELECTRICAL CHARACTERISTICS -->
     <div class="section">
       {% include "single-interface/electrical-chars-table.html" %}
     </div>
 
-    <!-- MECHANICAL CHARACTERISTICS -->
     <div class="section">
       {% include "single-interface/mechanical-chars-table.html" %}
     </div>
 
-    <!-- ENVIRONMENTAL CHARACTERISTICS -->
     <div class="section">
       {% include "single-interface/environmental-chars-table.html" %}
     </div>
 
-    <!-- INTERFACE STANDARDS -->
     <div class="section">
       {% include "single-interface/interface-standards-table.html" %}
     </div>
 
-    <!-- CUSTOM SPECIFICATIONS -->
     <div class="section">
       {% include "single-interface/custom-specs-table.html" %}
     </div>
 
-     <!-- REMARKS TABLE  -->
-    <div class="section" style="page-break-before: always;">
+    <!-- REMARKS TABLE (removed page-break-before) -->
+    <div class="section remarks-section">
       {% include "remarks-table.html" %}
     </div>
 

@@ -168,51 +168,67 @@
       /* Optional: small sections try to stay together, but can break if needed */
       .section { break-inside: auto; }
 
-      /* Force the remarks section to start a new page (modern + legacy) */
-      .remarks-page { break-before: page; page-break-before: always; }
+      /* Only force page break for remarks if there's actual content before it */
+      .remarks-page { 
+        margin-top: 20px;
+      }
 
-      /* Reusable class to optionally force a new page before a section */
+      /* Conditional page break - only apply if needed */
       .force-page-break { break-before: page; page-break-before: always; }
 
       /* Print-friendly flow layout for the main content sections (avoid CSS grid) */
       .content-sections { padding-top: 20px; display: block; }
       .content-sections > .section { margin-bottom: 25px; }
+
+      /* Hide empty sections */
+      .empty-section { display: none; }
     </style>
   </head>
 
   <body>
-    {% include "headerMulti.html" %} {% if data.adaptorDatasheetImage %}
+    {% include "headerMulti.html" %} 
+    {% if data.adaptorDatasheetImage %}
     <img src="{{ data.adaptorDatasheetImage }}" style="width: 100%" />
     {% endif %}
 
     {% if data.description %}
-
     <div class="section-desc">DESCRIPTION: {{ data.description }}</div>
-
     {% endif %}
 
     <div class="content-sections">
       <!-- MATERIALS -->
+      {% set has_materials = false %}
       {% include "multi-interface/materials-table.html" %}
+      {% if has_materials %}{% set has_content_before_remarks = true %}{% endif %}
 
       <!-- ELECTRICAL CHARACTERISTICS -->
+      {% set has_electrical = false %}
       {% include "multi-interface/electrical-chars-table.html" %}
+      {% if has_electrical %}{% set has_content_before_remarks = true %}{% endif %}
 
       <!-- MECHANICAL CHARACTERISTICS -->
+      {% set has_mechanical = false %}
       {% include "multi-interface/mechanical-chars-table.html" %}
+      {% if has_mechanical %}{% set has_content_before_remarks = true %}{% endif %}
 
       <!-- ENVIRONMENTAL CHARACTERISTICS -->
+      {% set has_environmental = false %}
       {% include "multi-interface/environmental-chars-table.html" %}
+      {% if has_environmental %}{% set has_content_before_remarks = true %}{% endif %}
 
       <!-- INTERFACE STANDARDS -->
+      {% set has_interface = false %}
       {% include "multi-interface/interface-standards-table.html" %}
+      {% if has_interface %}{% set has_content_before_remarks = true %}{% endif %}
 
       <!-- CUSTOM SPECIFICATIONS -->
+      {% set has_custom = false %}
       {% include "multi-interface/custom-specs-table.html" %}
+      {% if has_custom %}{% set has_content_before_remarks = true %}{% endif %}
     </div>
 
-    <!-- Always show remarks table on the last page -->
-    <div class="section remarks-page">
+    <!-- Conditionally apply page break only if there's content before remarks -->
+    <div class="section {% if has_content_before_remarks %}remarks-page force-page-break{% else %}remarks-page{% endif %}">
       {% include "remarks-table.html" %}
     </div>
     {% include "footer.html" %}
