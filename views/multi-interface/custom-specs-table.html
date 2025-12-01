@@ -1,4 +1,5 @@
-{% if data.customSpecifications and data.customSpecifications | length > 0 %}
+{% set custom_with_values = data.customSpecifications | default([]) | selectattr('fieldName') | selectattr('specification') | list %}
+{% if custom_with_values | length > 0 %}
 <div class="section">
   <div class="section-title">OTHER SPECIFICATIONS</div>
   <div class="table-container">
@@ -10,8 +11,8 @@
         </tr>
       </thead>
       <tbody>
-        {% for spec in data.customSpecifications %} {% if spec.fieldName and
-        spec.specification %}
+        {% for spec in data.customSpecifications %}
+        {% if spec.fieldName and spec.specification %}
         <tr>
           <td class="td td-center" style="font-weight: bold">
             {{ spec.fieldName }}

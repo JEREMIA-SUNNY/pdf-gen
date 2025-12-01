@@ -1,5 +1,8 @@
-{% if data.materials and data.materials | length > 0 %}
-<div class="section" >
+{% set materials_a = data.materials | default([]) | selectattr('valueA') | list %}
+{% set materials_b = data.materials | default([]) | selectattr('valueB') | list %}
+{% set materials_with_values = (materials_a | length > 0) or (materials_b | length > 0) %}
+{% if materials_with_values %}
+<div class="section">
   <div class="section-title">MATERIALS</div>
   <div class="table-container">
     <table class="table">
@@ -11,7 +14,8 @@
         </tr>
       </thead>
       <tbody>
-        {% for interface in data.materials %} {% if interface.valueA %}
+        {% for interface in data.materials %}
+        {% if interface.valueA or interface.valueB %}
         <tr>
           <td class="td td-center" style="width: 33%; max-width: 40%">
             <b>{{ interface.label }}</b>
@@ -23,7 +27,8 @@
             {{ interface.valueB }}
           </td>
         </tr>
-        {% endif %} {% endfor %}
+        {% endif %}
+        {% endfor %}
       </tbody>
     </table>
   </div>

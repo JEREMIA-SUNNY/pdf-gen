@@ -1,11 +1,12 @@
-{% if data.machanicalSpecs and data.machanicalSpecs | length > 0 %}
-<div class="section" >
+{% set mechanical_with_values = data.machanicalSpecs | default([]) | selectattr('value') | list %}
+{% if mechanical_with_values | length > 0 %}
+<div class="section">
   <div class="section-title">MECHANICAL CHARACTERISTICS</div>
   <div class="table-container">
     <table class="table">
       <tbody>
-        {% for machanicalSpec in data.machanicalSpecs %} {% if
-        machanicalSpec.value %}
+        {% for machanicalSpec in data.machanicalSpecs %}
+        {% if machanicalSpec.value %}
         <tr>
           <td class="td td-center" style="width: 40%; max-width: 40%">
             <b>{{ machanicalSpec.label }}</b>

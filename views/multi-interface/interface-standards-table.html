@@ -1,10 +1,12 @@
-{% if data.interfaces and data.interfaces | length > 0 %}
-<div class="section" >
+{% set interface_with_values = data.interfaces | default([]) | selectattr('value') | list %}
+{% if interface_with_values | length > 0 %}
+<div class="section">
   <div class="section-title">INTERFACE STANDARDS</div>
   <div class="table-container">
     <table class="table">
       <tbody>
-        {% for interface in data.interfaces %} {% if interface.value %}
+        {% for interface in data.interfaces %}
+        {% if interface.value %}
         <tr>
           <td class="td td-center" style="width: 40%; max-width: 40%">
             <b>{{ interface.label }}</b>

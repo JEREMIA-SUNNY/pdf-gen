@@ -1,10 +1,11 @@
+{% set materials_with_values = data.materials | default([]) | selectattr('value') | list %}
+{% if materials_with_values|length > 0 %}
 <div class="section">
     <div class="section-title">MATERIALS</div>
     <div class="table-container">
         <table class="table">
             <tbody>
-                {% for material in data.materials %}
-                {% if material.value %}
+                {% for material in materials_with_values %}
                 <tr>
                     <td class="td td-center" style="width: 40%; max-width: 40%;">
                         <b>{{ material.label }}</b>
@@ -13,11 +14,11 @@
                         {{ material.value }}
                     </td>
                 </tr>
-                {% endif %}
                 {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
+{% endif %}
 
 

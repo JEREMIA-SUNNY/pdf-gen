@@ -1,10 +1,12 @@
-{% if data.envSpecs and data.envSpecs | length > 0 %}
+{% set environmental_with_values = data.envSpecs | default([]) | selectattr('value') | list %}
+{% if environmental_with_values | length > 0 %}
 <div class="section">
   <div class="section-title">ENVIRONMENTAL CHARACTERISTICS</div>
   <div class="table-container">
     <table class="table">
       <tbody>
-        {% for envSpec in data.envSpecs %} {% if envSpec.value %}
+        {% for envSpec in data.envSpecs %}
+        {% if envSpec.value %}
         <tr>
           <td class="td td-center" style="width: 40%; max-width: 40%">
             <b>{{ envSpec.label }}</b>

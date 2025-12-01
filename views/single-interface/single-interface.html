@@ -35,7 +35,6 @@
       }
 
       img,
-      div,
       table,
       span {
         min-height: 10px;
@@ -119,7 +118,7 @@
       .section {
         display: block;
         width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: 12px;
         page-break-inside: auto;
       }
 
@@ -155,7 +154,7 @@
     {% endif %}
 
     {# Conditional MATERIALS section only if at least one value exists #}
-    {% set materials_with_values = data.materials | selectattr('value') | list %}
+    {% set materials_with_values = data.materials | default([]) | selectattr('value') | list %}
     {% if materials_with_values|length > 0 %}
     <div class="section">
       <div class="section-title">MATERIALS</div>
@@ -178,25 +177,15 @@
     </div>
     {% endif %}
 
-    <div class="section">
-      {% include "single-interface/electrical-chars-table.html" %}
-    </div>
+    {% include "single-interface/electrical-chars-table.html" %}
 
-    <div class="section">
-      {% include "single-interface/mechanical-chars-table.html" %}
-    </div>
+    {% include "single-interface/mechanical-chars-table.html" %}
 
-    <div class="section">
-      {% include "single-interface/environmental-chars-table.html" %}
-    </div>
+    {% include "single-interface/environmental-chars-table.html" %}
 
-    <div class="section">
-      {% include "single-interface/interface-standards-table.html" %}
-    </div>
+    {% include "single-interface/interface-standards-table.html" %}
 
-    <div class="section">
-      {% include "single-interface/custom-specs-table.html" %}
-    </div>
+    {% include "single-interface/custom-specs-table.html" %}
 
     <!-- REMARKS TABLE (removed page-break-before) -->
     <div class="section remarks-section">
