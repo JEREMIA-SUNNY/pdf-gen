@@ -12,6 +12,7 @@
         <th>NKRF Part Number</th>
         <th>NKRF Serial Number</th>
         <th>Length</th>
+        <th>Length Tolerance</th>
         {% if show_phase_columns %}
         
         <th>Phase Match</th>
@@ -29,6 +30,7 @@
         <td>{{ part.nkrfPartNumber or 'N/A' }}</td>
         <td>{{ part.nkrfSerialNumber or 'N/A' }}</td>
          <td>{{ part.length or 'N/A' }}</td>
+          <td>{{ part.lengthTolerance or 'N/A' }}</td>
         {% if show_phase_columns %}
         <td>{{ part.phaseMatching or 'N/A' }}</td>
         <td>{{ part.cablesPerSet or 'N/A' }}</td>
