@@ -10,7 +10,8 @@
     {% endif %}
   {% endfor %}
   
-  {% set show_phase_columns = hasParts and has_phase_matching_data %}
+  <!-- {% set show_phase_columns = hasParts and has_phase_matching_data %} -->
+   {% set show_phase_columns = hasPhaseMatching %}
 
   <table class="data-table">
     <thead>
