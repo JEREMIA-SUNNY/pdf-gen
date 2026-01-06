@@ -39,9 +39,9 @@
         <td>{{ item.noOfMarkers or 'N/A' }}</td>
         <td>{{ item.markerLength or 'N/A' }}</td>
         <td>{{ item.font or 'N/A' }}</td>
-       <td style="white-space: normal; vertical-align: middle;">
+        <td style="white-space: normal; vertical-align: middle;">
           {{ item.additionalMarkerSleeveDetails or 'N/A' }}
-      </td> 
+        </td>
       </tr>
       {% endfor %}
     </tbody>
@@ -49,21 +49,18 @@
 
   {% if customerMarkerDetailsDrawingUrl %}
   <!-- Dedicated page for image -->
-  <div class="section" style="page-break-before: always">
-    <div class="subsection-title">Customer Marker Details Drawing</div>
+  <div class="section" style="break-inside: avoid; page-break-inside: avoid;">
+    <div class="subsection-title" style="padding-bottom: 4px;">Customer Marker Details Drawing</div>
 
-    <div style="text-align: center; margin-top: 20px">
-      <img
-        src="{{ customerMarkerDetailsDrawingUrl }}"
-        alt="Customer Marker Details Drawing"
-        style="
+    <div style="text-align: center; margin-top: 8px">
+      <img src="{{ customerMarkerDetailsDrawingUrl }}" alt="Customer Marker Details Drawing" style="
           max-width: 90%;
           max-height: 580px;
           height: auto;
           border: 1px solid #ddd;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        "
-      />
+          
+        " />
     </div>
   </div>
   {% endif %}
