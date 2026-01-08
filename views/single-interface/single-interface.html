@@ -1,209 +1,204 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>{{ data.title }}</title>
-    <meta charset="UTF-8" />
-    <!-- Import Noto Sans font from Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-      @page {
-        size: A4;
-        margin-top: 95px;
-        margin-bottom: 95px;
 
-        @bottom-left {
-          margin-top: 10px;
-          content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout,Old AirportRoad, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
-          font-size: 12px;
-          white-space: pre;
-          line-height: 15px;
-        }
+<head>
+  <title>{{ data.title }}</title>
+  <meta charset="UTF-8" />
+  <!-- Import Noto Sans font from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    @page {
+      size: A4;
+      margin-top: 95px;
+      margin-bottom: 95px;
 
-        @bottom-right {
-          content: counter(page) "/" counter(pages);
-          font-size: 12px;
-        }
+      @bottom-left {
+        margin-top: 10px;
+        content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout,Old AirportRoad, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
+        font-size: 12px;
+        white-space: pre;
+        line-height: 15px;
       }
 
-      * {
-        font-family: "Noto Sans", "DejaVu Sans", sans-serif;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      @bottom-right {
+        content: counter(page) "/" counter(pages);
         font-size: 12px;
       }
+    }
 
-      img,
-      div,
-      table,
-      span {
-        min-height: 10px;
-      }
+    * {
+      font-family: "Noto Sans", "DejaVu Sans", sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-size: 12px;
+    }
 
-      .header {
-        border-bottom: 2px solid #00000055;
-        display: flex;
-        position: fixed;
-        align-items: flex-end;
-        justify-content: space-between;
-        left: 0;
-        top: -100px;
-        height: 75px;
-        width: 100%;
-        padding: 10px 0;
-      }
+    img,
+    div,
+    table,
+    span {
+      min-height: 10px;
+    }
 
-     .header > .title {
-        display: flex;
-        align-items: flex-end;
-        font-weight: bold;
-        color: #375fbd;
-        white-space: nowrap;
-        max-width: calc(100% - 120px);
-        flex-shrink: 0;
-        /* Fixed font size to match section-desc */
-        font-size: 14px;
-      }
+    .header {
+      border-bottom: 2px solid #00000055;
+      display: flex;
+      position: fixed;
+      align-items: flex-end;
+      justify-content: space-between;
+      left: 0;
+      top: -100px;
+      height: 75px;
+      width: 100%;
+      padding: 10px 0;
+    }
 
-      .header > .logo {
-        width: 100px;
-        flex-shrink: 0;
-      }
+    .header>.title {
+      display: flex;
+      align-items: flex-end;
+      font-weight: bold;
+      color: #375fbd;
+      white-space: nowrap;
+      max-width: calc(100% - 120px);
+      flex-shrink: 0;
+      /* Fixed font size to match section-desc */
+      font-size: 14px;
+    }
 
-      .footer {
-        border-top: 2px solid #00000055;
-        position: fixed;
-        left: 0;
-        bottom: -100px;
-        height: 80px;
-        width: 100%;
-        gap: 3px;
-        font-size: 12px;
-      }
+    .header>.logo {
+      width: 100px;
+      flex-shrink: 0;
+    }
 
-      .table {
-        border-collapse: collapse;
-        width: 100%;
-        page-break-inside: auto;
-      }
-      .table td {
-        border: 1px solid #00000055;
-      }
-      .td {
-        padding: 5px;
-      }
+    .footer {
+      border-top: 2px solid #00000055;
+      position: fixed;
+      left: 0;
+      bottom: -100px;
+      height: 80px;
+      width: 100%;
+      gap: 3px;
+      font-size: 12px;
+    }
 
-      .td-center {
-        text-align: center;
-      }
+    .table {
+      border-collapse: collapse;
+      width: 100%;
+      page-break-inside: auto;
+    }
 
-      .td-head {
-        background-color: #375fbd;
-        color: white;
-        font-weight: bold;
-      }
+    .table td {
+      border: 1px solid #00000055;
+    }
 
-      .section-title {
-        font-size: 14px;
-        font-weight: bold;
-        color: #375fbd;
-      }
+    .td {
+      padding: 5px;
+    }
 
-      .section-desc {
-        font-size: 14px;
-        font-weight: bold;
-        color: black;
-        margin-bottom: 10px;
-      }
+    .td-center {
+      text-align: center;
+    }
 
-      .section {
-        display: block;
-        width: 100%;
-        margin-bottom: 20px;
-        page-break-inside: auto;
-      }
+    .td-head {
+      background-color: #375fbd;
+      color: white;
+      font-weight: bold;
+    }
 
-      .section-body {
-        display: block;
-      }
+    .section-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #375fbd;
+    }
 
-      .section-body > p {
-        padding: 5px 0;
-      }
+    .section-desc {
+      font-size: 14px;
+      font-weight: bold;
+      color: black;
+      margin-bottom: 10px;
+    }
 
-      tr {
-        page-break-inside: avoid;
-        break-inside: avoid;
-      }
-    </style>
-  </head>
+    .section {
+      display: block;
+      width: 100%;
+      margin-bottom: 20px;
+      page-break-inside: auto;
+    }
 
-  <body>
-    {% include "header.html" %} {% if data.connectorDatasheetImage %}
-    <img src="{{ data.connectorDatasheetImage }}" style="width: 100%" />
-    {% endif %}
+    .section-body {
+      display: block;
+    }
 
-    <!-- FIRST PAGE ENDS HERE -->
+    .section-body>p {
+      padding: 5px 0;
+    }
 
-    <!-- START PAGE 2 -->
-    {% if data.description %}
-    <div class="section-desc">DESCRIPTION: {{ data.description }}</div>
-    {% endif %}
+    tr {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+  </style>
+</head>
 
-    <!-- MATERIALS -->
-    <div class="section">
-      <div class="section-title">MATERIALS</div>
-      <div class="table-container">
-        <table class="table">
-          <tbody>
-            {% set has_data = false %} {% for material in data.materials %} {%
-            if material.value %} {% set has_data = true %}
-            <tr>
-              <td class="td td-center" style="width: 40%; max-width: 40%">
-                <b>{{ material.label }}</b>
-              </td>
-              <td class="td td-center" style="width: 60%">
-                {{ material.value }}
-              </td>
-            </tr>
-            {% endif %} {% endfor %}
-          </tbody>
-        </table>
-      </div>
+<body>
+  {% include "header.html" %} {% if data.connectorDatasheetImage %}
+  <img src="{{ data.connectorDatasheetImage }}" style="width: 100%" />
+  {% endif %}
+
+  <!-- FIRST PAGE ENDS HERE -->
+
+  <!-- START PAGE 2 -->
+  {% if data.description %}
+  <div class="section-desc">DESCRIPTION: {{ data.description }}</div>
+  {% endif %}
+
+  <!-- MATERIALS -->
+  <div class="section">
+    <div class="section-title">MATERIALS</div>
+    <div class="table-container">
+      <table class="table">
+        <tbody>
+          {% set has_data = false %} {% for material in data.materials %} {%
+          if material.value %} {% set has_data = true %}
+          <tr>
+            <td class="td td-center" style="width: 40%; max-width: 40%">
+              <b>{{ material.label }}</b>
+            </td>
+            <td class="td td-center" style="width: 60%">
+              {{ material.value }}
+            </td>
+          </tr>
+          {% endif %} {% endfor %}
+        </tbody>
+      </table>
     </div>
+  </div>
 
-    <!-- ELECTRICAL CHARACTERISTICS -->
-    <div class="section">
-      {% include "single-interface/electrical-chars-table.html" %}
-    </div>
+  <!-- ELECTRICAL CHARACTERISTICS -->
+  {% include "single-interface/electrical-chars-table.html" %}
 
-    <!-- MECHANICAL CHARACTERISTICS -->
-    <div class="section">
-      {% include "single-interface/mechanical-chars-table.html" %}
-    </div>
+  <!-- MECHANICAL CHARACTERISTICS -->
+  {% include "single-interface/mechanical-chars-table.html" %}
 
-    <!-- ENVIRONMENTAL CHARACTERISTICS -->
-    <div class="section">
-      {% include "single-interface/environmental-chars-table.html" %}
-    </div>
+  <!-- ENVIRONMENTAL CHARACTERISTICS -->
+  {% include "single-interface/environmental-chars-table.html" %}
 
-    <!-- INTERFACE STANDARDS -->
-    <div class="section">
-      {% include "single-interface/interface-standards-table.html" %}
-    </div>
+  <!-- INTERFACE STANDARDS -->
+  {% include "single-interface/interface-standards-table.html" %}
 
-    <!-- CUSTOM SPECIFICATIONS -->
-    <div class="section">
-      {% include "single-interface/custom-specs-table.html" %}
-    </div>
+  <!-- CUSTOM SPECIFICATIONS -->
+  {% include "single-interface/custom-specs-table.html" %}
 
-     <!-- REMARKS TABLE  -->
-    <div class="section" style="page-break-before: always;">
-      {% include "remarks-table.html" %}
-    </div>
+  <!-- REMARKS TABLE  -->
+  <div class="section" style="page-break-before: always;">
+    {% include "remarks-table.html" %}
+  </div>
 
-    {% include "footer.html" %}
-  </body>
+  {% include "footer.html" %}
+</body>
+
 </html>

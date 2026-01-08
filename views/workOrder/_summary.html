@@ -1,10 +1,10 @@
 {% if summary and summary[0] %}
-<div class="section page-break">
+<div class="section">
   <div class="section-title">Work Order Summary</div>
 
   <!-- Parts Table - Only show if parts exist -->
-  {% if hasParts and parts|length > 0 %} 
- {% set show_phase_columns = summary[0].cableState %}
+  {% if hasParts and parts|length > 0 %}
+  {% set show_phase_columns = summary[0].cableState %}
   <table class="data-table">
     <thead>
       <tr>
@@ -14,12 +14,12 @@
         <th>Length</th>
         <th>Length Tolerance</th>
         {% if show_phase_columns %}
-        
+
         <th>Phase Match</th>
         <th># of Cables per Set</th>
-         <th># of Sets</th>
+        <th># of Sets</th>
         {% endif %}
-       
+
         <th>Total Quantity</th>
       </tr>
     </thead>
@@ -29,14 +29,14 @@
         <td>{{ part.customerPartNumber or 'N/A' }}</td>
         <td>{{ part.nkrfPartNumber or 'N/A' }}</td>
         <td>{{ part.nkrfSerialNumber or 'N/A' }}</td>
-         <td>{{ part.length or 'N/A' }}</td>
-          <td>{{ part.lengthTolerance or 'N/A' }}</td>
+        <td>{{ part.length or 'N/A' }}</td>
+        <td>{{ part.lengthTolerance or 'N/A' }}</td>
         {% if show_phase_columns %}
         <td>{{ part.phaseMatching or 'N/A' }}</td>
         <td>{{ part.cablesPerSet or 'N/A' }}</td>
-         <td>{{ part.noOfSets or 'N/A' }}</td> {# Fixed: changed 'sets' to 'noOfSets' #}
+        <td>{{ part.noOfSets or 'N/A' }}</td> {# Fixed: changed 'sets' to 'noOfSets' #}
         {% endif %}
-       
+
         <td>{{ part.totalQuantity or 'N/A' }}</td>
       </tr>
       {% endfor %}
@@ -51,19 +51,19 @@
     <p style="white-space: pre-line;">{{ summary[0].inspectionDetails }}</p>
   </div>
   {% endif %}
-   
+
   {% if summary[0].testingSpecs %}
   <div class="subsection show-if-available">
     <div class="subsection-title">Testing & Calibration Specifications</div>
     <p style="white-space: pre-line;">{{ summary[0].testingSpecs }}</p>
   </div>
-  {% endif %} 
+  {% endif %}
   {% if summary[0].specialConditions %}
   <div class="subsection show-if-available">
     <div class="subsection-title">Special Conditions</div>
-    <p style="white-space: pre-line;" >{{ summary[0].specialConditions }}</p>
+    <p style="white-space: pre-line;">{{ summary[0].specialConditions }}</p>
   </div>
-  {% endif %} 
+  {% endif %}
   {% if summary[0].additionalNotes %}
   <div class="subsection show-if-available">
     <div class="subsection-title">Additional Notes</div>
