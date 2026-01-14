@@ -1,6 +1,7 @@
 <div class="section">
   <div class="section-title">Work Order Details</div>
   <table class="data-table">
+
     <tr>
       <td><strong>Work Order Number:</strong></td>
       <td>{{ header.workOrderNumber or 'N/A' }}</td>
@@ -30,6 +31,10 @@
       <td>{{ header.orderType or 'N/A' }}</td>
       <td><strong>Delivery Terms:</strong></td>
       <td>{{ header.deliveryTerms or 'N/A' }}</td>
+    </tr>
+    <tr>
+      <td><strong>Customer Name:</strong></td>
+      <td colspan="3">{{ header.customerName or 'N/A' }}</td>
     </tr>
   </table>
 
