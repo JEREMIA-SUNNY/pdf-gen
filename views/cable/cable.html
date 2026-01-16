@@ -1,194 +1,243 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>{{ data.title }}</title>
-    <meta charset="UTF-8" />
-    <!-- Import Noto Sans font from Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-      @page {
-        size: A4;
-        margin-top: 90px;
-        margin-bottom: 90px;
 
-        @bottom-left {
-          margin-top: 10px;
-          content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout,Old AirportRoad, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
-          font-size: 12px;
-          white-space: pre;
-          line-height: 15px;
-        }
+<head>
+  <title>{{ data.title }}</title>
+  <meta charset="UTF-8" />
+  <!-- Import Noto Sans font from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    @page {
+      size: A4;
+      margin-top: 90px;
+      margin-bottom: 90px;
 
-        @bottom-right {
-          content: counter(page) "/" counter(pages);
-          font-size: 12px;
-        }
+      @bottom-left {
+        margin-top: 10px;
+        content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout,Old AirportRoad, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
+        font-size: 12px;
+        white-space: pre;
+        line-height: 15px;
       }
 
-      * {
-        font-family: "Noto Sans", "DejaVu Sans", sans-serif;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      @bottom-right {
+        content: counter(page) "/" counter(pages);
         font-size: 12px;
       }
+    }
 
-      img,
-      div,
-      table,
-      span {
-        min-height: 10px;
-      }
+    * {
+      font-family: "Noto Sans", "DejaVu Sans", sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-size: 12px;
+    }
 
-      .header {
-        border-bottom: 2px solid #00000055;
-        display: flex;
-        position: fixed;
-        align-items: flex-end;
-        justify-content: space-between;
-        left: 0;
-        top: -100px;
-        height: 75px;
-        width: 100%;
-        padding: 10px 0;
-        min-height: 1px;
-      }
+    /* img,
+    div,
+    table,
+    span {
+      min-height: 10px;
+    } */
+     img {
+       min-height: 10px;
+    }
 
-      .header > .title {
-        display: flex;
-        align-items: flex-end;
-        font-size: 20px;
-        font-weight: bold;
-        color: #375fbd;
-      }
 
-      .header > .logo {
-        width: 100px;
-      }
+    .header {
+      border-bottom: 2px solid #00000055;
+      display: flex;
+      position: fixed;
+      align-items: flex-end;
+      justify-content: space-between;
+      left: 0;
+      top: -100px;
+      height: 75px;
+      width: 100%;
+      padding: 10px 0;
+      min-height: 1px;
+    }
 
-      .footer {
-        border-top: 2px solid #00000055;
-        position: fixed;
-        left: 0;
-        bottom: -100px;
-        height: 80px;
-        width: 100%;
-        gap: 3px;
-        font-size: 12px;
-      }
+    .header>.title {
+      display: flex;
+      align-items: flex-end;
+      font-size: 20px;
+      font-weight: bold;
+      color: #375fbd;
+    }
 
-      .table-container {
-        border-left: 1px solid #00000055;
-        border-top: 1px solid #00000055;
-      }
+    .header>.logo {
+      width: 100px;
+    }
 
-      .table {
-        border-collapse: collapse;
+    .footer {
+      border-top: 2px solid #00000055;
+      position: fixed;
+      left: 0;
+      bottom: -100px;
+      height: 80px;
+      width: 100%;
+      gap: 3px;
+      font-size: 12px;
+    }
 
-        width: 100%;
-      }
+    /* .table-container {
+      border-left: 1px solid #00000055;
+      border-top: 1px solid #00000055;
+    } */
 
-      .td {
-        border-right: 1px solid #00000055;
-        border-bottom: 1px solid #00000055;
-        padding: 5px;
-      }
-
-      .td-center {
-        text-align: center;
-      }
-
-      .td-head {
-        background-color: #375fbd;
-        color: white;
-        font-weight: bold;
-      }
-
-      .section-title {
-        font-size: 14px;
-        font-weight: bold;
-        color: #375fbd;
-      }
-      .section-desc {
-        font-size: 14px;
-        font-weight: bold;
-        color: black;
-      }
-
-      .section {
-        display: grid;
-        gap: 10px;
-        width: 100%;
-      }
-      table,
-      tr,
-      td {
-        page-break-inside: avoid !important;
-        break-inside: avoid-column !important;
-      }
-
-      .section-body {
-        display: grid;
-        grid-template-columns: 1fr 2fr;
-        gap: 0;
-      }
-
-      .section-body > p {
-        padding: 5px 0;
-      }
-    </style>
-  </head>
-
-  <body>
-    {% include "headerCable.html" %} {% if data.cableDatasheetImage %}
-    <img src="{{ data.cableDatasheetImage }}" style="width: 100%" />
-    {% endif %}
-
-    {% if data.description %}
-
-    <div class="section-desc">DESCRIPTION: {{ data.description }}</div>
-
-    {% endif %}
-
-    <br />
-    <div
-      style="
-        padding-top: 20px;
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 20px;
-      "
-    >
-      <!-- ELECTRICAL CHARACTERISTICS -->
-      {% include "cable/electrical-chars-table.html" %}
-
-      <!-- MECHANICAL CHARACTERISTICS -->
-      {% include "cable/mechanical-chars-table.html" %}
-
-      <!-- ENVIRONMENTAL CHARACTERISTICS -->
-      {% include "cable/environmental-chars-table.html" %}
-
-      <!-- CABLE CONSTRUCTION -->
-      {% include "cable/construction-chars-table.html" %}
-
-      <!-- INTERFACE STANDARDS -->
-      {% include "cable/interface-standards-table.html" %}
-
-      <!--attunation-table -->
-    </div>
-
-    <div>
-      {% include "cable/attunation-table.html" %}
-      <!-- CUSTOM SPECIFICATIONS -->
-      {% include "cable/custom-specs-table.html" %}
-    </div>
-
-    <div class="section" style="page-break-before: always;">
-      {% include "remarks-tablecable.html" %}
-    </div>
     
-    {% include "footer.html" %}
-  </body>
+    .table thead th {
+      border-top: 1px solid #00000055;
+    }
+
+   
+    .table tbody tr:first-child td {
+      border-top: 1px solid #00000055;
+    }
+
+    
+    .table th:first-child,
+    .table td:first-child {
+      border-left: 1px solid #00000055;
+    }
+
+    .table th:last-child,
+    .table td:last-child {
+      border-right: 1px solid #00000055;
+    }
+
+
+    .table thead td {
+      border-top: 1px solid #00000055;
+    }
+
+
+    .table {
+      border-collapse: collapse;
+
+      width: 100%;
+    }
+
+    .td {
+      border-right: 1px solid #00000055;
+      border-bottom: 1px solid #00000055;
+      padding: 5px;
+    }
+
+    .td-center {
+      text-align: center;
+    }
+
+    .td-head {
+      background-color: #375fbd;
+      color: white;
+      font-weight: bold;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #375fbd;
+      margin-bottom: 8px; 
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    .section-desc {
+      font-size: 14px;
+      font-weight: bold;
+      color: black;
+    }
+
+    .section {
+      /* display: grid;
+      gap: 10px;
+      width: 100%; */
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    table {
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+
+    tr,
+    td {
+      page-break-inside: avoid !important;
+      break-inside: avoid-column !important;
+    }
+
+    .section-body {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 0;
+    }
+
+    .section-body>p {
+      padding: 5px 0;
+    }
+
+    /* .section {
+     margin-bottom: 20px;
+    } */
+
+  </style>
+</head>
+
+<body>
+  {% include "headerCable.html" %} {% if data.cableDatasheetImage %}
+  <img src="{{ data.cableDatasheetImage }}" style="width: 100%" />
+  {% endif %}
+
+  {% if data.description %}
+
+  <div class="section-desc">DESCRIPTION: {{ data.description }}</div>
+
+  {% endif %}
+
+  <br />
+  <div style="
+        padding-top: 20px;
+        display: block;
+        /* display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px; */
+      ">
+    <!-- ELECTRICAL CHARACTERISTICS -->
+    {% include "cable/electrical-chars-table.html" %}
+
+    <!-- MECHANICAL CHARACTERISTICS -->
+    {% include "cable/mechanical-chars-table.html" %}
+
+    <!-- ENVIRONMENTAL CHARACTERISTICS -->
+    {% include "cable/environmental-chars-table.html" %}
+
+    <!-- CABLE CONSTRUCTION -->
+    {% include "cable/construction-chars-table.html" %}
+
+    <!-- INTERFACE STANDARDS -->
+    {% include "cable/interface-standards-table.html" %}
+
+    <!--attunation-table -->
+  </div>
+
+  <div style="margin-top: 20px">
+  {% include "cable/attunation-table.html" %}
+  </div>
+  <!-- CUSTOM SPECIFICATIONS -->
+  {% include "cable/custom-specs-table.html" %}
+
+  <div class="section" style="page-break-before: always;">
+    {% include "remarks-tablecable.html" %}
+  </div>
+
+  {% include "footer.html" %}
+</body>
+
 </html>

@@ -1,220 +1,253 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>{{ data.title }}</title>
-    <meta charset="UTF-8" />
-    <!-- Import Noto Sans font from Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-      @page {
-        size: A4;
-        margin-top: 95px;
-        margin-bottom: 95px;
-        @bottom-left {
-          margin-top: 6px;
-          content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout,Old AirportRoad, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
-          font-size: 12px;
-          white-space: pre;
-          line-height: 15px;
-        }
 
-        @bottom-right {
-          content: counter(page) "/" counter(pages);
-          font-size: 12px;
-        }
+<head>
+  <title>{{ data.title }}</title>
+  <meta charset="UTF-8" />
+  <!-- Import Noto Sans font from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    @page {
+      size: A4;
+      margin-top: 95px;
+      margin-bottom: 95px;
+
+      @bottom-left {
+        margin-top: 6px;
+        content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout,Old AirportRoad, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
+        font-size: 12px;
+        white-space: pre;
+        line-height: 15px;
       }
 
-      * {
-        font-family: "Noto Sans", "DejaVu Sans", sans-serif;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      @bottom-right {
+        content: counter(page) "/" counter(pages);
         font-size: 12px;
       }
+    }
 
-      img,
-      div,
-      table,
-      span {
-        min-height: 10px;
-      }
+    * {
+      font-family: "Noto Sans", "DejaVu Sans", sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-size: 12px;
+    }
 
-      .header {
-        border-bottom: 2px solid #00000055;
-        display: flex;
-        position: fixed;
-        align-items: flex-end;
-        justify-content: space-between;
-        left: 0;
-        top: -100px;
-        height: 75px;
-        width: 100%;
-        padding: 10px 0;
-        min-height: 1px;
-      }
-      table {
-        page-break-inside: auto;
-        break-inside: auto;
-        border-collapse: collapse;
-        width: 100%;
-      }
-      thead {
-        display: table-header-group;
-      }   /* repeat header when table splits */
-      tfoot {
-        display: table-footer-group;
-      }   /* if you ever add table footers */
-      tr {
-        page-break-inside: avoid;
-        break-inside: avoid;
-      }
-      th,
-      td {
-        page-break-inside: avoid;
-        break-inside: avoid;
-      }
-      
-     .header > .title {
-        display: flex;
-        align-items: flex-end;
-        font-weight: bold;
-        color: #375fbd;
-        white-space: nowrap;
-        max-width: calc(100% - 120px);
-        flex-shrink: 0;
-        /* Fixed font size to match section-desc */
-        font-size: 14px;
-      }
+    img,
+    div,
+    table,
+    span {
+      min-height: 10px;
+    }
 
-      .header > .logo {
-        width: 100px;
-        flex-shrink: 0;
-      }
+    .header {
+      border-bottom: 2px solid #00000055;
+      display: flex;
+      position: fixed;
+      align-items: flex-end;
+      justify-content: space-between;
+      left: 0;
+      top: -100px;
+      height: 75px;
+      width: 100%;
+      padding: 10px 0;
+      min-height: 1px;
+    }
 
-      .footer {
-        border-top: 2px solid #00000055;
-        position: fixed;
-        left: 0;
-        bottom: -100px;
-        height: 80px;
-        width: 100%;
-        gap: 3px;
-        font-size: 12px;
-      }
+    table {
+      page-break-inside: auto;
+      break-inside: auto;
+      border-collapse: collapse;
+      width: 100%;
+    }
 
-      /* .table-container {
+    thead {
+      display: table-header-group;
+    }
+
+    /* repeat header when table splits */
+    tfoot {
+      display: table-footer-group;
+    }
+
+    /* if you ever add table footers */
+    tr {
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+    }
+
+    th,
+    td {
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+    }
+
+    .header>.title {
+      display: flex;
+      align-items: flex-end;
+      font-weight: bold;
+      color: #375fbd;
+      white-space: nowrap;
+      max-width: calc(100% - 120px);
+      flex-shrink: 0;
+      /* Fixed font size to match section-desc */
+      font-size: 14px;
+    }
+
+    .header>.logo {
+      width: 100px;
+      flex-shrink: 0;
+    }
+
+    .footer {
+      border-top: 2px solid #00000055;
+      position: fixed;
+      left: 0;
+      bottom: -100px;
+      height: 80px;
+      width: 100%;
+      gap: 3px;
+      font-size: 12px;
+    }
+
+    /* .table-container {
         border-left: 1px solid #00000055;
         border-top: 1px solid #00000055;
       } */
 
-      .td {
-        border-right: 1px solid #00000055;
-        border-bottom: 1px solid #00000055;
-        padding: 5px;
-      }
+    .td {
+      border-right: 1px solid #00000055;
+      border-bottom: 1px solid #00000055;
+      padding: 5px;
+    }
 
-       .table td:first-child,
-       .table th:first-child {
-        border-left: 1px solid #00000055;
-      }
-      .table tr:first-child > .td {
-        border-top: 1px solid #00000055;
-      }
-      .td-center {
-        text-align: center;
-      }
+    .table td:first-child,
+    .table th:first-child {
+      border-left: 1px solid #00000055;
+    }
 
-      .td-head {
-        background-color: #375fbd;
-        color: white;
-        font-weight: bold;
-      }
+    .table tr:first-child>.td {
+      border-top: 1px solid #00000055;
+    }
 
-      .section-title {
-        font-size: 14px;
-        font-weight: bold;
-        color: #375fbd;
-        /* Small spacing, but don't force pushing table to next page */
-        margin-bottom: 6px;
-      }
-      .section-desc {
-        font-size: 14px;
-        font-weight: bold;
-        color: black;
-      }
+    .td-center {
+      text-align: center;
+    }
 
-      .section {
-        display: block; 
-        width: 100%;
-      }
+    .td-head {
+      background-color: #375fbd;
+      color: white;
+      font-weight: bold;
+    }
 
-      .section-body {
-        display: grid;
-        grid-template-columns: 1fr 2fr;
-        gap: 0;
-      }
+    .section-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #375fbd;
+      /* Small spacing, but don't force pushing table to next page */
+      margin-bottom: 6px;
+    }
 
-      .section-body > p {
-        padding: 5px 0;
-      }
-      main-body {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
+    .section-desc {
+      font-size: 14px;
+      font-weight: bold;
+      color: black;
+    }
 
-      /* Optional: small sections try to stay together, but can break if needed */
-      .section { break-inside: auto; }
+    .section {
+      display: block;
+      width: 100%;
+    }
 
-      /* Force the remarks section to start a new page (modern + legacy) */
-      .remarks-page { break-before: page; page-break-before: always; }
+    .section-body {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 0;
+    }
 
-      /* Reusable class to optionally force a new page before a section */
-      .force-page-break { break-before: page; page-break-before: always; }
+    .section-body>p {
+      padding: 5px 0;
+    }
 
-      /* Print-friendly flow layout for the main content sections (avoid CSS grid) */
-      .content-sections { padding-top: 20px; display: block; }
-      .content-sections > .section { margin-bottom: 25px; }
-    </style>
-  </head>
+    main-body {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
 
-  <body>
-    {% include "headerMulti.html" %} {% if data.adaptorDatasheetImage %}
-    <img src="{{ data.adaptorDatasheetImage }}" style="width: 100%" />
-    {% endif %}
+    /* Optional: small sections try to stay together, but can break if needed */
+    .section {
+      break-inside: auto;
+    }
 
-    {% if data.description %}
+    /* Force the remarks section to start a new page (modern + legacy) */
+    .remarks-page {
+      break-before: page;
+      page-break-before: always;
+    }
 
-    <div class="section-desc">DESCRIPTION: {{ data.description }}</div>
+    /* Reusable class to optionally force a new page before a section */
+    .force-page-break {
+      break-before: page;
+      page-break-before: always;
+    }
 
-    {% endif %}
+    /* Print-friendly flow layout for the main content sections (avoid CSS grid) */
+    .content-sections {
+      padding-top: 20px;
+      display: block;
+    }
 
-    <div class="content-sections">
-      <!-- MATERIALS -->
-      {% include "multi-interface/materials-table.html" %}
+    .content-sections>.section {
+      margin-bottom: 25px;
+    }
 
-      <!-- ELECTRICAL CHARACTERISTICS -->
-      {% include "multi-interface/electrical-chars-table.html" %}
+    .content-sections>.section:last-child {
+      margin-bottom: 0px;
+    }
+  </style>
+</head>
 
-      <!-- MECHANICAL CHARACTERISTICS -->
-      {% include "multi-interface/mechanical-chars-table.html" %}
+<body>
+  {% include "headerMulti.html" %} {% if data.adaptorDatasheetImage %}
+  <img src="{{ data.adaptorDatasheetImage }}" style="width: 100%" />
+  {% endif %}
 
-      <!-- ENVIRONMENTAL CHARACTERISTICS -->
-      {% include "multi-interface/environmental-chars-table.html" %}
+  {% if data.description %}
 
-      <!-- INTERFACE STANDARDS -->
-      {% include "multi-interface/interface-standards-table.html" %}
+  <div class="section-desc">DESCRIPTION: {{ data.description }}</div>
 
-      <!-- CUSTOM SPECIFICATIONS -->
-      {% include "multi-interface/custom-specs-table.html" %}
-    </div>
+  {% endif %}
 
-    <!-- Always show remarks table on the last page -->
-    <div class="section remarks-page">
-      {% include "remarks-table.html" %}
-    </div>
-    {% include "footer.html" %}
-  </body>
+  <div class="content-sections">
+    <!-- MATERIALS -->
+    {% include "multi-interface/materials-table.html" %}
+
+    <!-- ELECTRICAL CHARACTERISTICS -->
+    {% include "multi-interface/electrical-chars-table.html" %}
+
+    <!-- MECHANICAL CHARACTERISTICS -->
+    {% include "multi-interface/mechanical-chars-table.html" %}
+
+    <!-- ENVIRONMENTAL CHARACTERISTICS -->
+    {% include "multi-interface/environmental-chars-table.html" %}
+
+    <!-- INTERFACE STANDARDS -->
+    {% include "multi-interface/interface-standards-table.html" %}
+
+    <!-- CUSTOM SPECIFICATIONS -->
+    {% include "multi-interface/custom-specs-table.html" %}
+  </div>
+
+  <!-- Always show remarks table on the last page -->
+  <div class="section remarks-page">
+    {% include "remarks-table.html" %}
+  </div>
+  {% include "footer.html" %}
+</body>
+
 </html>
