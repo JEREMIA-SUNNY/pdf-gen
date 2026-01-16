@@ -1,3 +1,4 @@
+Babel==2.16.0
 blinker==1.9.0
 Brotli==1.1.0
 cffi==1.17.1

@@ -380,20 +380,28 @@
             <td style="text-align: center; vertical-align: middle;">{{ item.moq }}</td>
             <!-- Added price-cell class to prevent wrapping -->
             <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
-              {{ item.unitPriceFormatted }}
+              {{ item.unitPrice | format_inr(style="full", currency=data.currency) }}
             </td>
             <!-- Added price-cell class to prevent wrapping -->
             <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
-              {{ item.extendedPriceFormatted }}
+              {{ item.extendedPrice | format_inr(style="full", currency=data.currency) }}
             </td>
           </tr>
           {% endfor %}
           <tr>
       <td colspan="{% if showCustomerPart %}6{% else %}5{% endif %}" style="text-align: right; vertical-align: middle;">
+        <strong>Sub Total:</strong>
+      </td>
+      <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
+        {{ data.subtotal | format_inr(style="full", currency=data.currency) }}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="{% if showCustomerPart %}6{% else %}5{% endif %}" style="text-align: right; vertical-align: middle;">
         <strong>Discount:</strong>
       </td>
       <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
-        {{ data.discountPercentage }}
+        {{ data.discountAmount | format_inr(style="full", currency=data.currency) }}
       </td>
     </tr>
     <tr>
@@ -401,7 +409,7 @@
         <strong>Rounding Off:</strong>
       </td>
       <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
-        {{ data.roundingAdjustment }}
+        {{ data.roundingAdjustment | format_inr(style="full", currency=data.currency) }}
       </td>
     </tr>
     <tr>
@@ -409,11 +417,16 @@
         <strong>Total Amount:</strong>
       </td>
       <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
-        {{ data.totalAmount }}
+        {{ data.totalAmount | format_inr(style="full", currency=data.currency) }}
       </td>
     </tr>
         </tbody>
       </table>
+      
+      <!-- GST Notice -->
+      <p style="margin-top: 1em; font-size: 11px; font-style: italic;">
+        GST rates will be applied extra as applicable/announced/amended as per Govt. of India notifications, currently at 18%.
+      </p>
     </div>
 
     <!-- Include Additional Details from a separate file -->

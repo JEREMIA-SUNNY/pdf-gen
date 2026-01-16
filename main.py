@@ -3,8 +3,14 @@ from weasyprint import HTML
 import os
 import io
 
+# Import custom formatters
+from utils.formatters import format_inr
+
 # Tell Flask to look for templates in the 'views' folder
 app = Flask(__name__, template_folder="views")
+
+# Register custom Jinja filters
+app.jinja_env.filters['format_inr'] = format_inr
 
 @app.route('/generate-pdf/single-interface', methods=['POST'])
 def generate_pdf():
