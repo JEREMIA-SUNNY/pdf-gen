@@ -7,6 +7,62 @@ locale-specific formatting (Indian number grouping) and abbreviations.
 
 from babel.numbers import format_currency as babel_format_currency
 from decimal import Decimal, ROUND_HALF_UP
+from datetime import datetime
+
+
+def format_date(value, fmt="%d/%m/%Y"):
+    """
+    Format a date value to a string in the specified format.
+    
+    Handles datetime objects, ISO strings, and partial date strings.
+    Default format returns DD/MM/YYYY format (e.g., "16/12/2025").
+    
+    Args:
+        value: datetime object, ISO string (e.g., "2025-12-15T18:30:00Z"), or date string
+        fmt: strftime format string (default "%d/%m/%Y")
+    
+    Returns:
+        Formatted date string, or empty string if value is None/invalid
+    
+    Examples:
+        format_date(datetime(2025, 12, 15, 18, 30))  → "15/12/2025"
+        format_date("2025-12-15T18:30:00.000Z")      → "15/12/2025"
+        format_date("2025-12-15")                     → "15/12/2025"
+        format_date(None)                             → ""
+    """
+    if value is None or value == "":
+        return ""
+    
+    # If it's already a datetime object, format it directly
+    if isinstance(value, datetime):
+        return value.strftime(fmt)
+    
+    # If it's a string, handle ISO strings and partial date strings
+    if isinstance(value, str):
+        # If it contains 'T', it's likely an ISO datetime string
+        if 'T' in value:
+            try:
+                parsed = datetime.fromisoformat(value.replace('Z', '+00:00'))
+                return parsed.strftime(fmt)
+            except (ValueError, TypeError):
+                pass
+        # If it looks like YYYY-MM-DD, parse and reformat
+        if len(value) >= 10 and value[4] == '-' and value[7] == '-':
+            try:
+                parsed = datetime.strptime(value[:10], "%Y-%m-%d")
+                return parsed.strftime(fmt)
+            except (ValueError, TypeError):
+                pass
+        # Try to parse as ISO format
+        try:
+            parsed = datetime.fromisoformat(value.replace('Z', '+00:00'))
+            return parsed.strftime(fmt)
+        except (ValueError, TypeError):
+            # Fallback: return original value
+            return value
+    
+    # For any other type, convert to string and attempt extraction
+    return str(value)
 
 
 def format_inr(value, style="full", currency="INR"):
