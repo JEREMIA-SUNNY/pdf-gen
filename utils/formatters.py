@@ -7,6 +7,7 @@ locale-specific formatting (Indian number grouping) and abbreviations.
 
 from babel.numbers import format_currency as babel_format_currency
 from decimal import Decimal, ROUND_HALF_UP
+import re
 from datetime import datetime
 
 
@@ -141,3 +142,53 @@ def format_inr(value, style="full", currency="INR"):
     
     # Default fallback
     return babel_format_currency(num_value, currency, locale="en_IN")
+
+
+def format_inr_no_cents(value, style="full", currency="INR"):
+    """
+    Format currency like format_inr but omit trailing '.00' when value has no fractional part.
+    Keeps decimals when they are non-zero.
+    """
+    formatted = format_inr(value, style=style, currency=currency)
+    # Remove trailing .00 that may appear before optional closing characters (e.g., ')')
+    return re.sub(r'(?<=\d)\.00(?=[^\d]*$)', '', formatted)
+
+
+def format_inr_rounded(value, style="full", currency="INR"):
+    """
+    Format INR currency rounded to the nearest whole rupee (no decimals).
+    Rounds using ROUND_HALF_UP and returns a string with the INR symbol and
+    Indian number grouping (e.g., "₹7,59,698").
+    """
+    # Handle None, empty string, or invalid values
+    if value is None or value == "" or value == "N/A":
+        return "N/A"
+
+    try:
+        if isinstance(value, str):
+            value = value.replace("₹", "").replace("$", "").replace(",", "").strip()
+        num_value = Decimal(str(value))
+    except (ValueError, TypeError):
+        return "N/A"
+
+    # Round to nearest whole number
+    rounded = num_value.quantize(Decimal("1"), rounding=ROUND_HALF_UP)
+
+    # Build Indian grouping manually to avoid trailing decimals
+    sign = "-" if rounded < 0 else ""
+    abs_int = abs(int(rounded))
+    s = str(abs_int)
+    if len(s) <= 3:
+        grouped = s
+    else:
+        last3 = s[-3:]
+        rest = s[:-3]
+        parts = []
+        while len(rest) > 2:
+            parts.insert(0, rest[-2:])
+            rest = rest[:-2]
+        if rest:
+            parts.insert(0, rest)
+        grouped = ",".join(parts + [last3])
+
+    return f"₹{sign}{grouped}"

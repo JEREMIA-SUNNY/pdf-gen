@@ -339,6 +339,19 @@
    <div style="page-break-before: always">
       {% set partsWithCustomer = data.parts | selectattr("customerPartNumber", "ne", "") | list %}
       {% set showCustomerPart = partsWithCustomer | length > 0 %}
+      {# Determine if the quote has any non-zero money values (unit/extended/subtotal/total) #}
+      {% set hasMoney = false %}
+      {% for item in data.parts %}
+        {% if (item.unitPrice is not none and (item.unitPrice | float) != 0) or (item.extendedPrice is not none and (item.extendedPrice | float) != 0) %}
+          {% set hasMoney = true %}
+        {% endif %}
+      {% endfor %}
+      {% if data.subtotal is not none and (data.subtotal | float) != 0 %}
+        {% set hasMoney = true %}
+      {% endif %}
+      {% if data.totalAmount is not none and (data.totalAmount | float) != 0 %}
+        {% set hasMoney = true %}
+      {% endif %}
       <table class="quotation-table">
         <thead>
           <tr>
@@ -380,11 +393,27 @@
             <td style="text-align: center; vertical-align: middle;">{{ item.moq }}</td>
             <!-- Added price-cell class to prevent wrapping -->
             <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
-              {{ item.unitPrice | format_inr(style="full", currency=data.currency) }}
+              {% if item.unitPrice is not none and (item.unitPrice | float) != 0 %}
+                {% if data.currency == "INR" %}
+                  {{ item.unitPrice | format_inr_rounded(style="full", currency=data.currency) }}
+                {% else %}
+                  {{ item.unitPrice | format_inr(style="full", currency=data.currency) }}
+                {% endif %}
+              {% else %}
+                &nbsp;
+              {% endif %}
             </td>
             <!-- Added price-cell class to prevent wrapping -->
             <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
-              {{ item.extendedPrice | format_inr(style="full", currency=data.currency) }}
+              {% if item.extendedPrice is not none and (item.extendedPrice | float) != 0 %}
+                {% if data.currency == "INR" %}
+                  {{ item.extendedPrice | format_inr_rounded(style="full", currency=data.currency) }}
+                {% else %}
+                  {{ item.extendedPrice | format_inr(style="full", currency=data.currency) }}
+                {% endif %}
+              {% else %}
+                &nbsp;
+              {% endif %}
             </td>
           </tr>
           {% endfor %}
@@ -393,7 +422,15 @@
         <strong>Sub Total:</strong>
       </td>
       <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
-        {{ data.subtotal | format_inr(style="full", currency=data.currency) }}
+        {% if data.subtotal is not none and (data.subtotal | float) != 0 %}
+          {% if data.currency == "INR" %}
+            {{ data.subtotal | format_inr_rounded(style="full", currency=data.currency) }}
+          {% else %}
+            {{ data.subtotal | format_inr(style="full", currency=data.currency) }}
+          {% endif %}
+        {% else %}
+          &nbsp;
+        {% endif %}
       </td>
     </tr>
     <tr>
@@ -401,7 +438,15 @@
         <strong>Discount:</strong>
       </td>
       <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
-        {{ data.discountAmount | format_inr(style="full", currency=data.currency) }}
+        {% if data.discountAmount is not none and ((data.discountAmount | float) != 0 or hasMoney) %}
+          {% if data.currency == "INR" %}
+            {{ data.discountAmount | format_inr_rounded(style="full", currency=data.currency) }}
+          {% else %}
+            {{ data.discountAmount | format_inr(style="full", currency=data.currency) }}
+          {% endif %}
+        {% else %}
+          &nbsp;
+        {% endif %}
       </td>
     </tr>
     <tr>
@@ -409,7 +454,15 @@
         <strong>Rounding Off:</strong>
       </td>
       <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
-        {{ data.roundingAdjustment | format_inr(style="full", currency=data.currency) }}
+        {% if data.roundingAdjustment is not none and ((data.roundingAdjustment | float) != 0 or hasMoney) %}
+          {% if data.currency == "INR" %}
+            {{ data.roundingAdjustment | format_inr_rounded(style="full", currency=data.currency) }}
+          {% else %}
+            {{ data.roundingAdjustment | format_inr(style="full", currency=data.currency) }}
+          {% endif %}
+        {% else %}
+          &nbsp;
+        {% endif %}
       </td>
     </tr>
     <tr>
@@ -417,7 +470,15 @@
         <strong>Total Amount:</strong>
       </td>
       <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
-        {{ data.totalAmount | format_inr(style="full", currency=data.currency) }}
+        {% if data.totalAmount is not none and (data.totalAmount | float) != 0 %}
+          {% if data.currency == "INR" %}
+            {{ data.totalAmount | format_inr_rounded(style="full", currency=data.currency) }}
+          {% else %}
+            {{ data.totalAmount | format_inr(style="full", currency=data.currency) }}
+          {% endif %}
+        {% else %}
+          &nbsp;
+        {% endif %}
       </td>
     </tr>
         </tbody>
