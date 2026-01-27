@@ -3,6 +3,9 @@ from weasyprint import HTML
 import os
 import io
 
+# Import custom formatters
+from utils.formatters import format_inr, format_inr_no_cents, format_inr_rounded, format_date
+
 # Tell Flask to look for templates in the 'views' folder
 from cable_assembly_part_description_generator import (
     singl_if_generate_part_description,
@@ -11,6 +14,12 @@ from cable_assembly_part_description_generator import (
     generate_phase_matched_string,
 )
 app = Flask(__name__, template_folder="views")
+
+# Register custom Jinja filters
+app.jinja_env.filters['format_inr'] = format_inr
+app.jinja_env.filters['format_inr_no_cents'] = format_inr_no_cents
+app.jinja_env.filters['format_inr_rounded'] = format_inr_rounded
+app.jinja_env.filters['format_date'] = format_date
 
 @app.route('/generate-pdf/single-interface', methods=['POST'])
 def generate_pdf():
