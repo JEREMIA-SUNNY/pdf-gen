@@ -1,0 +1,57 @@
+{% if perfTargets and perfTargets|length > 0 %}
+<div class="section ">
+  <div class="section-title">Performance Targets</div>
+  
+  {# Check if any performance target has phase matching data AND parts exist #}
+  {% set has_phase_matching_data = false %}
+  {% for target in perfTargets %}
+    {% if target.committedPMTarget or target.internalPMTarget or target.pmMarkers %}
+      {% set has_phase_matching_data = true %}
+    {% endif %}
+  {% endfor %}
+  
+  <!-- {% set show_phase_columns = hasParts and has_phase_matching_data %} -->
+   {% set show_phase_columns = hasPhaseMatching %}
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>NKRF Part Number</th>
+        <th>Op Freq (GHz)</th>
+        <th>Comm. IL Target</th>
+        <th>Int. IL Target</th>
+        <th>IL Markers</th>
+        <th>Comm. VSWR Target</th>
+        <th>Int. VSWR Target</th>
+        <th>VSWR Markers</th>
+        {% if show_phase_columns %}
+        <th>Comm. PM Target</th>
+        <th>Int. PM Target</th>
+        <th>PM Markers</th>
+        {% endif %}
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for target in perfTargets %}
+      <tr>
+        <td>{{ target.nkrfPartNumber or 'N/A' }}</td>
+        <td>{{ target.operatingFrequency or 'N/A' }}</td>
+        <td>{{ target.committedILTarget or 'N/A' }}</td>
+        <td>{{ target.internalILTarget or 'N/A' }}</td>
+        <td style="white-space: pre-line;">{{ target.ilMarkers or 'N/A' }}</td>
+        <td>{{ target.committedVSWRTarget or 'N/A' }}</td>
+        <td>{{ target.internalVSWRTarget or 'N/A' }}</td>
+        <td style="white-space: pre-line;">{{ target.vswrMarkers or 'N/A' }}</td>
+        {% if show_phase_columns %}
+        <td>{{ target.committedPMTarget or 'N/A' }}</td>
+        <td>{{ target.internalPMTarget or 'N/A' }}</td>
+        <td style="white-space: pre-line;">{{ target.pmMarkers or 'N/A' }}</td>
+        {% endif %}
+        <td style="white-space: pre-line;">{{ target.notes or 'N/A' }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}

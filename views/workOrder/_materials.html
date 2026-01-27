@@ -1,0 +1,30 @@
+{% if materials %}
+<div class="section">
+  <div class="section-title">Material Details</div>
+
+  {% if mrsNumbers %}
+  <div class="subsection-title">MRS Numbers</div>
+  {{ mrsNumbers }} {% endif %}
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>NKRF Component Part No</th>
+        <th>Quantity Required</th>
+        <th>Lot Number</th>
+        <th>Remarks</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for m in materials %}
+      <tr>
+        <td>{{ m.nkrfComponentPartNumber | default('N/A') }}</td>
+        <td>{{ m.quantityRequired | default('N/A') }}</td>
+        <td>{{ m.lotNumber | default('N/A') }}</td>
+        <td>{{ m.remarks | default('N/A') }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}

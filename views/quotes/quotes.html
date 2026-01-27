@@ -3,10 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <title>Quotation PDF</title>
+    <!-- Import Noto Sans font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
       @page {
         size: A4;
-        margin: 100px 50px 70px 50px; /* Increased top margin to make room for header */
+        margin: 100px 50px 90px 50px; /* Increased bottom margin for footer space */
         @bottom-left {
           margin-top: 10px;
           content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
@@ -19,6 +23,7 @@
           font-size: 8px;
         }
       }
+      
       /* Global styling for main content - BUT not applying to TC section */
       body,
       p,
@@ -31,13 +36,13 @@
       .special-conditions,
       .special-conditions h2,
       .special-conditions div {
-        font-family: "Saira", "Noto Sans", "DejaVu Sans", sans-serif;
+        font-family: "Noto Sans", "DejaVu Sans", sans-serif;
         font-size: 12px;
       }
 
       /* Reset margins and padding globally */
       * {
-        font-family: "Saira", "Noto Sans", "DejaVu Sans", sans-serif;
+        font-family: "Noto Sans", "DejaVu Sans", sans-serif;
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -46,7 +51,7 @@
       /* Special class for terms and conditions content */
       .tc-content * {
         font-size: 8px !important;
-        font-family: "Saira", "Noto Sans", "DejaVu Sans", sans-serif;
+        font-family: "Noto Sans", "DejaVu Sans", sans-serif;
       }
 
       img,
@@ -55,6 +60,7 @@
       span {
         min-height: 10px;
       }
+      
       .header {
         border-bottom: 1px solid gray;
         display: flex;
@@ -69,6 +75,7 @@
         min-height: 1px;
         background-color: white; /* Ensure header is visible */
       }
+      
       .header > .title {
         display: flex;
         align-items: flex-end;
@@ -76,73 +83,77 @@
         font-weight: bold;
         color: #375fbd;
       }
+      
       .header > .logo {
         width: 100px;
       }
-      .footer {
-        border-top: 1px solid gray;
-        position: fixed;
-        left: 0;
-        bottom: -80px;
-        height: 80px;
-        width: 100%;
-        gap: 3px;
-        font-size: 12px;
-      }
+      
       body {
-        font-family: Arial, sans-serif;
+        font-family: "Noto Sans", "DejaVu Sans", sans-serif;
         margin: 0;
         line-height: 1.5;
         color: #000;
       }
+      
       p {
         margin: 0 0 8px 0;
       }
+      
       .to-block p {
         margin: 0;
         line-height: 1.2;
         padding: 0;
       }
+      
       h2 {
         margin: 0;
         padding: 4px 0;
         text-align: center;
       }
+      
       table {
         border-collapse: collapse;
         width: 100%;
         margin-bottom: 1em;
         table-layout: fixed;
       }
+      
       table,
       th,
       td {
         border: 1px solid #23272e;
         padding: 5px;
       }
+      
       .quotation-table th {
         background: #f2f2f2;
       }
 
-      /* Fixed column widths for quotation table - MODIFIED FOR BETTER SPACING */
+      /* Fixed column widths for quotation table */
       .quotation-table th:nth-child(1) {
         width: 40px;
       }
+      
       .quotation-table th.customer-part {
         width: 100px;
       }
+      
       .quotation-table th.nkrf-part {
         width: 110px;
       }
+      
       .quotation-table th.description {
         width: 170px;
       }
+      
       .quotation-table th.moq {
         width: 50px;
       }
+      
       .quotation-table th.unit-price {
         width: 70px;
       }
+      
       /* Increased width for extended price column */
       .quotation-table th.ext-price {
         width: 120px;
@@ -169,9 +180,16 @@
         font-weight: bold;
       }
 
+      /* NEW: Keep summary rows together */
+      .quotation-summary {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
       .tc-table {
         margin-top: 0;
       }
+      
       .tc-table td.heading {
         font-size: 12px;
         width: 220px;
@@ -181,15 +199,18 @@
         vertical-align: middle;
         color: #375fbd;
       }
+      
       .tc-table td.content {
         vertical-align: top;
         font-size: 12px;
       }
+      
       .address-table {
         border-collapse: collapse;
         width: 100%;
         margin-bottom: 1.5em;
       }
+      
       .address-table th,
       .address-table td {
         border: 1px solid #23272e;
@@ -198,21 +219,26 @@
         vertical-align: top;
         font-size: 12px;
       }
+      
       .address-table th {
         background: #f2f2f2;
         font-weight: bold;
       }
+      
       .address-table td {
         width: 50%;
       }
+      
       .details-list {
         margin-left: 0;
         padding-left: 1.2em;
         margin-bottom: 1.5em;
       }
+      
       .details-list li {
         margin-bottom: 0.5em;
       }
+      
       .special-conditions {
         margin-bottom: 1.5em;
         text-align: left;
@@ -234,6 +260,33 @@
         margin-left: 0;
         padding-left: 0;
       }
+
+      .bold-text {
+        font-weight: 600; /* Medium weight instead of bold */
+      }
+
+      /* Add this to your existing CSS styles */
+      strong, b {
+        font-weight: 500; /* Reduce from default bold (700) to medium (500) */
+      }
+
+      /* Ensure consistent font weight for specific elements */
+      .to-block strong,
+      .section-title,
+      p strong {
+        font-weight: 500;
+      }
+      
+      /* NEW: Prevent page break inside important sections */
+      .keep-together {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      
+      /* NEW: Force page break before T&C section if needed */
+      .tc-content {
+        page-break-before: auto;
+      }
     </style>
   </head>
 
@@ -247,17 +300,14 @@
       />
     </div>
 
-    <!-- Removed the include header line as we're now placing it directly in the HTML -->
-    <!-- {% include "headerQuotes.html" %} -->
-
-    <p><strong>Quotation Reference: {{ data.quotationRef }}</strong></p>
-    <p><strong>Enquiry Number: {{ data.enquiryNumber }}</strong></p>
-    <p>Date: {{ data.quoteDate | format_date }}</p>
+    <p><span class="bold-text">Quotation Reference: {{ data.quotationRef }}</span></p>
+    <p><span class="bold-text">Enquiry Number: {{ data.enquiryNumber }}</span></p>
+    <p>Date: {{ data.quoteDate }}</p>
     <br />
 
     <div class="to-block">
       <p>To,</p>
-      <p><strong>{{ data.customerName }}</strong></p>
+      <p><span class="bold-text">{{ data.customerName }}</span></p>
       <p>{{ data.billingAddress.line1 }}</p>
       <p>{{ data.billingAddress.line2 }}</p>
       <p>
@@ -270,7 +320,7 @@
     <br /><br />
     <div class="to-block">
       <p class="section-title">
-      <strong>Kind Attention: {{ data.contactName }}</strong>
+      <span class="bold-text">Kind Attention: {{ data.contactName }}</span>
     </p>
     <span>{{ data.contactEmail }}</span><br />
     <span>{{ data.contactMobile }}</span>
@@ -286,19 +336,19 @@
     <p>Dear {{ greeting }},</p>
 
     <p>
-      NKRF is a <b>full-stack harness manufacturer</b> with capabilities to
+      NKRF is a <span class="bold-text">full-stack harness manufacturer</span> with capabilities to
       support any interconnecting harnesses in
-      <b>RF, copper, &amp; fiber optics</b>. Our capabilities in copper extend
+      <span class="bold-text">RF, copper, &amp; fiber optics</span>. Our capabilities in copper extend
       to power, control &amp; signal with connector types ranging across
       circular D38999 connectors, D-sub, micro-D, nano-D, USB, RJ45 (Ethernet).
-      In <b>fiber</b>, we support standard optical connectors as well as
-      <b>termini used in military applications</b>. NKRF also supports machined
+      In <span class="bold-text">fiber</span>, we support standard optical connectors as well as
+      <span class="bold-text">termini used in military applications</span>. NKRF also supports machined
       components per customer spec.
     </p>
 
     <p>
       NKRF is also proud to share that we have been awarded
-      <b>"Certificate for Qualification – For Space Use"</b> from ISRO, thus
+      <span class="bold-text">"Certificate for Qualification – For Space Use"</span> from ISRO, thus
       becoming the 1st and only indigenous vendor to be qualified for supply of
       RF &amp; MW cable assemblies for space missions. NKRF is also proud to
       have supplied RF Cables which are currently flying on satellites on ESA
@@ -307,7 +357,7 @@
 
     <p>
       NKRF is an AS9100 Rev D Certified company and its
-      <b>RF Cable Assemblies are CEMILAC qualified for airborne applications</b>
+      <span class="bold-text">RF Cable Assemblies are CEMILAC qualified for airborne applications</span>
       on fixed and rotary wing aircraft.
     </p>
 
@@ -333,10 +383,12 @@
     <p>Yours Sincerely,</p>
     <img src="{{ data.signImage }}" alt="Signature" style="width: 150px" />
     <p>For N.K. RF Products &amp; Services Pvt. Ltd,</p>
-    <p><strong>Alok Sood</strong></p>
+    <p><span class="bold-text">Alok Sood</span></p>
 
     <br /><br /><br /><br />
-   <div style="page-break-before: always">
+    
+    <!-- Quotation Table with improved page break handling -->
+    <div style="page-break-before: always">
       {% set partsWithCustomer = data.parts | selectattr("customerPartNumber", "ne", "") | list %}
       {% set showCustomerPart = partsWithCustomer | length > 0 %}
       {# Determine if the quote has any non-zero money values (unit/extended/subtotal/total) #}
@@ -362,7 +414,7 @@
             <th style="text-align: center; vertical-align: middle; width: 150px;">NKRF Part No.</th>
             <th style="text-align: center; vertical-align: middle; width: auto;">Description</th>
             <th style="text-align: center; vertical-align: middle; width: 50px;">MOQ</th>
-            <th style="text-align: center; vertical-align: middle; width: 90px;">Unit Price</th>
+            <th style="text-align: center; vertical-align: middle; width: 90px;">Unit Price<br />(excl. GST)</th>
             <!-- Increased width for extended price -->
             <th style="text-align: center; vertical-align: middle; width: 120px;">
               {% if data.isGstInclusive %}
@@ -417,86 +469,60 @@
             </td>
           </tr>
           {% endfor %}
+        </tbody>
+        
+        <!-- Summary section - kept together -->
+        <tbody class="quotation-summary">
           <tr>
-      <td colspan="{% if showCustomerPart %}6{% else %}5{% endif %}" style="text-align: right; vertical-align: middle;">
-        <strong>Sub Total:</strong>
-      </td>
-      <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
-        {% if data.subtotal is not none and (data.subtotal | float) != 0 %}
-          {% if data.currency == "INR" %}
-            {{ data.subtotal | format_inr_rounded(style="full", currency=data.currency) }}
-          {% else %}
-            {{ data.subtotal | format_inr(style="full", currency=data.currency) }}
-          {% endif %}
-        {% else %}
-          &nbsp;
-        {% endif %}
-      </td>
-    </tr>
-    <tr>
-      <td colspan="{% if showCustomerPart %}6{% else %}5{% endif %}" style="text-align: right; vertical-align: middle;">
-        <strong>Discount:</strong>
-      </td>
-      <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
-        {% if data.discountAmount is not none and ((data.discountAmount | float) != 0 or hasMoney) %}
-          {% if data.currency == "INR" %}
-            {{ data.discountAmount | format_inr_rounded(style="full", currency=data.currency) }}
-          {% else %}
-            {{ data.discountAmount | format_inr(style="full", currency=data.currency) }}
-          {% endif %}
-        {% else %}
-          &nbsp;
-        {% endif %}
-      </td>
-    </tr>
-    <tr>
-      <td colspan="{% if showCustomerPart %}6{% else %}5{% endif %}" style="text-align: right; vertical-align: middle;">
-        <strong>Rounding Off:</strong>
-      </td>
-      <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
-        {% if data.roundingAdjustment is not none and ((data.roundingAdjustment | float) != 0 or hasMoney) %}
-          {% if data.currency == "INR" %}
-            {{ data.roundingAdjustment | format_inr_rounded(style="full", currency=data.currency) }}
-          {% else %}
-            {{ data.roundingAdjustment | format_inr(style="full", currency=data.currency) }}
-          {% endif %}
-        {% else %}
-          &nbsp;
-        {% endif %}
-      </td>
-    </tr>
-    <tr>
-      <td colspan="{% if showCustomerPart %}6{% else %}5{% endif %}" style="text-align: right; vertical-align: middle;">
-        <strong>Total Amount:</strong>
-      </td>
-      <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
-        {% if data.totalAmount is not none and (data.totalAmount | float) != 0 %}
-          {% if data.currency == "INR" %}
-            {{ data.totalAmount | format_inr_rounded(style="full", currency=data.currency) }}
-          {% else %}
-            {{ data.totalAmount | format_inr(style="full", currency=data.currency) }}
-          {% endif %}
-        {% else %}
-          &nbsp;
-        {% endif %}
-      </td>
-    </tr>
+            <td colspan="{% if showCustomerPart %}6{% else %}5{% endif %}" style="text-align: right; vertical-align: middle;">
+              <strong>Sub Total:</strong>
+            </td>
+            <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
+              {{ data.subtotal}}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="{% if showCustomerPart %}6{% else %}5{% endif %}" style="text-align: right; vertical-align: middle;">
+              <strong>Discount:</strong>
+            </td>
+            <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
+              {{ data.discountAmount }}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="{% if showCustomerPart %}6{% else %}5{% endif %}" style="text-align: right; vertical-align: middle;">
+              <strong>Rounding Off:</strong>
+            </td>
+            <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
+              {{ data.roundingAdjustment }}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="{% if showCustomerPart %}6{% else %}5{% endif %}" style="text-align: right; vertical-align: middle;">
+              <strong>Total Amount:</strong>
+            </td>
+            <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
+              {{ data.totalAmount }}
+            </td>
+          </tr>
         </tbody>
       </table>
-      
-      <!-- GST Notice -->
-      <p style="margin-top: 1em; font-size: 11px; font-style: italic;">
-        GST rates will be applied extra as applicable/announced/amended as per Govt. of India notifications, currently at 18%.
+    </div>
+
+    <div class="keep-together">
+      <p>
+         GST rates will be applied extra as applicable/announced/amended as per Govt. of India notifications, currently at 18%
       </p>
     </div>
 
     <!-- Include Additional Details from a separate file -->
-    <!-- Quotation Table and other content -->
-    {% include "quotes/totalamount.html" %}
+    <div class="keep-together">
+      {% include "quotes/totalamount.html" %}
+    </div>
 
     <!-- Include T&C using a separate partial with small font -->
     <div class="tc-content">
-      {%- include "quotes/termsAndCondition.html" -%} {% include "footer.html" %}
+      {%- include "quotes/termsAndCondition.html" -%}
     </div>
 
     <br />
