@@ -505,7 +505,15 @@
               <strong>Discount:</strong>
             </td>
             <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
-              {{ data.discountAmount }}
+              {% if hasMoney and data.discountAmount is not none and data.discountAmount != "" %}
+                {% if data.currency == "INR" %}
+                  {{ data.discountAmount | format_inr_rounded(style="full", currency=data.currency) }}
+                {% else %}
+                  {{ data.discountAmount | format_inr(style="full", currency=data.currency) }}
+                {% endif %}
+              {% else %}
+                &nbsp;
+              {% endif %}
             </td>
           </tr>
           <tr>
@@ -513,7 +521,15 @@
               <strong>Rounding Off:</strong>
             </td>
             <td style="text-align: right; vertical-align: middle; white-space: nowrap;">
-              {{ data.roundingAdjustment }}
+              {% if hasMoney and data.roundingAdjustment is not none and data.roundingAdjustment != "" %}
+                {% if data.currency == "INR" %}
+                  {{ data.roundingAdjustment | format_inr_rounded(style="full", currency=data.currency) }}
+                {% else %}
+                  {{ data.roundingAdjustment | format_inr(style="full", currency=data.currency) }}
+                {% endif %}
+              {% else %}
+                &nbsp;
+              {% endif %}
             </td>
           </tr>
           <tr>
