@@ -259,7 +259,7 @@
                       {% set val = (field[option] if field[option] and field[option]|trim != "" else field.value|default("-")) %}
                     {% endif %}
                     {% if val and val|trim != "" %}
-                      {{ val | replace("Complied,", "") | replace("Complied", "") | replace("\n", "<br>") | safe }}
+                      {{ val | replace(", Equivalent Offered,", "") | replace(", Equivalent Offered", "") | replace(" Equivalent Offered,", "") | replace(" Equivalent Offered", "") | replace(",Equivalent Offered", "") | replace("Equivalent Offered,", "") | replace("Equivalent Offered", "") | replace(", Equivalent,", "") | replace(", Equivalent", "") | replace(" Equivalent,", "") | replace(" Equivalent", "") | replace(",Equivalent,", "") | replace(",Equivalent", "") | replace("Equivalent,", "") | replace("Equivalent", "") | replace("Complied,", "") | replace("Complied", "") | replace("\n", "<br>") | safe }}
                     {% else %}
                       -
                     {% endif %}
@@ -290,7 +290,7 @@
                     <td class="spec-field-value" style="text-align: left; vertical-align: middle;">
                       {% set val = (field[option] if field[option] and field[option]|trim != "" else field.value|default("-")) %}
                       {% if val and val|trim != "" %}
-                        {{ val | replace("Complied,", "") | replace("Complied", "") | replace("\n", "<br>") | safe }}
+                        {{ val | replace(", Equivalent Offered,", "") | replace(", Equivalent Offered", "") | replace(" Equivalent Offered,", "") | replace(" Equivalent Offered", "") | replace(",Equivalent Offered", "") | replace("Equivalent Offered,", "") | replace("Equivalent Offered", "") | replace(", Equivalent,", "") | replace(", Equivalent", "") | replace(" Equivalent,", "") | replace(" Equivalent", "") | replace(",Equivalent,", "") | replace(",Equivalent", "") | replace("Equivalent,", "") | replace("Equivalent", "") | replace("Complied,", "") | replace("Complied", "") | replace("\n", "<br>") | safe }}
                       {% else %}
                         -
                       {% endif %}
@@ -317,7 +317,7 @@
                   <td class="spec-field-value" colspan="3" style="text-align: left; vertical-align: middle;">
                     {% set val = (field[option] if field[option] and field[option]|trim != "" else field.value|default("-")) %}
                     {% if val and val|trim != "" %}
-                      {{ val | replace("Complied,", "") | replace("Complied", "") | replace("\n", "<br>") | safe }}
+                      {{ val | replace(", Equivalent Offered,", "") | replace(", Equivalent Offered", "") | replace(" Equivalent Offered,", "") | replace(" Equivalent Offered", "") | replace(",Equivalent Offered", "") | replace("Equivalent Offered,", "") | replace("Equivalent Offered", "") | replace(", Equivalent,", "") | replace(", Equivalent", "") | replace(" Equivalent,", "") | replace(" Equivalent", "") | replace(",Equivalent,", "") | replace(",Equivalent", "") | replace("Equivalent,", "") | replace("Equivalent", "") | replace("Complied,", "") | replace("Complied", "") | replace("\n", "<br>") | safe }}
                     {% else %}
                       -
                     {% endif %}
