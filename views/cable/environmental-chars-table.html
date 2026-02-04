@@ -10,7 +10,13 @@
           <td class="td td-center" style="width: 40%; max-width: 40%">
             <b>{{ envSpec.label }}</b>
           </td>
-          <td class="td td-center" style="width: 60%">{{ envSpec.value }}</td>
+          <td class="td td-center" style="width: 60%">
+            {% if envSpec.label == 'Operating Temperature Range' %}
+              {{ envSpec.value | replace(' C', ' Deg C') }}
+            {% else %}
+              {{ envSpec.value }}
+            {% endif %}
+          </td>
         </tr>
         {% endif %} {% endfor %}
       </tbody>
