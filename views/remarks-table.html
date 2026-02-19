@@ -1,62 +1,150 @@
-<div class="table-container">
-    <table class="table">
-        <thead>
-            <tr>
-                <td class="td td-head" style="width: 50%;">{{ data.partNumber }}</td>
-                <td class="td"></td>
-            </tr>
-        </thead>
+<div style="width:100%; font-family:Arial, sans-serif; font-size:11px;">
 
-        <tbody>
-            <tr>
-                <td class="td">
-                    <p>Unless Otherwise Specified</p>
-                    <p style="margin-top: 10px;">1. Remove All Burrs Plating</p>
-                    <p style="margin-top: 2px;">2. Break All Corners & Edges .003 max.</p>
-                    <p style="margin-top: 2px;">3. All Surfaces Finished to 63</p>
-                    <p style="margin-top: 2px;">4. Diameter On Common Centers Shall Be Concentric within .003
-                        T.I.R</p>
-                    <p style="margin-top: 2px;">5. All Dimensions are after</p>
-                    <p style="margin-top: 2px;">6. Chamfer 1st Thread 45°</p>
-                    <p style="margin-top: 2px;">7. Angles =1</p>
-                </td>
-                <td class="td" style="text-align: center;">
-                    <p>Unless Otherwise Specified All Dimensions Are In mm (Inches) Tolerances (Decimals)</p>
+<table style="width:100%; border-collapse:collapse; table-layout:fixed;">
 
-                    <div
-                        style="display: flex; flex-direction: column; gap: 5px; align-items: center; margin-top: 10px;">
-                        <div style="display: flex; flex-direction: column; gap: 10px;">
-                            <div style="display: flex; gap: 10px;">
-                                <span style="width: 40px; text-align: right;">.XX</span>
-                                <span>±.01</span>
-                            </div>
 
-                            <div style="display: flex; gap: 10px; font-size: 5px !important;">
-                                <span style="width: 40px; text-align: right;">.XXX</span>
-                                <span>±.005</span>
-                            </div>
+<tr>
+    <td style="width:60%; border:1px solid #000; padding:8px; font-weight:bold;">
+        {{ data.partNumber }}
+    </td>
+    <td style="width:40%; border:1px solid #000;"></td>
+</tr>
 
-                            <div style="display: flex; gap: 10px; font-size: 5px !important;">
-                                <span style="width: 40px; text-align: right;">.XXXX</span>
-                                <span>±.0005</span>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="td">
-                    <p style="margin-top: 2px;">Drawn by : {{ data.drawnBy }}</p>
-                    <p style="margin-top: 2px;">Checked by : {{ data.checkedBy }}</p>
-                    <p style="margin-top: 2px;">Approved by : {{ data.approvedBy }}</p>
-                </td>
-                <td class="td td-body">Issue Date {{ data.issuedDate }}
-                </td>
-            </tr>
-            <tr>
-                <td class="td"><b>Rel No.B, Ver No. R. {{ data.versionNo }}</b></td>
-                <td class="td">Size A4</td>
-            </tr>
-        </tbody>
+
+<tr>
+
+<td style="border:1px solid #000; padding:0; vertical-align:top;">
+
+    <table style="width:100%; border-collapse:collapse; table-layout:fixed;">
+
+        <tr>
+            <td style="width:50%; padding:8px; font-weight:bold; border-right:1px solid #000;">
+                Unless Otherwise Specified
+            </td>
+            <td style="width:50%; padding:8px;"></td>
+        </tr>
+
+        <tr>
+            <td style="padding:8px; border-right:1px solid #000; border-bottom:1px solid #000; vertical-align:top; line-height:18px;">
+                1. Remove All Burrs<br>
+                2. Break All Corners & Edges .003 max.<br>
+                3. All Surfaces Finished to 63
+            </td>
+
+            <td style="padding:8px; border-bottom:1px solid #000; vertical-align:top; line-height:18px;">
+                5. All Dimensions are after Plating<br>
+                6. Chamfer 1st Thread 45°<br>
+                7. Angles =1°
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" style="padding:8px; line-height:18px;">
+                4. Diameter On Common Centers Shall Be Concentric within .003 T.I.R
+            </td>
+        </tr>
+
     </table>
+
+</td>
+
+<td style="border:1px solid #000; padding:12px; text-align:center; vertical-align:top;">
+
+    <div style="margin-bottom:18px; line-height:18px;">
+        Unless Otherwise Specified All Dimensions Are In mm (Inches)
+        Tolerances (Decimals)
+    </div>
+
+    <div style="display:inline-block; text-align:left; line-height:22px;">
+        <div><span style="display:inline-block; width:80px; text-align:right;">.XX</span> ±.01</div>
+        <div><span style="display:inline-block; width:80px; text-align:right;">.XXX</span> ±.005</div>
+        <div><span style="display:inline-block; width:80px; text-align:right;">.XXXX</span> ±.0005</div>
+    </div>
+
+</td>
+</tr>
+
+
+<tr>
+<td style="width:60%; border:1px solid #000; padding:0;">
+    <table style="width:100%; border-collapse:collapse; table-layout:fixed;">
+        <tr>
+            <td style="width:50%; padding:8px; border-right:1px solid #000;">
+                DRAWN BY : {{ data.drawnBy }}
+            </td>
+            <td style="width:50%; padding:8px;">
+                Dwg No : {{ data.dwgNo }}
+            </td>
+        </tr>
+    </table>
+</td>
+
+<!-- RIGHT COLUMN SPLIT WITH VERTICAL LINE -->
+<td style="width:40%; border:1px solid #000; padding:0;">
+    <table style="width:100%; border-collapse:collapse; table-layout:fixed; height:100%;">
+        <tr>
+            <td style="width:50%; border-right:1px solid #000;"></td>
+            <td style="width:50%;"></td>
+        </tr>
+    </table>
+</td>
+</tr>
+
+<tr>
+<td style="border:1px solid #000; padding:0;">
+    <table style="width:100%; border-collapse:collapse; table-layout:fixed;">
+        <tr>
+            <td style="width:50%; padding:8px; border-right:1px solid #000;">
+                CHECKED BY : {{ data.checkedBy }}
+            </td>
+            <td style="width:50%; padding:8px;">
+                Doc Rel No : B
+            </td>
+        </tr>
+    </table>
+</td>
+
+<td style="border:1px solid #000; padding:0;">
+    <table style="width:100%; border-collapse:collapse; table-layout:fixed;">
+        <tr>
+            <td style="width:50%; padding:8px; border-right:1px solid #000;">
+                Issue Date
+            </td>
+            <td style="width:50%; padding:8px;">
+                {{ data.issuedDate }}
+            </td>
+        </tr>
+    </table>
+</td>
+</tr>
+
+<tr>
+<td style="border:1px solid #000; padding:0;">
+    <table style="width:100%; border-collapse:collapse; table-layout:fixed;">
+        <tr>
+            <td style="width:50%; padding:8px; border-right:1px solid #000;">
+                APPROVED BY : {{ data.approvedBy }}
+            </td>
+            <td style="width:50%; padding:8px;">
+                Doc Ver No. {{ data.versionNo }}
+            </td>
+        </tr>
+    </table>
+</td>
+
+<td style="border:1px solid #000; padding:0;">
+    <table style="width:100%; border-collapse:collapse; table-layout:fixed;">
+        <tr>
+            <td style="width:50%; padding:8px; border-right:1px solid #000;">
+                Sheet 1 of 1
+            </td>
+            <td style="width:50%; padding:8px;">
+                {{ data.sheetValue }}
+            </td>
+        </tr>
+    </table>
+</td>
+</tr>
+
+</table>
 </div>
