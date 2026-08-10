@@ -67,6 +67,18 @@ def generateCompliance_pdf():
     pdf_buffer.seek(0)
     return send_file(pdf_buffer, mimetype='application/pdf')
 
+@app.route('/mrr/generate', methods=['POST'])
+def generateMrr_pdf():
+    data = request.json
+    if not data:
+        return "Invalid JSON payload", 400
+
+    rendered_html = render_template("mrr/mrr.html", data=data)
+    pdf_buffer = io.BytesIO()
+    HTML(string=rendered_html).write_pdf(pdf_buffer)
+    pdf_buffer.seek(0)
+    return send_file(pdf_buffer, mimetype='application/pdf')
+
 @app.route('/quotes/quotes', methods=['POST'])
 def generateQuotes_pdf():
     data = request.json

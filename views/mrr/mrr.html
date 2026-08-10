@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ data.mrrNumber }} - Material Rejection Report</title>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      @page {
+        size: A4;
+        margin-top: 100px;
+        margin-bottom: 100px;
+        margin-left: 70px;
+        margin-right: 70px;
+        @bottom-left {
+          margin-top: 10px;
+          content: "N.K.RF Products & Services Private Limited\A#2, 2nd Cross, Rustam Bagh Layout, Old Airport Road, Bangalore -560017\APhone: +91-80-25281840 | Email: reachus@nkegroup.com";
+          font-size: 12px;
+          white-space: pre;
+          line-height: 15px;
+        }
+
+        @bottom-right {
+          content: counter(page) "/" counter(pages);
+          font-size: 12px;
+        }
+      }
+
+      * {
+        font-family: "Noto Sans", "DejaVu Sans", sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-size: 12px;
+      }
+
+      img, div, table, span {
+        min-height: 10px;
+      }
+
+      .header {
+        border-bottom: 1px solid gray;
+        display: flex;
+        position: fixed;
+        align-items: flex-end;
+        justify-content: space-between;
+        left: 0;
+        top: -90px;
+        height: 75px;
+        width: 100%;
+        padding: 10px 0;
+        min-height: 1px;
+      }
+
+      .header > .title {
+        display: flex;
+        align-items: flex-end;
+        font-size: 20px;
+        font-weight: bold;
+        color: #375fbd;
+      }
+
+      .header > .logo {
+        width: 100px;
+      }
+
+      .footer {
+        border-top: 1px solid gray;
+        position: fixed;
+        left: 0;
+        bottom: -100px;
+        height: 80px;
+        width: 100%;
+        gap: 3px;
+        font-size: 12px;
+      }
+
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #00000055;
+        margin: 1em 0;
+      }
+
+      .table th,
+      .table td {
+        border: 1px solid #00000055;
+        padding: 5px 8px;
+        vertical-align: top;
+      }
+
+      .table td.label {
+        background-color: #f3f5fa;
+        font-weight: bold;
+        width: 22%;
+      }
+
+      .table tbody tr,
+      .table tbody tr > td {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      .section {
+        gap: 10px;
+        width: 100%;
+        margin-bottom: 16px;
+      }
+
+      .section-title {
+        font-size: 14px;
+        font-weight: bold;
+        color: #375fbd;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #375fbd44;
+        margin-bottom: 8px;
+      }
+
+      .paragraph-block {
+        margin-bottom: 10px;
+      }
+
+      .paragraph-label {
+        font-weight: bold;
+        padding-bottom: 3px;
+      }
+
+      .paragraph-body {
+        white-space: pre-line;
+      }
+
+      .link-list {
+        list-style: none;
+      }
+
+      .link-list li {
+        padding: 2px 0;
+      }
+
+      .link-list a {
+        color: #375fbd;
+      }
+
+      .signoff-table {
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      .signoff-table td {
+        padding: 12px 8px 0 0;
+        vertical-align: top;
+      }
+
+      .signoff-label {
+        font-weight: bold;
+        padding-bottom: 25px;
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    {% include "headerMRR.html" %}
+
+    <!-- SECTION 1: MRR DETAILS -->
+    <div class="section" style="break-before: always">
+      <div class="section-title">MRR Details</div>
+      <table class="table">
+        <tr>
+          <td class="label">MRR Number</td>
+          <td>{{ data.mrrNumber or 'N/A' }}</td>
+          <td class="label">Date</td>
+          <td>{{ data.mrrDate or 'N/A' }}</td>
+        </tr>
+        <tr>
+          <td class="label">NKRF PO Number</td>
+          <td>{{ data.nkrfPoNumber or 'N/A' }}</td>
+          <td class="label">Enquiry Number</td>
+          <td>{{ data.enquiryNumber or 'N/A' }}</td>
+        </tr>
+        <tr>
+          <td class="label">Supplier Name</td>
+          <td>{{ data.supplierName or 'N/A' }}</td>
+          <td class="label">Manufacturer Name</td>
+          <td>{{ data.manufacturerName or 'N/A' }}</td>
+        </tr>
+        <tr>
+          <td class="label">NKRF Part Number</td>
+          <td>{{ data.nkrfPartNumber or 'N/A' }}</td>
+          <td class="label">Manufacturer Part Number</td>
+          <td>{{ data.manufacturerPartNumber or 'N/A' }}</td>
+        </tr>
+        <tr>
+          <td class="label">Lot Number</td>
+          <td>{{ data.lotNumber or 'N/A' }}</td>
+          <td class="label">Delivery Criticality</td>
+          <td>{{ data.deliveryCriticality or 'N/A' }}</td>
+        </tr>
+        <tr>
+          <td class="label">Quantity Received</td>
+          <td>{{ data.quantityReceived or 'N/A' }}</td>
+          <td class="label">Quantity Rejected</td>
+          <td>{{ data.quantityRejected or 'N/A' }}</td>
+        </tr>
+        <tr>
+          <td class="label">Non-Conformance</td>
+          <td>{{ data.nonConformance or 'N/A' }}</td>
+          <td class="label">Preferred Action</td>
+          <td>{{ data.preferredAction or 'N/A' }}</td>
+        </tr>
+      </table>
+
+      <div class="paragraph-block">
+        <div class="paragraph-label">Non-Conformance Reason</div>
+        <div class="paragraph-body">{{ data.nonConformanceReason or 'N/A' }}</div>
+      </div>
+
+      <div class="paragraph-block">
+        <div class="paragraph-label">Description of Non-Conformance</div>
+        <div class="paragraph-body">{{ data.descriptionOfNonConformance or 'N/A' }}</div>
+      </div>
+    </div>
+
+    <!-- PHOTOGRAPHIC / VIDEOGRAPHIC EVIDENCE -->
+    {% if data.photoLinks or data.videoLinks %}
+    <div class="section">
+      <div class="section-title">Evidence</div>
+      {% if data.photoLinks %}
+      <div class="paragraph-block">
+        <div class="paragraph-label">Photographic Evidence</div>
+        <ul class="link-list">
+          {% for photo in data.photoLinks %}
+          <li><a href="{{ photo.url }}">{{ photo.fileName }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+      {% if data.videoLinks %}
+      <div class="paragraph-block">
+        <div class="paragraph-label">Videographic Evidence</div>
+        <ul class="link-list">
+          {% for video in data.videoLinks %}
+          <li><a href="{{ video.url }}">{{ video.fileName }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- RESOLUTION -->
+    {% if data.resolution %}
+    <div class="section">
+      <div class="section-title">Resolution</div>
+      <table class="table">
+        <tr>
+          <td class="label">Resolution</td>
+          <td colspan="3">{{ data.resolution }}</td>
+        </tr>
+        {% if data.resolution in ['PART_REPLACED', 'PART_REWORKED'] %}
+        <tr>
+          <td class="label">RMA Number</td>
+          <td>{{ data.rmaNumber or 'N/A' }}</td>
+          <td class="label">RMA Date</td>
+          <td>{{ data.rmaDate or 'N/A' }}</td>
+        </tr>
+        <tr>
+          <td class="label">Replacement ETD</td>
+          <td>{{ data.replacementEtd or 'N/A' }}</td>
+          <td class="label">Quantity Replaced</td>
+          <td>{{ data.quantityReplaced or 'N/A' }}</td>
+        </tr>
+        <tr>
+          <td class="label">Replacement Lot Number</td>
+          <td colspan="3">{{ data.replacementLotNumber or 'N/A' }}</td>
+        </tr>
+        {% endif %}
+      </table>
+    </div>
+    {% endif %}
+
+    <!-- SIGN-OFF -->
+    <div class="section" style="break-inside: avoid;">
+      <div class="section-title">Sign-Off</div>
+      <table class="signoff-table">
+        <tr>
+          <td>
+            <span class="signoff-label">Requester</span>
+            {{ data.requesterName or 'N/A' }}
+          </td>
+          <td>
+            <span class="signoff-label">Approver</span>
+            {{ data.approverName or 'N/A' }}
+          </td>
+          <td>
+            <span class="signoff-label">Purchase Owner</span>
+            {{ data.purchaseOwnerName or 'N/A' }}{% if data.purchaseOwnerEmail %} ({{ data.purchaseOwnerEmail }}){% endif %}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    {% include "footer.html" %}
+  </body>
+</html>
